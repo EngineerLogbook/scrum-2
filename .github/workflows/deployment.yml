@@ -1,0 +1,54 @@
+name: Boilerplate Deployment
+
+on:
+  push:
+    branches: [ master ]
+  
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install wheel
+        python -m pip install --upgrade pip
+        pip install -r src/requirements.txt
+
+    - name: Set up Environment
+      run: |
+        cp src/.env.debug src/.env
+        sed "s/YOUR_SECRET_KEY/$(python -c 'import uuid; print(str(uuid.uuid4()));')/" src/.env -i    
+           
+    - name: Run Tests
+      run: |
+        cd src
+        python manage.py test
+
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy to server
+        run: |
+          echo "In Deployment"
+        # env:
+        #   SERVER_URL: ${{ secrets.serverurl }}
+        # run: |
+        #   curl "$SERVER_URL"

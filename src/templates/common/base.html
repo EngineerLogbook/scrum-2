@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    <title>Common Base Template</title>
+    {% endblock title %}
+</head>
+
+<body>
+    {% if messages %} 
+        {% for message in messages %}
+            <div>
+                {{ message }}
+            </div>
+        {% endfor %} 
+    {% endif %}
+    <hr>
+    {% block content %}
+    {% endblock content %}
+</body>
+
+</html>

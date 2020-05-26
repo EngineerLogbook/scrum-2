@@ -1,0 +1,14 @@
+{% extends "common/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div>
+      <div>
+        <img src="{{ user.profile.image.url }}">
+        <div>
+          <h2>{{ user.username }}</h2>
+          <p>{{ user.email }}</p>
+        </div>
+      </div>
+
+    </div>
+{% endblock content %}

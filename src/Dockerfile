@@ -1,0 +1,42 @@
+### Production dockerfile. Using alpine linux
+
+# pull official base image
+FROM python:3.8.2-alpine
+
+# set work directory
+WORKDIR /usr/src/app
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+
+
+# install dependencies
+
+# install Pillow dependencies
+RUN apk add build-base python-dev py-pip jpeg-dev zlib-dev
+
+# install psycopg2 dependencies
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
+
+# install packages
+COPY ./requirements.txt /usr/src/app/requirements.txt
+RUN python -m pip install -U --force-reinstall pip
+RUN pip install wheel
+RUN pip install -r requirements.txt
+RUN pip install gunicorn==19.9.0
+RUN pip install psycopg2-binary==2.8.3
+
+
+# copy entrypoint.sh
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint.sh
+
+# copy project
+COPY . /usr/src/app/
+
+RUN ls -la /usr/src/app
+# run entrypoint.sh
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
