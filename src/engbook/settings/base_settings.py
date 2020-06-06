@@ -21,7 +21,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core_management',
     'user_management.apps.UserManagementConfig',
-    'landingpage.apps.LandingpageConfig',
+    # 'landingpage.apps.LandingpageConfig',
+    'kanban.apps.KanbanConfig',
+    'history.apps.HistoryConfig',
+    'log.apps.LogConfig',
+    'project.apps.ProjectConfig',
     'django.contrib.sites',
     'django_comments',  # https://django-contrib-comments.readthedocs.io/en/latest/
     'crispy_forms',  # https://django-crispy-forms.readthedocs.io/en/latest/
