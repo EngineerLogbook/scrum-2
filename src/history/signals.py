@@ -8,19 +8,22 @@ from .models import History
 
 @receiver(post_save, sender=Logger)
 def create_profile(sender, instance, created, **kwargs):
-    # if created:
-    History.objects.create(
-        user=instance.user,
-        logger=instance,
-        project=instance.project,
-        team=instance.project.team,
-        message=f'{instance.title} created'
-    )
-    # else:
-    #     History.objects.create(
-    #         user=instance.user,
-    #         logger=instance,
-    #         project=instance.project,
-    #         team=instance.project.team,
-    #         message=f'{instance.title} Updated '
-    #     )
+    if created:
+        History.objects.create(
+            user=instance.user,
+            logger=instance,
+            project=instance.project,
+            team=instance.project.team,
+            message=f'{instance.title} Created'
+        )
+
+
+
+    else:
+        History.objects.create(
+            user=instance.user,
+            logger=instance,
+            project=instance.project,
+            team=instance.project.team,
+            message=f'{instance.title} Modifed '
+        )
