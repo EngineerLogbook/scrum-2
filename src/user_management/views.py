@@ -41,7 +41,8 @@ def profile(request):
 
     return render(request, 'user_management/profile.html', context)
 
-
+def contact(request):
+     return render(request, 'user_management/contact.html')
 
 
 def landing_page_view(request):

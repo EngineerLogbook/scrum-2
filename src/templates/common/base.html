@@ -18,7 +18,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'user/simplemde.min.css' %}">
+    <link rel="stylesheet" href="{% static 'simplemde.min.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -72,7 +72,7 @@
       <!-- Nav Item - new Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa fa-plus-square-o"></i>
+          <i class="fas fa fa-plus-square"></i>
           <span>New +</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -275,6 +275,8 @@
         </nav>
         <!-- End of Topbar -->
       </div>
+      {% block content %}
+      {% endblock content %}
       <!-- End of Main Content -->
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
@@ -311,6 +313,7 @@
       </div>
     </div>
   </div>
+
   <!-- Bootstrap core JavaScript-->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -330,7 +333,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
-      <script src="{% static 'user/simplemde.min.js' %}"></script>
-    <script src="{% static 'user/markdown.js' %}"></script>
+      <script src="{% static 'simplemde.min.js' %}"></script>
+    <script src="{% static 'markdown.js' %}"></script>
 </body>
 </html> 

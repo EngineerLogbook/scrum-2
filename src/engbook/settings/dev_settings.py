@@ -50,8 +50,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_COLLAPSED': False,
 }
 
-STATIC_ROOT = ""
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+STATIC_ROOT=""
+STATICFILES_DIRS=[
+    os.path.join(BASE_DIR, "static"),
