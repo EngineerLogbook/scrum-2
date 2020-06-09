@@ -8,5 +8,4 @@ urlpatterns = [
     path('log/<uuid:pk>/update',
          views.LoggerUpdateView.as_view(), name='log-update'),
     path('log/', views.LoggerListView.as_view(), name='log-list'),
-
 ]
