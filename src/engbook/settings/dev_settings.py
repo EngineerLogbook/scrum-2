@@ -49,3 +49,9 @@ DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
     'SHOW_COLLAPSED': False,
 }
+
+STATIC_ROOT = ""
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
