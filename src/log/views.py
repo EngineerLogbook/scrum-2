@@ -1,7 +1,10 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Logger, LogFile, LogURL
 from django.contrib import messages
+
+
 
 from django.views.generic import (
     View,
@@ -79,4 +82,7 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
 
 def logCreateView(request):
+    if request.method == "POST":
+        print(request.POST.dict())
+        return JsonResponse({"message": "File uploaded"})
     return render(request, 'log/create_log.html', context={})
