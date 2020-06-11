@@ -76,3 +76,7 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     """
     model = Logger
     template_name = 'log/logger_unpublish.html'
+
+
+def logCreateView(request):
+    return render(request, 'log/create_log.html', context={})

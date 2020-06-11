@@ -15,6 +15,8 @@
   <!-- Custom styles for this template-->
   <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
+  {% block styles %}
+  {% endblock styles %}
   <!-- Bootstrap CSS -->
   <!-- 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -276,9 +278,10 @@
           </ul>
         </nav>
         <!-- End of Topbar -->
-      </div>
-      {% block content %}
+              {% block content %}
       {% endblock content %}
+      </div>
+
       <!-- End of Main Content -->
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
@@ -318,6 +321,8 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
   <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
   <!-- Core plugin JavaScript-->
   <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
@@ -337,5 +342,8 @@
   </script>
       <script src="{% static 'simplemde.min.js' %}"></script>
     <script src="{% static 'markdown.js' %}"></script> {% endcomment %}
+  {% block scripts %}
+  {% endblock scripts %}
+
 </body>
 </html> 
