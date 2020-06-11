@@ -1,4 +1,7 @@
-{% extends 'common/base.html' %} {% block styles %}
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block styles %}
 
 <style>
     body {
@@ -33,6 +36,9 @@
         color: #0062cc;
     }
 </style>
+
+
+<link rel="stylesheet" href="{% static 'log/simplemde.min.css' %}">
 {% endblock styles %} {% block content %}
 
 
@@ -160,4 +166,10 @@
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 </script>
+
+<script src="{% static 'log/simplemde.min.js' %}"></script>
+
+<script src="{% static 'log/markdown.js' %}"></script>
+
+
 {% endblock scripts %}
