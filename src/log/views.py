@@ -84,5 +84,19 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 def logCreateView(request):
     if request.method == "POST":
         print(request.POST.dict())
-        return JsonResponse({"message": "File uploaded"})
     return render(request, 'log/create_log.html', context={})
+
+
+def fileUploadHandler(request):
+    if request.method == "POST":
+        print(request.POST.dict())
+        filetoupload = request.FILES['file']
+
+        savedfile = LogFile.objects.create(file=filetoupload, title=filetoupload.name)
+        SITE_PROTOCOL = 'http://'
+        if request.is_secure():
+            SITE_PROTOCOL = 'https://'
+        
+        return JsonResponse({"message": "File uploaded.", "link":SITE_PROTOCOL + request.META['HTTP_HOST'] + savedfile.file.url})
+    if request.method == "GET":
+        return JsonResponse({"message":"Get method not allowed"})        
