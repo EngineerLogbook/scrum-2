@@ -3,7 +3,7 @@ version: "3.3"
 services:
   web:
     build: ./src
-    command: gunicorn boilerplate.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn engbook.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - ./src/:/usr/src/app/
       - static_volume:/usr/src/app/static
