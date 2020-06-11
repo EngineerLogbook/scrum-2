@@ -1,0 +1,175 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block styles %}
+
+<style>
+    body {
+        background: -webkit-linear-gradient(left, #0072ff, #00c6ff);
+    }
+    
+    .log-form {
+        background: white;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        width: 100%;
+        border-radius: 1rem;
+        padding-bottom: 5%;
+    }
+    
+    .log-image {
+        text-align: center;
+    }
+    
+    .log-image img {
+        border-radius: 1rem;
+        /* border: 1px solid blue; */
+        padding: 1%;
+        width: 11%;
+        margin-top: -4%;
+        transform: rotate(5deg);
+    }
+    
+    .log-form h3 {
+        margin-bottom: 5%;
+        text-align: center;
+        color: #0062cc;
+    }
+</style>
+
+
+<link rel="stylesheet" href="{% static 'log/simplemde.min.css' %}">
+{% endblock styles %} {% block content %}
+
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col">
+            <div class="container log-form">
+                <div class="log-image">
+                    <img src="https://icons.iconarchive.com/icons/inipagi/job-seeker/512/note-icon.png" alt="rocket_log" />
+                </div>
+                <form method="post" class="needs-validation" novalidate>
+                    <h3>Create a log</h3>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="validationCustom01">Title</label>
+                            <input type="text" class="form-control" id="validationCustom01" placeholder="Log Title" value="My Log" required>
+                            <div class="invalid-feedback">
+                                Title cannot be blank
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 mb-3">
+                            <label for="validationCustomUsername">Description</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupPrepend">#</span>
+                                </div>
+                                <input type="text" class="form-control" id="validationCustomUsername" placeholder="Enter a short description for searchability" aria-describedby="inputGroupPrepend">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="logcontent">Content:</label>
+                            <textarea name="logcontent" id="logcontent" class="form-control" required></textarea>
+                            <div class="invalid-feedback">
+                                Log Content cannot be empty
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+
+                        <div class="col-md-6 mb-3">
+                            <!-- <label for="inputState">Project</label> -->
+                            <select id="inputState" class="form-control">
+                              <option selected>Personal Log</option>
+                              <option>Project "EngBook"</option>
+                              <option>Project "Scrum-2"</option>
+                            </select>
+                        </div>
+                        <div class="input-group mb-3 col-md-6">
+
+
+                            <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Encrypt with custom password" id="password-custom">
+                            <div class="input-group-append" id="aaa">
+                                <div class="input-group-text">
+                                    <input type="checkbox" aria-label="Checkbox for following text input">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-row">
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="custom-file col-md-12 mb-3">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile">
+                            <label class="custom-file-label" for="validatedCustomFile">Choose attachment...</label>
+                            <!-- <div class="invalid-feedback">Example invalid custom file feedback</div> -->
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                            <label class="form-check-label" for="invalidCheck">
+                            Agree to terms and conditions
+                          </label>
+                            <div class="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-sm" type="submit">Create Log</button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %} {% block scripts %}
+
+
+<script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+
+<script src="{% static 'log/simplemde.min.js' %}"></script>
+
+<script src="{% static 'log/markdown.js' %}"></script>
+
+
+{% endblock scripts %}
