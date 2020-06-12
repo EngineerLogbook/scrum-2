@@ -191,3 +191,25 @@ def logListView(request):
     }
     return render(request, 'log/list_view.html', context)
     
+
+
+def logEditView(request, *args, **kwargs):
+    theid = kwargs.get('pk')
+
+    thelog = Logger.objects.get(id=theid)
+
+        # Get a list of all teams that the user is a part of
+    user_teams = request.user.team_set.all()
+    project_list = []
+
+    # Get a list of all projects that the user's teams have made
+    for team in user_teams:
+        [project_list.append(x) for x in team.project_set.all()]
+
+    context = {
+        "log":thelog,
+        "projects":project_list,
+
+    }
+
+    return render(request, 'log/log_edit_view.html', context)
