@@ -9,5 +9,6 @@ urlpatterns = [
          views.logEditView, name='log-edit'),
     path('log/', views.logListView, name='log-list'),
     path('log/uploadfile', views.fileUploadHandler, name='file-upload'),
-    path('log/delete', views.logDeleteView, name='log-delete')
+    path('log/delete', views.logDeleteView, name='log-delete'),
+    path('log/bin', views.recBinView, name='log-bin'),
 ]

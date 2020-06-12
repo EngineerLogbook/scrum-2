@@ -257,3 +257,36 @@ def logEditView(request, *args, **kwargs):
 
 
     return render(request, 'log/log_edit_view.html', context)
+
+
+def recBinView(request):
+    if request.method != "GET":
+        return HttpResponse("Error: Invalid request", status=400)
+    
+    else:
+        logtodelete = request.GET.get('id', "")
+
+        if logtodelete == "":
+            context = {
+                "logs":Logger.objects.filter(user=request.user).filter(published=False).order_by('-date_created')
+            }
+            return render(request, 'log/bin_view.html', context)
+        else:
+            try:
+                logtodelete = UUID(logtodelete)
+            except ValueError:
+                return HttpResponse("Error: Invalid log ID", status=400)
+                
+
+            try:
+                log = Logger.objects.get(id=logtodelete)
+                log.published = True
+                log.save()
+                messages.add_message(request, messages.SUCCESS, "Log was successfully recovered.")
+                return redirect("log-list")
+
+                return HttpResponse(log)
+            except ObjectDoesNotExist:
+                return HttpResponse("Error: Invalid log ID", status=400)
+
+
