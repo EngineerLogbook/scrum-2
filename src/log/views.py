@@ -9,6 +9,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from uuid import UUID
 
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
+
 from django.views.generic import (
     View,
     ListView,
@@ -109,11 +112,19 @@ def logCreateView(request):
         else:
             password = request.user.password.split('$')[-1]
 
+        password=generatePassword(password)
+
+        BLOCK_SIZE = 32
+        encryption_suite = AES.new(generatePassword(password).encode(), AES.MODE_ECB)
+
+        cipher_text = encryption_suite.encrypt(pad(log_content.encode(), BLOCK_SIZE)).hex()
+
+        
         if log_project == "Personal Log":
             newlog = Logger.objects.create(
                 title=log_title,
                 short_description=log_description,
-                note=log_content,
+                note=cipher_text,
                 user=request.user,
                 password=password,
                 
@@ -123,7 +134,7 @@ def logCreateView(request):
             newlog = Logger.objects.create(
                 title=log_title,
                 short_description=log_description,
-                note=log_content,
+                note=cipher_text,
                 user=request.user,
                 project=project,
                 password=password,
@@ -146,6 +157,16 @@ def logDetailView(request, *args, **kwargs):
 
     try:
         thelog = Logger.objects.get(id=logtoview)
+        password = thelog.password
+
+
+        BLOCK_SIZE = 32
+        encryption_suite = AES.new(password.encode(), AES.MODE_ECB)
+
+        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
+
+        thelog.note = deciphered_text
+
         context = {
             "log":thelog,
         }
@@ -154,6 +175,9 @@ def logDetailView(request, *args, **kwargs):
 
     except ObjectDoesNotExist:
         return HttpResponse("Error: Invalid log ID", status=400)
+    except:
+        messages.add_message(request, messages.ERROR, "Log data is corrupt. Decryption failed.")
+        return redirect('log-list')
 
 
 
@@ -219,9 +243,20 @@ def logEditView(request, *args, **kwargs):
 
     try:
         thelog = Logger.objects.get(id=logtoview)
+        password = thelog.password
+
+
+        BLOCK_SIZE = 32
+        encryption_suite = AES.new(password.encode(), AES.MODE_ECB)
+
+        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
+
+        thelog.note = deciphered_text
     except ObjectDoesNotExist:
         return HttpResponse("Error: Invalid log ID", status=400)
-
+    except:
+        messages.add_message(request, messages.ERROR, "An Unknown error occurred.")
+        return redirect('landing-page')
 
     if request.method == "POST":
         log_title = request.POST.get('log-title', "")
@@ -229,10 +264,14 @@ def logEditView(request, *args, **kwargs):
         log_content = request.POST.get('log-content', "")
 
         # changelog = Logger.objects.
+        BLOCK_SIZE = 32
+        encryption_suite = AES.new(thelog.password.encode(), AES.MODE_ECB)
+
+        cipher_text = encryption_suite.encrypt(pad(log_content.encode(), BLOCK_SIZE)).hex()
 
         thelog.title = log_title
         thelog.short_description=log_description
-        thelog.note = log_content
+        thelog.note = cipher_text
         thelog.save()
 
         messages.add_message(request, messages.SUCCESS, "Log saved successfully.")
@@ -290,3 +329,14 @@ def recBinView(request):
                 return HttpResponse("Error: Invalid log ID", status=400)
 
 
+def generatePassword(unpaddedPassword):
+    if len(unpaddedPassword) < 32:
+        generated_padding = (32-len(unpaddedPassword))*"#"
+
+        return unpaddedPassword + generated_padding
+    
+    elif len(unpaddedPassword) > 32:
+        return unpaddedPassword[:32]
+    
+    else:
+        return unpaddedPassword
