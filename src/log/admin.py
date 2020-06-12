@@ -29,7 +29,7 @@ class LogURLInline(admin.TabularInline):
 @admin.register(Logger)
 class LoggerAdmin(admin.ModelAdmin):
     fields = (
-        'title', 'note', 'user', 'project', 'reviewed'
+        'title', 'note', 'user', 'project', 'reviewed', 'password'
     )
     list_display = (
         'title',

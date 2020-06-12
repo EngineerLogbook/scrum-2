@@ -3,7 +3,8 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Logger, LogFile, LogURL
 from django.contrib import messages
-
+from project.models import Project
+from django.db.models.query import QuerySet
 
 
 from django.views.generic import (
@@ -82,9 +83,54 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 
 
 def logCreateView(request):
+
+    # Get a list of all teams that the user is a part of
+    user_teams = request.user.team_set.all()
+    project_list = []
+
+    # Get a list of all projects that the user's teams have made
+    for team in user_teams:
+        [project_list.append(x) for x in team.project_set.all()]
+
+    # pass in this list
+    context = {
+        "projects":project_list,
+    }
     if request.method == "POST":
-        print(request.POST.dict())
-    return render(request, 'log/create_log.html', context={})
+        log_title = request.POST.get('log-title', "")
+        log_description = request.POST.get('log-description', "")
+        log_content = request.POST.get('log-content', "")
+        log_project = request.POST.get('selection', "")
+        custom_password_true = request.POST.get('custom-password-check', "")
+        
+        if custom_password_true == "on":
+            password = request.POST.get("custom-password", "")
+        else:
+            password = request.user.password.split('$')[-1]
+
+        if log_project == "Personal Log":
+            newlog = Logger.objects.create(
+                title=log_title,
+                short_description=log_description,
+                note=log_content,
+                user=request.user,
+                password=password,
+                
+            )            
+        else:
+            project = Project.objects.get(title=log_project)
+            newlog = Logger.objects.create(
+                title=log_title,
+                short_description=log_description,
+                note=log_content,
+                user=request.user,
+                project=project,
+                password=password,
+                
+            )
+
+        messages.add_message(request, messages.SUCCESS, "Log Successfully created.")
+    return render(request, 'log/create_log.html', context=context)
 
 
 def fileUploadHandler(request):

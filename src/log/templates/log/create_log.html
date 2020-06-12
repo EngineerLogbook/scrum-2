@@ -11,7 +11,7 @@
         <div class="col">
             <div class="container log-form">
                 <div class="log-image">
-                    <img src="https://icons.iconarchive.com/icons/inipagi/job-seeker/512/note-icon.png" alt="rocket_log" />
+                    <img src="{% static 'log/note-icon.png' %}" alt="rocket_log" />
                 </div>
                 <form method="post" class="needs-validation" name="createLogForm" novalidate>
                     {% csrf_token %}
@@ -51,18 +51,25 @@
                         <div class="col-md-6 mb-3">
                             <select id="inputState" class="form-control" name="selection">
                               <option selected>Personal Log</option>
-                              <option>Project "EngBook"</option>
-                              <option>Project "Scrum-2"</option>
+                              {% for project in projects %}
+                              
+                              <option> {{ project.title }} </option>
+                              {% endfor %}
+
                             </select>
                         </div>
                         <div class="input-group mb-3 col-md-6">
 
 
-                            <input name="custom-password" type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Encrypt with custom password" id="passwordCustom" disabled>
+                            <input name="custom-password" type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Encrypt with custom password" id="passwordCustom" disabled required>
+
                             <div class="input-group-append" id="aaa">
                                 <div class="input-group-text">
                                     <input type="checkbox" name="custom-password-check" aria-label="Checkbox for following text input" onmousedown="document.getElementById('passwordCustom').disabled = this.checked">
                                 </div>
+                            </div>
+                                                                                    <div class="invalid-feedback">
+                                Fill in a custom password or uncheck for default.
                             </div>
                         </div>
 
