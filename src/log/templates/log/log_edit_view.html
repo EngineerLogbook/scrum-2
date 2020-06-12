@@ -15,11 +15,11 @@
                 </div>
                 <form method="post" class="needs-validation" name="createLogForm" novalidate>
                     {% csrf_token %}
-                    <h3>Create a log</h3>
+                    <h3>Edit log</h3>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="validationCustom01">Title</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder="Log Title" value="My Log" name="log-title" required>
+                            <input type="text" class="form-control" id="validationCustom01" placeholder="Log Title" value="{{ log.title }}" name="log-title" required>
                             <div class="invalid-feedback">
                                 Title cannot be blank
                             </div>
@@ -31,7 +31,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroupPrepend">#</span>
                                 </div>
-                                <input name="log-description" type="text" class="form-control" id="validationCustomUsername" placeholder="Enter a short description for searchability" aria-describedby="inputGroupPrepend">
+                                <input name="log-description" type="text" class="form-control" id="validationCustomUsername" placeholder="Enter a short description for searchability" aria-describedby="inputGroupPrepend" value="{{ log.short_description }}">
 
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                     <div class="form-row">
                         <div class="col-md-12 mb-3">
                             <label for="logcontent">Content:</label>
-                            <textarea name="log-content" id="logcontent" class="form-control" required></textarea>
+                            <textarea name="log-content" id="logcontent" class="form-control" required>{{ log.note }}</textarea>
                             <div class="invalid-feedback">
                                 Log Content cannot be empty
                             </div>
@@ -50,11 +50,16 @@
 
                         <div class="col-md-6 mb-3">
                             <select id="inputState" class="form-control" name="selection">
-                              <option selected>Personal Log</option>
+                            {% if log.project %}
+                            <option>Personal Log2</option>
                               {% for project in projects %}
                               
-                              <option> {{ project.title }} </option>
+                              <option > {% if log.project == project %}selected{% endif %} {{ project.title }} </option>
                               {% endfor %}
+
+                            {% endif %}
+                              <option selected>Personal Log</option>
+
 
                             </select>
                         </div>
