@@ -83,7 +83,6 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     model = Logger
     template_name = 'log/logger_unpublish.html'
 
-@login_required
 def logCreateView(request):
 
     # Get a list of all teams that the user is a part of
@@ -132,9 +131,9 @@ def logCreateView(request):
             )
 
         messages.add_message(request, messages.SUCCESS, "Log Successfully created.")
+        return redirect('log-list')
     return render(request, 'log/create_log.html', context=context)
 
-@login_required
 def logDetailView(request, *args, **kwargs):
     theid = kwargs.get('pk')
 
@@ -159,7 +158,6 @@ def fileUploadHandler(request):
         return JsonResponse({"message":"Get method not allowed"})        
 
 
-@login_required
 def logDeleteView(request):
 
     if request.method != "GET":
@@ -179,9 +177,17 @@ def logDeleteView(request):
             log.published = False
             log.save()
             messages.add_message(request, messages.SUCCESS, "Log was successfully deleted.")
-            return redirect("landing-page")
+            return redirect("log-list")
 
             return HttpResponse(log)
         except ObjectDoesNotExist:
             return HttpResponse("Error: Invalid log ID", status=400)
-        # do something
+
+
+
+def logListView(request):
+    context = {
+        "logs":Logger.objects.filter(user=request.user).filter(published=True).order_by('-date_created')
+    }
+    return render(request, 'log/list_view.html', context)
+    

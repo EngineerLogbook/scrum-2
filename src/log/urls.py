@@ -7,7 +7,7 @@ urlpatterns = [
          views.logDetailView, name='log-detail'),
     path('log/<uuid:pk>/update',
          views.LoggerUpdateView.as_view(), name='log-update'),
-    path('log/', views.LoggerListView.as_view(), name='log-list'),
+    path('log/', views.logListView, name='log-list'),
     path('log/uploadfile', views.fileUploadHandler, name='file-upload'),
     path('log/delete', views.logDeleteView, name='log-delete')
 ]

@@ -26,7 +26,7 @@
     }
     
     .btn-lg {
-        border-radius: 4rem;
+        border-radius: 1.2rem;
     }
 </style>
 
@@ -35,17 +35,6 @@
     <div class="row">
         <div class="col">
             <div class="container log-view">
-                <div class="row log-heading-row justify-content-between ">
-                    <div class="col-10   log-heading">
-                        <h1 class="main-heading">{{ log.title }}</h1>
-                    </div>
-                    {% if log.user == request.user %}
-                    <div class="col-2">
-                        <button class="btn-lg btn-primary btn-block">Edit</button>
-                        <button class="btn-lg btn-danger btn-block" data-toggle="modal" href="#myModal">Delete</button>
-                    </div>
-                    {% endif %}
-                </div>
                 <div class="row log-author-row">
                     <div class="col-md-5 log-heading">
                         <h4> Author: {{ log.user.username }}</h4>
@@ -53,8 +42,22 @@
                     </div>
 
                 </div>
+                <div class="row log-heading-row justify-content-between ">
+                    <div class="col-7   log-heading">
+                        <h1 class="main-heading">{{ log.title }}</h1>
+                    </div>
+                    {% if log.user == request.user %}
+                    <div class="col-md-3">
+                        <button class="btn-lg btn-secondary btn-block">Edit</button>
+                        <button class="btn-lg btn-danger btn-block" data-toggle="modal" href="#myModal">Delete</button>
+                    </div>
+                    {% endif %}
+                </div>
+
+
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-8" style="color: grey;">
+                        {{ log.date_modified }}
                         <hr>
                     </div>
                 </div>
