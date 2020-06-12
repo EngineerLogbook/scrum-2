@@ -9,6 +9,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from uuid import UUID
 
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
+
 from django.views.generic import (
     View,
     ListView,
@@ -109,11 +112,19 @@ def logCreateView(request):
         else:
             password = request.user.password.split('$')[-1]
 
+        password=generatePassword(password)
+
+        BLOCK_SIZE = 32
+        encryption_suite = AES.new(generatePassword(password).encode(), AES.MODE_ECB)
+
+        cipher_text = encryption_suite.encrypt(pad(log_content.encode(), BLOCK_SIZE)).hex()
+
+        
         if log_project == "Personal Log":
             newlog = Logger.objects.create(
                 title=log_title,
                 short_description=log_description,
-                note=log_content,
+                note=cipher_text,
                 user=request.user,
                 password=password,
                 
@@ -123,7 +134,7 @@ def logCreateView(request):
             newlog = Logger.objects.create(
                 title=log_title,
                 short_description=log_description,
-                note=log_content,
+                note=cipher_text,
                 user=request.user,
                 project=project,
                 password=password,
@@ -135,14 +146,41 @@ def logCreateView(request):
     return render(request, 'log/create_log.html', context=context)
 
 def logDetailView(request, *args, **kwargs):
-    theid = kwargs.get('pk')
 
-    thelog = Logger.objects.get(id=theid)
-    context = {
-        "log":thelog,
-    }
+    logtoview = kwargs.get('pk')
 
-    return render(request, 'log/view_log.html', context)
+    try:
+        logtoview = UUID(str(logtoview))
+    except ValueError:
+        return HttpResponse("Error: Invalid log ID", status=400)
+        
+
+    try:
+        thelog = Logger.objects.get(id=logtoview)
+        password = thelog.password
+
+
+        BLOCK_SIZE = 32
+        encryption_suite = AES.new(password.encode(), AES.MODE_ECB)
+
+        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
+
+        thelog.note = deciphered_text
+
+        context = {
+            "log":thelog,
+        }
+
+        return render(request, 'log/view_log.html', context)
+
+    except ObjectDoesNotExist:
+        return HttpResponse("Error: Invalid log ID", status=400)
+    except:
+        messages.add_message(request, messages.ERROR, "Log data is corrupt. Decryption failed.")
+        return redirect('log-list')
+
+
+
 def fileUploadHandler(request):
     if request.method == "POST":
         print(request.POST.dict())
@@ -194,11 +232,54 @@ def logListView(request):
 
 
 def logEditView(request, *args, **kwargs):
-    theid = kwargs.get('pk')
 
-    thelog = Logger.objects.get(id=theid)
+    logtoview = kwargs.get('pk')
 
-        # Get a list of all teams that the user is a part of
+    try:
+        logtoview = UUID(str(logtoview))
+    except ValueError:
+        return HttpResponse("Error: Invalid log ID", status=400)
+        
+
+    try:
+        thelog = Logger.objects.get(id=logtoview)
+        password = thelog.password
+
+
+        BLOCK_SIZE = 32
+        encryption_suite = AES.new(password.encode(), AES.MODE_ECB)
+
+        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
+
+        thelog.note = deciphered_text
+    except ObjectDoesNotExist:
+        return HttpResponse("Error: Invalid log ID", status=400)
+    except:
+        messages.add_message(request, messages.ERROR, "An Unknown error occurred.")
+        return redirect('landing-page')
+
+    if request.method == "POST":
+        log_title = request.POST.get('log-title', "")
+        log_description = request.POST.get('log-description', "")
+        log_content = request.POST.get('log-content', "")
+
+        # changelog = Logger.objects.
+        BLOCK_SIZE = 32
+        encryption_suite = AES.new(thelog.password.encode(), AES.MODE_ECB)
+
+        cipher_text = encryption_suite.encrypt(pad(log_content.encode(), BLOCK_SIZE)).hex()
+
+        thelog.title = log_title
+        thelog.short_description=log_description
+        thelog.note = cipher_text
+        thelog.save()
+
+        messages.add_message(request, messages.SUCCESS, "Log saved successfully.")
+        return redirect('log-list')
+
+
+
+    # Get a list of all teams that the user is a part of
     user_teams = request.user.team_set.all()
     project_list = []
 
@@ -212,4 +293,50 @@ def logEditView(request, *args, **kwargs):
 
     }
 
+
+
     return render(request, 'log/log_edit_view.html', context)
+
+
+def recBinView(request):
+    if request.method != "GET":
+        return HttpResponse("Error: Invalid request", status=400)
+    
+    else:
+        logtodelete = request.GET.get('id', "")
+
+        if logtodelete == "":
+            context = {
+                "logs":Logger.objects.filter(user=request.user).filter(published=False).order_by('-date_created')
+            }
+            return render(request, 'log/bin_view.html', context)
+        else:
+            try:
+                logtodelete = UUID(logtodelete)
+            except ValueError:
+                return HttpResponse("Error: Invalid log ID", status=400)
+                
+
+            try:
+                log = Logger.objects.get(id=logtodelete)
+                log.published = True
+                log.save()
+                messages.add_message(request, messages.SUCCESS, "Log was successfully recovered.")
+                return redirect("log-list")
+
+                return HttpResponse(log)
+            except ObjectDoesNotExist:
+                return HttpResponse("Error: Invalid log ID", status=400)
+
+
+def generatePassword(unpaddedPassword):
+    if len(unpaddedPassword) < 32:
+        generated_padding = (32-len(unpaddedPassword))*"#"
+
+        return unpaddedPassword + generated_padding
+    
+    elif len(unpaddedPassword) > 32:
+        return unpaddedPassword[:32]
+    
+    else:
+        return unpaddedPassword
