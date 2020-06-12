@@ -5,8 +5,16 @@ urlpatterns = [
     # Custom
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
+
+    path('privacy/', user_views.privacy, name='privacy'),
+
+
     path('contact/', user_views.contact, name='contact'),
     path('404', user_views.notfound, name='notfound'),
+    path('faq/', user_views.faq, name='faq'),
+    path('termandconditions/', user_views.tac, name='terms-conditions'),
+    path('privacypolicy/', user_views.privacy, name='privacy-policy'),
+
     # In Built
     path('login/', auth_views.LoginView.as_view(template_name='user_management/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(
