@@ -1,14 +1,111 @@
 {% extends "common/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div>
-      <div>
-        <img src="{{ user.profile.image.url }}">
-        <div>
-          <h2>{{ user.username }}</h2>
-          <p>{{ user.email }}</p>
+    <div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+          
+                
+            <!-- Nested Row within Card Body -->
+            
+            <div class="container">+[/'']
+                <div class="row">
+                    <div class="col-md-4 justify-content-center align-items-center" style="padding: 5%">
+                        <div class="row">
+                            <div class="col justify-content-center align-items-center form-group">
+                                <a  href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="rounded-circle avatar img-fluid" style="width: 10em;height: 10em;" src="{{user.profile.image.url}}">
+                                </a>
+                                
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#">
+                                      <i class="fas fa-upload fa-sm fa-fw mr-2 text-gray-400"></i>
+                                      Upload from Files
+                                    </a>
+                                    <a class="dropdown-item" href="#">
+                                      <i class="fas fa-camera fa-sm fa-fw mr-2 text-gray-400"></i>
+                                      Open Camera
+                                    </a>
+                                    
+                                    
+                                  </div>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="col form-group">
+                                    <h4 class="d-none d-sm-none d-md-block">Profile Picture</h4>
+                                </div>
+                                
+                            </div>
+                        
+                    </div>
+                    <div class="col-md-8" style="padding: 5%;">
+                        <div class="row">
+                            <div class="col text-center">
+                                <h2>My Profile</h2>
+                            </div>
+                    
+                        </div>
+                        <form action="" method="post">
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" name="first-name" class="form-control" id="exampleInputName" aria-describedby="NameHelp" placeholder="First Name">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" name="last-name" class="form-control" id="exampleInputName" aria-describedby="NameHelp" placeholder="Last Name">
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <input type="Username" class="form-control" id="exampleInputUsername" aria-describedby="UsenameHelp" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <input type="Password" name="Password" class="form-control" id="exampleInputPassword" aria-describedby="PasswordHelp" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <input type="Password" name="confirm-password" class="form-control" id="exampleInputPassword" aria-describedby="PasswordHelp" placeholder="Confirm Password">
+                                </div>
+                            </div> 
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <input type="Date" class="form-control" id="exampleInputDateOFBirth" aria-describedby="DateHelp" placeholder="Date">
+                                </div>
+                            </div> 
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <input type="Contact" class="form-control" id="exampleInputContact" aria-describedby="PasswordHelp" placeholder="Contact no.">
+                                </div>
+                            </div> 
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <a href="" class="btn btn-primary btn-user btn-block">
+                                        Submit
+                                      </a>
+                                </div>
+                            </div> 
+                            
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+          </div>
         </div>
+
       </div>
 
     </div>
+
+  </div>
 {% endblock content %}

@@ -41,6 +41,8 @@ def profile(request):
     }
 
     return render(request, 'user_management/profile.html', context)
+# def profile(request):
+#     return render(request, 'user_management/profile.html')
 
 
 def contact(request):
@@ -65,4 +67,3 @@ def faq(request):
 
 def tac(request):
     return render(request, 'common/404.html')
-
