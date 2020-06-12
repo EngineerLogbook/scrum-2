@@ -48,7 +48,7 @@
                     </div>
                     {% if log.user == request.user %}
                     <div class="col-md-3">
-                        <button class="btn-lg btn-secondary btn-block">Edit</button>
+                        <button class="btn-lg btn-secondary btn-block" onclick="editPageRedirect();">Edit</button>
                         <button class="btn-lg btn-danger btn-block" data-toggle="modal" href="#myModal">Delete</button>
                     </div>
                     {% endif %}
@@ -118,5 +118,10 @@
 
 
     // }
+
+    function editPageRedirect(){
+        console.log("Hello");
+        window.location.href = "{% url 'log-edit' log.id %}";
+    }
 </script>
 {% endblock scripts %}

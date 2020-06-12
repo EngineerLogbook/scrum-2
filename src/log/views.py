@@ -135,14 +135,28 @@ def logCreateView(request):
     return render(request, 'log/create_log.html', context=context)
 
 def logDetailView(request, *args, **kwargs):
-    theid = kwargs.get('pk')
 
-    thelog = Logger.objects.get(id=theid)
-    context = {
-        "log":thelog,
-    }
+    logtoview = kwargs.get('pk')
 
-    return render(request, 'log/view_log.html', context)
+    try:
+        logtoview = UUID(str(logtoview))
+    except ValueError:
+        return HttpResponse("Error: Invalid log ID", status=400)
+        
+
+    try:
+        thelog = Logger.objects.get(id=logtoview)
+        context = {
+            "log":thelog,
+        }
+
+        return render(request, 'log/view_log.html', context)
+
+    except ObjectDoesNotExist:
+        return HttpResponse("Error: Invalid log ID", status=400)
+
+
+
 def fileUploadHandler(request):
     if request.method == "POST":
         print(request.POST.dict())
@@ -194,11 +208,39 @@ def logListView(request):
 
 
 def logEditView(request, *args, **kwargs):
-    theid = kwargs.get('pk')
 
-    thelog = Logger.objects.get(id=theid)
+    logtoview = kwargs.get('pk')
 
-        # Get a list of all teams that the user is a part of
+    try:
+        logtoview = UUID(str(logtoview))
+    except ValueError:
+        return HttpResponse("Error: Invalid log ID", status=400)
+        
+
+    try:
+        thelog = Logger.objects.get(id=logtoview)
+    except ObjectDoesNotExist:
+        return HttpResponse("Error: Invalid log ID", status=400)
+
+
+    if request.method == "POST":
+        log_title = request.POST.get('log-title', "")
+        log_description = request.POST.get('log-description', "")
+        log_content = request.POST.get('log-content', "")
+
+        # changelog = Logger.objects.
+
+        thelog.title = log_title
+        thelog.short_description=log_description
+        thelog.note = log_content
+        thelog.save()
+
+        messages.add_message(request, messages.SUCCESS, "Log saved successfully.")
+        return redirect('log-list')
+
+
+
+    # Get a list of all teams that the user is a part of
     user_teams = request.user.team_set.all()
     project_list = []
 
@@ -211,5 +253,7 @@ def logEditView(request, *args, **kwargs):
         "projects":project_list,
 
     }
+
+
 
     return render(request, 'log/log_edit_view.html', context)
