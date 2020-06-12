@@ -1,0 +1,58 @@
+<main role="main" class="container">
+   <div class="row">
+      <div class="col-md-8">
+         <div class="content-section">
+            <form method="POST">
+               <input type="hidden" name="csrfmiddlewaretoken" value="Pidb6aXMPv0G5poilW7T79xXjM6Z3HloQjKZ22gUk5zbEwiU5UtDxPzBOLKZoWCP">
+               <fieldset class="form-group">
+                  <legend class="border-bottom mb-4">Join Today</legend>
+                  <div id="div_id_username" class="control-group">
+                     <label for="id_username" class="control-label requiredField">
+                     Username<span class="asteriskField">*</span> </label> 
+                     <div class="controls">
+                        <input type="text" name="username" maxlength="150" autofocus class="textinput textInput" required id="id_username"> 
+                        <p id="hint_id_username" class="help-block">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</p>
+                     </div>
+                  </div>
+                  <div id="div_id_email" class="control-group">
+                     <label for="id_email" class="control-label requiredField">
+                     Email<span class="asteriskField">*</span> </label> 
+                     <div class="controls"> <input type="email" name="email" class="emailinput" required id="id_email"> </div>
+                  </div>
+                  <div id="div_id_password1" class="control-group">
+                     <label for="id_password1" class="control-label requiredField">
+                     Password<span class="asteriskField">*</span> </label> 
+                     <div class="controls">
+                        <input type="password" name="password1" autocomplete="new-password" class="textinput textInput" required id="id_password1"> 
+                        <p id="hint_id_password1" class="help-block">
+                        <ul>
+                           <li>Your password can’t be too similar to your other personal information.</li>
+                           <li>Your password must contain at least 8 characters.</li>
+                           <li>Your password can’t be a commonly used password.</li>
+                           <li>Your password can’t be entirely numeric.</li>
+                        </ul>
+                        </p> 
+                     </div>
+                  </div>
+                  <div id="div_id_password2" class="control-group">
+                     <label for="id_password2" class="control-label requiredField">
+                     Password confirmation<span class="asteriskField">*</span> </label> 
+                     <div class="controls">
+                        <input type="password" name="password2" autocomplete="new-password" class="textinput textInput" required id="id_password2"> 
+                        <p id="hint_id_password2" class="help-block">Enter the same password as before, for verification.</p>
+                     </div>
+                  </div>
+               </fieldset>
+               <div class="form-group">
+                  <button class="btn btn-outline-info" type="submit">Sign Up</button>
+               </div>
+            </form>
+            <div class="border-top pt-3">
+               <small class="text-muted">
+               Already Have An Account? <a class="ml-2" href="/login/">Sign In</a>
+               </small>
+            </div>
+         </div>
+      </div>
+   </div>
+</main>

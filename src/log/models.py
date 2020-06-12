@@ -21,8 +21,8 @@ class Logger(DesignBaseClass):
     project = models.ForeignKey(
         Project, on_delete=models.PROTECT, null=True, blank=True)
     short_description = models.CharField(max_length=255, null=True, blank=True)
-    tag = models.ManyToManyField(Tags)
-    is_encrypted = models.BooleanField(default=False)
+    tag = models.ManyToManyField(Tags, blank=True)
+    default_password = models.BooleanField(default=True,)
     password = models.CharField(max_length=100, null=True, blank=True)
     access = models.ManyToManyField(
         User, related_name='user_access', related_query_name='user_access')
@@ -45,8 +45,8 @@ class LogFile(DesignBaseClass):
     ]
 
     file = models.FileField(upload_to="logfile")
-    filetype = models.CharField(max_length=100, choices=FILE_TYPES)
-    log = models.ForeignKey(Logger, on_delete=models.PROTECT, )
+    filetype = models.CharField(max_length=100, choices=FILE_TYPES, null=True, blank=True)
+    log = models.ForeignKey(Logger, on_delete=models.PROTECT, null=True, blank=True)
 
 
 class LogURL(models.Model):

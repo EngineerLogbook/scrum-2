@@ -7,7 +7,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     # path('', include('landingpage.urls')),
     path('admin/', admin.site.urls),  # The admin route
-    path('',  include('user_management.urls'))
+    path('',  include('user_management.urls')),
+    path('',  include('project.urls')),
+    path('',  include('log.urls'))
 ]
 
 
