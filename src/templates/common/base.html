@@ -55,18 +55,18 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                    <span>Management</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <h6 class="collapse-header">Team:</h6>
+                        <a class="collapse-item" href="{% url 'team-list' %}">All Teams</a>
+                        <a class="collapse-item" href="{% url 'team-create' %}">Join Team</a>
+                        {% comment %} <a class="collapse-item" href="forgot-password.html">Forgot Password</a> {% endcomment %}
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Projects</h6>
+                        <a class="collapse-item" href="{% url 'project-list' %}">All Projects </a>
+                        <a class="collapse-item" href="{% url 'team-list' %}">Create Projects</a>
                     </div>
                 </div>
             </li>
@@ -85,11 +85,11 @@
                 </div>
             </li> {% endcomment %}
             <!-- Nav Item - recent work done -->
-            <li class="nav-item">
+            {% comment %} <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa fa-backward"></i>
                     <span>Recent</span></a>
-            </li>
+            </li> {% endcomment %}
 
             <!-- Nav Item - View Collapse Menu -->
             <li class="nav-item">
@@ -114,17 +114,17 @@
                 </div>
             </li>
             <!-- Nav Item - sharing -->
-            <li class="nav-item">
+            {% comment %} <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa fa-share-alt"></i>
                     <span>shared with me</span></a>
-            </li>
+            </li> {% endcomment %}
             <!-- Nav Item - starred -->
-            <li class="nav-item">
+            {% comment %} <li class="nav-item">
                 <a class="nav-link" href="#">
                     <i class="fas fa fa-star"></i>
                     <span>Starred</span></a>
-            </li>
+            </li> {% endcomment %}
             <!-- Nav Item - History -->
             <li class="nav-item">
                 <a class="nav-link" href="#">
@@ -157,15 +157,15 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Manage</span>
+                    <span>About Project</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <h6 class="collapse-header">Important Stuff!</h6>
+                        <a class="collapse-item" href="{% url ' faq' %}">FAQ's</a>
+                        <a class="collapse-item" href="{% url ' terms-conditions' %}"> Term's and Conditions </a>
+                        <a class="collapse-item" href="{% url ' privacy-policy' %}"> Privacy Policy </a>
+                        {% comment %} <a class="collapse-item" href="utilities-other.html">Other</a> {% endcomment %}
                     </div>
                 </div>
             </li>
@@ -249,7 +249,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">ABC2</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username}}</span>
                                 <img class="img-profile rounded-circle"  src="{{ user.profile.image.url }}">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -260,9 +260,9 @@
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                {% comment %} <a class="dropdown-item" href="#">
                                     <i class="fas fa fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity Log
-                                </a>
+                                </a> {% endcomment %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa fa-power-off fa-sm fa mr-2 text-gray-400"></i> Logout

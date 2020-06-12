@@ -21,8 +21,11 @@ class ProjectListView(LoginRequiredMixin,  UserPassesTestMixin, ListView):
     ordering = ['-title']
     paginate_by = 5
 
+    def test_func(self):
+        return True
 
-class ProjectCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+
+class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
     template_name = 'project/project_create.html'
 
