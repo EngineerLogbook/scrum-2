@@ -2,6 +2,7 @@
 
 import os
 from decouple import config
+from django.contrib import messages
 
 
 SECRET_KEY = config('SECRET_KEY')
@@ -96,6 +97,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # For login pages
 # To be uncommented once these urls are made.
 
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'profile'
 
 # Email Support for Database
@@ -113,3 +115,12 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default='')
 
 # RECAPTCHA_PUBLIC_KEY = config("RECAPTCHA_PUBLIC_KEY", default='')
 # RECAPTCHA_PRIVATE_KEY = config("RECAPTCHA_PRIVATE_KEY", default='')
+
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

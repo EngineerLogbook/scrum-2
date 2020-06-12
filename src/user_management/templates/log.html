@@ -1,0 +1,35 @@
+<main role="main" class="container">
+   <div class="row">
+      <div class="col-md-8">
+         <div class="content-section">
+            <form method="POST">
+               <input type="hidden" name="csrfmiddlewaretoken" value="Fq3di42GPS66FjifG66WvPnBppUgKaHdGrA1eWlOksFBeqcRq4sGVvpfUoyg5pYE">
+               <fieldset class="form-group">
+                  <legend class="border-bottom mb-4">Log In</legend>
+                  <div id="div_id_username" class="control-group">
+                     <label for="id_username" class="control-label requiredField">
+                     Username<span class="asteriskField">*</span> </label> 
+                     <div class="controls"> <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" class="textinput textInput" required id="id_username"> </div>
+                  </div>
+                  <div id="div_id_password" class="control-group">
+                     <label for="id_password" class="control-label requiredField">
+                     Password<span class="asteriskField">*</span> </label> 
+                     <div class="controls"> <input type="password" name="password" autocomplete="current-password" class="textinput textInput" required id="id_password"> </div>
+                  </div>
+               </fieldset>
+               <div class="form-group">
+                  <button class="btn btn-outline-info" type="submit">Login</button>
+                  <small class="text-muted ml-2">
+                  <a href="/password-reset/">Forgot Password?</a>
+                  </small>
+               </div>
+            </form>
+            <div class="border-top pt-3">
+               <small class="text-muted">
+               Need An Account? <a class="ml-2" href="/register/">Sign Up Now</a>
+               </small>
+            </div>
+         </div>
+      </div>
+   </div>
+</main>
