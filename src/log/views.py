@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import Logger, LogFile, LogURL
 from django.contrib import messages
 from project.models import Project
 from django.db.models.query import QuerySet
-
+from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
+from uuid import UUID
 
 from django.views.generic import (
     View,
@@ -81,7 +83,7 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     model = Logger
     template_name = 'log/logger_unpublish.html'
 
-
+@login_required
 def logCreateView(request):
 
     # Get a list of all teams that the user is a part of
@@ -132,7 +134,16 @@ def logCreateView(request):
         messages.add_message(request, messages.SUCCESS, "Log Successfully created.")
     return render(request, 'log/create_log.html', context=context)
 
+@login_required
+def logDetailView(request, *args, **kwargs):
+    theid = kwargs.get('pk')
 
+    thelog = Logger.objects.get(id=theid)
+    context = {
+        "log":thelog,
+    }
+
+    return render(request, 'log/view_log.html', context)
 def fileUploadHandler(request):
     if request.method == "POST":
         print(request.POST.dict())
@@ -146,3 +157,31 @@ def fileUploadHandler(request):
         return JsonResponse({"message": "File uploaded.", "link":SITE_PROTOCOL + request.META['HTTP_HOST'] + savedfile.file.url})
     if request.method == "GET":
         return JsonResponse({"message":"Get method not allowed"})        
+
+
+@login_required
+def logDeleteView(request):
+
+    if request.method != "GET":
+        return HttpResponse("Error: Invalid request", status=400)
+    
+    else:
+        logtodelete = request.GET.get('id', "")
+
+        try:
+            logtodelete = UUID(logtodelete)
+        except ValueError:
+            return HttpResponse("Error: Invalid log ID", status=400)
+            
+
+        try:
+            log = Logger.objects.get(id=logtodelete)
+            log.published = False
+            log.save()
+            messages.add_message(request, messages.SUCCESS, "Log was successfully deleted.")
+            return redirect("landing-page")
+
+            return HttpResponse(log)
+        except ObjectDoesNotExist:
+            return HttpResponse("Error: Invalid log ID", status=400)
+        # do something
