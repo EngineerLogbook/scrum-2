@@ -10,7 +10,8 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created! You are now able to log in')
+            messages.success(
+                request, f'Your account has been created! You are now able to log in')
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -41,9 +42,14 @@ def profile(request):
 
     return render(request, 'user_management/profile.html', context)
 
+
 def contact(request):
-     return render(request, 'user_management/contact.html')
+    return render(request, 'user_management/contact.html')
 
 
 def landing_page_view(request):
     return render(request, 'user_management/landing.html', context={})
+
+
+def notfound(request):
+    return render(request, 'common/404.html')
