@@ -46,8 +46,10 @@ def profile(request):
 def contact(request):
     return render(request, 'user_management/contact.html')
 
+
 def privacy(request):
-     return render(request, 'user_management/privacy.html')
+    return render(request, 'user_management/privacy.html')
+
 
 def landing_page_view(request):
     return render(request, 'user_management/landing.html', context={})
@@ -64,6 +66,3 @@ def faq(request):
 def tac(request):
     return render(request, 'common/404.html')
 
-
-def privacypolicy(request):
-    return render(request, 'common/404.html')

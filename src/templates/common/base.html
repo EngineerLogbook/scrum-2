@@ -162,10 +162,10 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Important Stuff!</h6>
-                        <a class="collapse-item" href="#">About</a>
-                        <a class="collapse-item" href="#">FAQ's</a>
-                        <a class="collapse-item" href="#"> Term's and Conditions </a>
-                        <a class="collapse-item" href="#"> Privacy Policy </a>
+                        <a class="collapse-item" href="{% url 'notfound' %}">About</a>
+                        <a class="collapse-item" href="{% url 'faq' %}">FAQ's</a>
+                        <a class="collapse-item" href="{% url 'terms-conditions' %}"> Term's and Conditions </a>
+                        <a class="collapse-item" href="{% url 'privacy-policy' %}"> Privacy Policy </a>
                         {% comment %} <a class="collapse-item" href="utilities-other.html">Other</a> {% endcomment %}
                     </div>
                 </div>
