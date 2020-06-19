@@ -11,7 +11,7 @@ urlpatterns = [
 
     path('contact/', user_views.contact, name='contact'),
     path('404', user_views.notfound, name='notfound'),
-    path('faq/', user_views.faq, name='faq'),
+    path('faqs/', user_views.faqs, name='faqs'),
     path('termandconditions/', user_views.tac, name='terms-conditions'),
     path('privacypolicy/', user_views.privacy, name='privacy-policy'),
 
