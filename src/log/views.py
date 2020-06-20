@@ -8,6 +8,7 @@ from django.db.models.query import QuerySet
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from uuid import UUID
+from django.urls import reverse
 
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
@@ -157,6 +158,24 @@ def logDetailView(request, *args, **kwargs):
 
     try:
         thelog = Logger.objects.get(id=logtoview)
+
+
+        allowedusers = []
+
+        allowedusers.append(thelog.user)
+
+        for users in thelog.access.all():
+            allowedusers.append(users)
+        
+        print(allowedusers)
+
+        if request.user in allowedusers:
+            print("yes, allowed")
+
+
+
+
+
         password = thelog.password
 
 
@@ -345,11 +364,107 @@ def generatePassword(unpaddedPassword):
         return unpaddedPassword
 
 
-@csrf_exempt
 def shareController(request):
+    if request.method == "GET":
+        return HttpResponse("GET request not allowed", status=403)
     if request.method == "POST":
         print(request.POST.dict())
+        usernames = request.POST.get('usernames', '')
+        logid = request.POST.get('loguuid', '')
+        
+        try:
+            logtoview = UUID(str(logid))
+            
+        except ValueError:
+            return JsonResponse({"message":"Log ID Invalid. Please contact Administrator."}, status=400)
+            
+        try:
+            thelog = Logger.objects.get(id=logtoview)
+            usernames = usernames.split(',')
+
+
+        except ObjectDoesNotExist:
+            return JsonResponse({"message":"Log ID Invalid. Please contact Administrator."}, status=400)
+        except Exception as ಠ_ಠ:
+            print(ಠ_ಠ)
+            return JsonResponse({"message":"An unknown error occurred."}, status=400)
+        print(usernames)
+        if usernames == [""]:
+            thelog.access.set([])
+            return JsonResponse({"message":"Shared users cleared successfully."})
+        
+
+        
+        doesnotexistlist = []
+        existslist = []
+        
+        # Remove the @ sign.
+        usernames = [x[1:] for x in usernames]
+
+        for users in usernames:
+            
+
+            try:
+                existslist.append(User.objects.get(username=users))
+
+            except ObjectDoesNotExist as ಠ_ಠ:
+                doesnotexistlist.append(users)
+            
+            except Exception as ಠ_ಠ:
+                return JsonResponse({"message":"An unknown error occurred."}, status=400)
+            
+        
+        if doesnotexistlist != []:
+            doesnotexistlist = ["@" + x for x in doesnotexistlist]
+
+            if len(doesnotexistlist) == 1:
+
+                return JsonResponse({"message":f"{doesnotexistlist[0]} does not exist."}, status=400)
+            else:
+                return JsonResponse({"message":'Usernames "' + ', '.join(doesnotexistlist) + '" do not exist.'}, status=400)
+
+        
+        thelog.access.set(existslist)
     if request.method == "GET":
         pass
-    
-    return JsonResponse({"error":"not found"}, status=404)
+    shareurl = reverse('logshare-view', args=[logid])
+    return JsonResponse({"message":f'Log shared Successfully<br>Link : <a href="{shareurl}">{shareurl}</a>'}, status=200)
+
+
+
+def shareView(request, *args, **kwargs):
+    logtoview = kwargs.get('pk')
+
+    try:
+        logtoview = UUID(str(logtoview))
+    except ValueError:
+        return HttpResponse("Error: Invalid log ID", status=400)
+        
+
+    try:
+        thelog = Logger.objects.get(id=logtoview)
+        password = thelog.password
+
+
+        BLOCK_SIZE = 32
+        encryption_suite = AES.new(password.encode(), AES.MODE_ECB)
+
+        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
+
+        thelog.note = deciphered_text
+
+
+        context = {
+            "log":thelog,
+        }
+
+        return render(request, 'log/view_log.html', context)
+
+    except ObjectDoesNotExist:
+        return HttpResponse("Error: Invalid log ID", status=400)
+    except:
+        messages.add_message(request, messages.ERROR, "Log data is corrupt. Decryption failed.")
+        return redirect('log-list')
+
+
+    return HttpResponse("")

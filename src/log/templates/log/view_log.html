@@ -178,6 +178,7 @@
                 data: {
                     "usernames": inputField.values.join(','),
                     "loguuid": "{{ log.id }}",
+                    "csrfmiddlewaretoken": "{{ csrf_token }}",
                 },
                 xhrFields: {
                     withCredentials: true
@@ -185,26 +186,38 @@
                 dataType: 'json',
                 success: function(data) {
 
-                    console.log(data);
+                    var successmesage = data.message;
                     $("#messageAlert").html(
                         `                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                                <strong>Success! </strong> ${successmesage}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>`);
                 },
                 error: function(data) {
-                    console.log(data.responseJSON);
-                    var errormessage = data.responseJSON.error;
 
-                    $("#messageAlert").html(
-                        `                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    try {
+                        var errormessage = data.responseJSON.message;
+                        $("#messageAlert").html(
+                            `                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <strong>Error: </strong> ${errormessage}
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>`);
+                    } catch (err) {
+                        $("#messageAlert").html(
+                            `                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Error: </strong> An unknown error occurred. Please contact administrator.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>`);
+                    }
+
+
+
                 }
             });
             return false;
