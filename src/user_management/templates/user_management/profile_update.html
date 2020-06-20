@@ -46,39 +46,52 @@
                     <div class="col-md-8" style="padding: 5%;">
                         <div class="row">
                             <div class="col text-center">
-                                <h2> Your Profile </h2>
+                                <h2>My Profile</h2>
                             </div>
                     
                         </div>
-                        
-                           
+                        <form action="" method="post">
+                            <div class="form-row">
                                 <div class="col-md-6 mb-3">
-                                <h3>First Name:<small> {{ request.user.first_name }}</small></h3>
+                                    <input type="text" name="first-name" class="form-control" id="exampleInputName" aria-describedby="NameHelp" placeholder="First Name">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <h3>Last Name:<small> {{request.user.last_name }}</small></h3>
-                                    </div>
+                                    <input type="text" name="last-name" class="form-control" id="exampleInputName" aria-describedby="NameHelp" placeholder="Last Name">
+                                </div>
+
+                            </div>
+                            <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                   <p> Username </p>
+                                    <input type="Username" class="form-control" id="exampleInputUsername" aria-describedby="UsenameHelp" placeholder="Username">
                                 </div>
-                            
-                          
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <input type="Password" name="Password" class="form-control" id="exampleInputPassword" aria-describedby="PasswordHelp" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <input type="Password" name="confirm-password" class="form-control" id="exampleInputPassword" aria-describedby="PasswordHelp" placeholder="Confirm Password">
+                                </div>
+                            </div> 
+                            <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <input type="Date" class="form-control" id="exampleInputDateOFBirth" aria-describedby="DateHelp" placeholder="Date">
                                 </div>
-                            
-                            
+                            </div> 
+                            <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <input type="Contact" class="form-control" id="exampleInputContact" aria-describedby="PasswordHelp" placeholder="Contact no.">
                                 </div>
-                             
-                            
+                            </div> 
+                            <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <a href="" class="btn btn-primary btn-user btn-block">
                                         Submit
                                       </a>
                                 </div>
-                            
+                            </div> 
                             
                         </form>
 

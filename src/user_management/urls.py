@@ -5,6 +5,8 @@ urlpatterns = [
     # Custom
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
+    path('<int:pk>/',
+         user_views.UserDetailView.as_view(), name='user-detail'),
 
     path('privacy/', user_views.privacy, name='privacy'),
 
