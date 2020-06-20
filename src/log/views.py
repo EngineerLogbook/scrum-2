@@ -167,8 +167,11 @@ def logDetailView(request, *args, **kwargs):
 
         thelog.note = deciphered_text
 
+        userlist = thelog.access.all()
+
         context = {
             "log":thelog,
+            "userlist":userlist,
         }
 
         return render(request, 'log/view_log.html', context)
@@ -340,3 +343,13 @@ def generatePassword(unpaddedPassword):
     
     else:
         return unpaddedPassword
+
+
+@csrf_exempt
+def shareController(request):
+    if request.method == "POST":
+        print(request.POST.dict())
+    if request.method == "GET":
+        pass
+    
+    return JsonResponse({"error":"not found"}, status=404)

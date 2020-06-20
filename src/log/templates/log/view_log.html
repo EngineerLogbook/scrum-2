@@ -30,7 +30,8 @@
     }
 </style>
 
-{% endblock styles %} {% block content %}
+{% comment %} For the username entry field {% endcomment %}
+<link rel="stylesheet" href="{% static 'log/metro.css' %}"> {% endblock styles %} {% block content %}
 <div class="container-fluid">
     <div class="row">
         <div class="col">
@@ -38,7 +39,7 @@
                 <div class="row log-author-row">
                     <div class="col-md-5 log-heading">
                         <h4> Author: {{ log.user.username }}</h4>
-                         <img class=" rounded-circle"  width="2em" height src="{{ log.user.profile.image.url }}">
+                        <img class=" rounded-circle" width="2em" height src="{{ log.user.profile.image.url }}">
                     </div>
 
                 </div>
@@ -48,8 +49,14 @@
                     </div>
                     {% if log.user == request.user %}
                     <div class="col-md-3">
-                        <button class="btn-lg btn-secondary btn-block" onclick="editPageRedirect();">Edit</button>
-                        <button class="btn-lg btn-danger btn-block" data-toggle="modal" href="#myModal">Delete</button>
+
+                        <div class="btn-group btn-group-lg" role="group">
+                            <button class="btn btn-secondary" onclick="editPageRedirect();">Edit</button>
+                            <button class="btn btn-primary" data-toggle="modal" href="#shareModal">Share</button>
+                            <button class="btn btn-danger " data-toggle="modal" href="#myModal">Delete</button>
+
+                        </div>
+                        <!-- <button class="btn-lg btn-secondary btn-block" onclick="editPageRedirect();">Edit</button> -->
                     </div>
                     {% endif %}
                 </div>
@@ -81,7 +88,8 @@
             </div>
             <div class="modal-body">
                 <p>Are you sure you want to delete this log ? </p>
-                <p class="text-secondary"><small>This will also be deleted for all other collabrators in this project. This action cannot be undone.</small></p>
+                <p class="text-secondary"><small>This will also be deleted for all other collabrators in this project.
+                        This action cannot be undone.</small></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -92,6 +100,40 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="shareModalLabel">Sharing</h2>
+
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'log-share' %}" method="post" id="shareform" class="shareform">
+                    <div class="form-group">
+                        Please enter the usernames of the accounts that you want to share this log with. <br>All usernames should start with an @ sign.
+                    </div>
+                    <div class="form-group">
+                        <input id="usernameInput" name="usernames" type="text" data-role="taginput" value="{% for username in userlist %}@{{ username }},{% endfor %}" data-cls-tag-title="text-bold fg-white" data-cls-tag="bg-olive" data-cls-tag-remover="bg-darkOlive fg-white"
+                            data-on-tag-add="console.log(3)">
+
+
+                    </div>
+
+                    <div class="form-group" id="messageAlert">
+
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 {% endblock content %} {% block scripts %}
 
 <script src="{% static 'log/marked.min.js' %}"></script>
@@ -119,9 +161,55 @@
 
     // }
 
-    function editPageRedirect(){
+    function editPageRedirect() {
         console.log("Hello");
         window.location.href = "{% url 'log-edit' log.id %}";
     }
+
+    $('#shareform').on('submit', function(e) {
+
+        if (!e.isDefaultPrevented()) {
+            var url = "{% url 'log-share' %}";
+            var inputField = $("#usernameInput").data('taginput');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    "usernames": inputField.values.join(','),
+                    "loguuid": "{{ log.id }}",
+                },
+                xhrFields: {
+                    withCredentials: true
+                },
+                dataType: 'json',
+                success: function(data) {
+
+                    console.log(data);
+                    $("#messageAlert").html(
+                        `                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>`);
+                },
+                error: function(data) {
+                    console.log(data.responseJSON);
+                    var errormessage = data.responseJSON.error;
+
+                    $("#messageAlert").html(
+                        `                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Error: </strong> ${errormessage}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>`);
+                }
+            });
+            return false;
+        }
+    })
 </script>
+<script src="{% static 'log/metro.min.js' %}"></script>
 {% endblock scripts %}
