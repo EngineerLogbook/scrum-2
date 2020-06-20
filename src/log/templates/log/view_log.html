@@ -14,7 +14,7 @@
     
     .main-heading {
         /* margin-top: 2em; */
-        font-size: 5em;
+        font-size: 3.5em;
     }
     
     .log-content-row {
@@ -45,7 +45,7 @@
                 </div>
                 <div class="row log-heading-row justify-content-between ">
                     <div class="col-7   log-heading">
-                        <h1 class="main-heading">{{ log.title }}</h1>
+                        <h7 class="main-heading small ">{{ log.title }}</h7>
                     </div>
                     {% if log.user == request.user %}
                     <div class="col-md-3">

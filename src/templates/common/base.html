@@ -18,11 +18,14 @@
     <!-- Custom styles for this template-->
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet"> {% block styles %} {% endblock styles %}
     <!-- Bootstrap CSS -->
-    <!-- 
+
 
 </head>
 
 <body id="page-top">
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa fa-angle-up"></i>
+    </a>
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
@@ -39,8 +42,11 @@
             <!-- Nav Item - My Logs -->
             <li class="nav-item active">
                 <a class="nav-link" href="{% url  'log-list' %}">
-                    <i class="far fa fa-sticky-note"></i>
+                    <i class="far fa fa-user"></i>
                     <span>My Logs</span></a>
+                <a class="nav-link" href="{% url  'logs-all' %}">
+                    <i class="far fa fa-sticky-note"></i>
+                    <span>All Logs</span></a>                
 
                 <a class="nav-link" href="{% url  'shared-with-me' %}">
                     <i class="far fa fa-link"></i>
@@ -105,21 +111,16 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-book-reader"></i>
-                    <span> View </span>
+                    <span> History </span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header"><i class="fas fa fa-folder"></i> Documents:</h6>
-                        <a class="collapse-item" href="#"><i class="fas fa fa-file-pdf-o"></i> PDFs</a>
-                        <a class="collapse-item" href="#"><i class="fas fa fa-file-word-o"></i> Word File</a>
-                        <a class="collapse-item" href="#"><i class="fas fa fa-file-powerpoint-o"></i> Power-point</a>
-                        <a class="collapse-item" href="#"><i class="fas fa fa-file-excel-o"></i> Excel</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other :</h6>
-                        <a class="collapse-item" href="#"><i class="	fas fa fa-image"></i> Photos</a>
-                        <a class="collapse-item" href="#"><i class="	fas fa fa-microphone"></i> Audios</a>
-                        <a class="collapse-item" href="#"><i class="far fa fa-video"></i> Videos</a>
-                        <a class="collapse-item" href="#"><i class="	fas fa fa-file-o"></i> CAD Files</a>
+                        <a class="collapse-item" href="{% url 'user-history' %}"><i class="fas fa fa-file-pdf-o"></i>
+                            Personal</a>
+                        <a class="collapse-item" href="{% url 'complete-history' %}"><i
+                                class="fas fa fa-file-word-o"></i> Complete</a>
+
+
                     </div>
                 </div>
             </li>
@@ -136,11 +137,7 @@
                     <span>Starred</span></a>
             </li> {% endcomment %}
             <!-- Nav Item - History -->
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa fa-history"></i>
-                    <span>History</span></a>
-            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Heading>
@@ -204,12 +201,12 @@
                     </button>
                     <!-- Topbar Search -->
                     <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="{% url 'search-results' %}" method="GET">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input name="q" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="submit">
                                     <i class="fas fa fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -332,9 +329,7 @@
     </div>
     <!-- End of Page Wrapper -->
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa fa-angle-up"></i>
-    </a>
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -382,6 +377,6 @@
     <script src="{% static 'simplemde.min.js' %}"></script>
     <script src="{% static 'markdown.js' %}"></script> {% endcomment %} {% block scripts %} {% endblock scripts %}
 
-    </body>
+</body>
 
 </html>

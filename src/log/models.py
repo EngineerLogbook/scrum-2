@@ -25,7 +25,7 @@ class Logger(DesignBaseClass):
     default_password = models.BooleanField(default=True,)
     password = models.CharField(max_length=100, null=True, blank=True)
     access = models.ManyToManyField(
-        User, related_name='user_access', related_query_name='user_access')
+        User, related_name='user_access', related_query_name='user_access', blank=True)
 
     def __str__(self):
         return f'{self.user.username} : {self.title}'
