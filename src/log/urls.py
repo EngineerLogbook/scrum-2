@@ -11,4 +11,6 @@ urlpatterns = [
     path('log/uploadfile', views.fileUploadHandler, name='file-upload'),
     path('log/delete', views.logDeleteView, name='log-delete'),
     path('log/bin', views.recBinView, name='log-bin'),
+    path('log/share', views.shareController, name='log-share'),
+    path('log/shared', views.mySharesView, name='shared-with-me'),
 ]
