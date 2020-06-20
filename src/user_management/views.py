@@ -70,7 +70,6 @@ def privacy(request):
     return render(request, 'user_management/privacy.html')
 
 
-@login_required
 def landing_page_view(request):
     return render(request, 'user_management/landing.html', context={})
 
