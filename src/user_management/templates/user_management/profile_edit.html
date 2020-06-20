@@ -6,6 +6,13 @@
     <div class="row justify-content-center">
         <div class="col-xl-10 col-lg-12 col-md-9">
             <div class="card o-hidden border-0 shadow-lg my-5">
+                <a href="{% url 'user-detail' request.user.profile.id %}">
+                    <div class="form-group">
+                        <button class="btn btn-outline-info" type="submit"> Back
+                            to
+                            Profile Page </button>
+                    </div>
+                </a>
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="content-section">
@@ -23,7 +30,9 @@
                                 <button class="btn btn-outline-info"
                                     type="submit">Update</button>
                             </div>
+
                         </form>
+
                     </div>
                 </div>
             </div>
