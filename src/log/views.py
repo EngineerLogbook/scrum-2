@@ -258,6 +258,15 @@ def logListView(request):
     }
     return render(request, 'log/list_view.html', context)
     
+@login_required
+def allLogsView(request):
+    context = {
+        "logs":Logger.objects.filter(user=request.user).filter(published=True).order_by('-date_created'),
+        "page_title":"All logs:",
+        "userpage":True,
+    }
+    return render(request, 'log/list_view.html', context)
+    
 
 @login_required
 def logEditView(request, *args, **kwargs):
