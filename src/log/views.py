@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from uuid import UUID
 from django.urls import reverse
-
+from django.db.models import Q
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 
@@ -167,6 +167,11 @@ def logDetailView(request, *args, **kwargs):
         for users in thelog.access.all():
             allowedusers.append(users)
         
+        if thelog.project:
+            if request.user in thelog.project.team.members.all():
+                allowedusers.append(request.user)
+            pass
+
 
         if request.user not in allowedusers:
             return render(request, 'common/404.html', {})
@@ -196,7 +201,8 @@ def logDetailView(request, *args, **kwargs):
 
     except ObjectDoesNotExist:
         return HttpResponse("Error: Invalid log ID", status=400)
-    except:
+    except Exception as ಠ_ಠ:
+        print(ಠ_ಠ)
         messages.add_message(request, messages.ERROR, "Log data is corrupt. Decryption failed.")
         return redirect('log-list')
 
@@ -437,6 +443,24 @@ def mySharesView(request):
     context = {
         "logs":request.user.user_access.all().filter(published=True).order_by('-date_created'),
         "page_title":"Shared with me:",
+        "userpage":False,
+    }
+    return render(request, 'log/list_view.html', context)
+    
+
+
+def searchResults(request):
+
+    query = request.GET.get('q', '')
+
+    teams = request.user.team_set.all()
+    projects = Project.objects.filter(team__in=teams)
+    logs = Logger.objects.filter(project__in=projects).filter(Q(title__icontains=query) | Q(short_description__icontains=query)) | (Logger.objects.filter(user=request.user)).filter(Q(title__icontains=query) | Q(short_description__icontains=query))
+
+    
+    context = {
+        "logs":logs,
+        "page_title":"Search results:",
         "userpage":False,
     }
     return render(request, 'log/list_view.html', context)

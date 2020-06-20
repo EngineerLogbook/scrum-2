@@ -13,4 +13,5 @@ urlpatterns = [
     path('log/bin', views.recBinView, name='log-bin'),
     path('log/share', views.shareController, name='log-share'),
     path('log/shared', views.mySharesView, name='shared-with-me'),
+    path('log/search', views.searchResults, name='search-results'),
 ]
