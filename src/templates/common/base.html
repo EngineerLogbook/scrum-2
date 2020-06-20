@@ -42,8 +42,11 @@
             <!-- Nav Item - My Logs -->
             <li class="nav-item active">
                 <a class="nav-link" href="{% url  'log-list' %}">
-                    <i class="far fa fa-sticky-note"></i>
+                    <i class="far fa fa-user"></i>
                     <span>My Logs</span></a>
+                <a class="nav-link" href="{% url  'logs-all' %}">
+                    <i class="far fa fa-sticky-note"></i>
+                    <span>All Logs</span></a>                
 
                 <a class="nav-link" href="{% url  'shared-with-me' %}">
                     <i class="far fa fa-link"></i>

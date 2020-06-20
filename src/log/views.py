@@ -260,8 +260,12 @@ def logListView(request):
     
 @login_required
 def allLogsView(request):
+    teams = request.user.team_set.all()
+    projects = Project.objects.filter(team__in=teams)
+    logs = Logger.objects.filter(project__in=projects).filter(published=True) | Logger.objects.filter(user=request.user).filter(published=True)
+
     context = {
-        "logs":Logger.objects.filter(user=request.user).filter(published=True).order_by('-date_created'),
+        "logs":logs.order_by('-date_created'),
         "page_title":"All logs:",
         "userpage":True,
     }
