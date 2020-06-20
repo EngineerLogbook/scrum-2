@@ -57,6 +57,7 @@ def profile(request):
 class UserDetailView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'user_management/profile.html'
+    context_object_name = 'profile'
 
 
 @login_required
