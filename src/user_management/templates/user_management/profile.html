@@ -28,12 +28,13 @@
                         </div>
                             <div class="row">
                                 {% if profile.user == request.user%}
-                                    <a href="#" class="btn btn-success btn-icon-split btn-lg">
+                                    <a href="{% url 'profile' %}" class="btn btn-success btn-icon-split btn-lg">
                                       <span class="icon text-white-50">
                                         <i class="fas fa-flag"></i>
                                       </span>
-                                      <span class="text">Update Profile </span>
+                                       <span class="text">Update Profile </span>
                                     </a>
+                                    
                                   {% endif %}
                             </div>
                         
@@ -58,6 +59,9 @@
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <h4>Gender :<small> {{profile.gender }}</small></h4>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <h4> Grad Year :<small> {{profile.year_grad }}</small></h4>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <h4> Degree :<small> {{profile.degree }}</small></h4>
