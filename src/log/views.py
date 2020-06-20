@@ -86,7 +86,7 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     """
     model = Logger
     template_name = 'log/logger_unpublish.html'
-
+@login_required
 def logCreateView(request):
 
     # Get a list of all teams that the user is a part of
@@ -145,7 +145,7 @@ def logCreateView(request):
         messages.add_message(request, messages.SUCCESS, "Log Successfully created.")
         return redirect('log-list')
     return render(request, 'log/create_log.html', context=context)
-
+@login_required
 def logDetailView(request, *args, **kwargs):
 
     logtoview = kwargs.get('pk')
@@ -167,10 +167,9 @@ def logDetailView(request, *args, **kwargs):
         for users in thelog.access.all():
             allowedusers.append(users)
         
-        print(allowedusers)
 
-        if request.user in allowedusers:
-            print("yes, allowed")
+        if request.user not in allowedusers:
+            return render(request, 'common/404.html', {})
 
 
 
@@ -217,7 +216,7 @@ def fileUploadHandler(request):
     if request.method == "GET":
         return JsonResponse({"message":"Get method not allowed"})        
 
-
+@login_required
 def logDeleteView(request):
 
     if request.method != "GET":
@@ -244,15 +243,17 @@ def logDeleteView(request):
             return HttpResponse("Error: Invalid log ID", status=400)
 
 
-
+@login_required
 def logListView(request):
     context = {
-        "logs":Logger.objects.filter(user=request.user).filter(published=True).order_by('-date_created')
+        "logs":Logger.objects.filter(user=request.user).filter(published=True).order_by('-date_created'),
+        "page_title":"My logs:",
+        "userpage":True,
     }
     return render(request, 'log/list_view.html', context)
     
 
-
+@login_required
 def logEditView(request, *args, **kwargs):
 
     logtoview = kwargs.get('pk')
@@ -319,7 +320,7 @@ def logEditView(request, *args, **kwargs):
 
     return render(request, 'log/log_edit_view.html', context)
 
-
+@login_required
 def recBinView(request):
     if request.method != "GET":
         return HttpResponse("Error: Invalid request", status=400)
@@ -350,7 +351,6 @@ def recBinView(request):
             except ObjectDoesNotExist:
                 return HttpResponse("Error: Invalid log ID", status=400)
 
-
 def generatePassword(unpaddedPassword):
     if len(unpaddedPassword) < 32:
         generated_padding = (32-len(unpaddedPassword))*"#"
@@ -363,7 +363,7 @@ def generatePassword(unpaddedPassword):
     else:
         return unpaddedPassword
 
-
+@login_required
 def shareController(request):
     if request.method == "GET":
         return HttpResponse("GET request not allowed", status=403)
@@ -427,44 +427,17 @@ def shareController(request):
         thelog.access.set(existslist)
     if request.method == "GET":
         pass
-    shareurl = reverse('logshare-view', args=[logid])
+    shareurl = reverse('log-detail', args=[logid])
     return JsonResponse({"message":f'Log shared Successfully<br>Link : <a href="{shareurl}">{shareurl}</a>'}, status=200)
 
 
+@login_required
+def mySharesView(request):
 
-def shareView(request, *args, **kwargs):
-    logtoview = kwargs.get('pk')
-
-    try:
-        logtoview = UUID(str(logtoview))
-    except ValueError:
-        return HttpResponse("Error: Invalid log ID", status=400)
-        
-
-    try:
-        thelog = Logger.objects.get(id=logtoview)
-        password = thelog.password
-
-
-        BLOCK_SIZE = 32
-        encryption_suite = AES.new(password.encode(), AES.MODE_ECB)
-
-        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
-
-        thelog.note = deciphered_text
-
-
-        context = {
-            "log":thelog,
-        }
-
-        return render(request, 'log/view_log.html', context)
-
-    except ObjectDoesNotExist:
-        return HttpResponse("Error: Invalid log ID", status=400)
-    except:
-        messages.add_message(request, messages.ERROR, "Log data is corrupt. Decryption failed.")
-        return redirect('log-list')
-
-
-    return HttpResponse("")
+    context = {
+        "logs":request.user.user_access.all().filter(published=True).order_by('-date_created'),
+        "page_title":"Shared with me:",
+        "userpage":False,
+    }
+    return render(request, 'log/list_view.html', context)
+    
