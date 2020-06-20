@@ -1,4 +1,5 @@
 {% extends "unlogged/base.html" %}
+{%load static %}
 {% block content %}
 <body class="bg-gradient-primary">
 
@@ -13,7 +14,24 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-6">
+                  <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="3000">
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img class="d-block w-100" src="{% static "img/ME.jpg" %}" alt="Cad Drawing">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="{% static "img/EE.jpg" %}" alt="PCB Soldering">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="{% static "img/CE.jpg" %}" alt="Chemical Testing">
+                      </div>
+                      <div class="carousel-item">
+                        <img class="d-block w-100" src="{% static "img/EE2.jpg" %}" alt="Turbine Inspection">
+                      </div>
+                    </div>
+                  </div>
+              </div>
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
@@ -53,5 +71,8 @@
     </div>
 
   </div>
-
+<br>
+<br>
+<br>
+<br>
 {% endblock content %}

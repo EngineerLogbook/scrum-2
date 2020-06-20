@@ -61,9 +61,14 @@ def notfound(request):
     return render(request, 'common/404.html')
 
 
-def faq(request):
-    return render(request, 'common/404.html')
+def faqs(request):
+    return render(request, 'user_management/faqs.html')
+
+
+def feedback(request):
+    return render(request, 'user_management/feedback.html')
 
 
 def tac(request):
     return render(request, 'common/404.html')
+

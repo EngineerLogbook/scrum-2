@@ -1,0 +1,101 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block content %}
+
+<!-- Begin Page Content -->
+<div class="container fluid">
+<div class="panel-group" id="accordion">
+<div class="row">
+    <div class="col-md-6">
+                    
+        <h1 class="h3 mb-3 text-white-800">Frequently asked questions
+        
+        <a class="btn btn-primary btn-circle">
+                    <i class="fas fa-info-circle text-white"></i>
+                  </a></h1>            
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFAQ1">Is account registration required?</a>
+                </h5>
+            </div>
+            <div id="collapseFAQ1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    Yes, account registration is must for the use of Digital Logbook.
+                </div>
+            </div>
+        </div><br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFAQ2">What do I need in order to use Digital Logbook?</a>
+                </h5>
+            </div>
+            <div id="collapseFAQ2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    All you need is an internet connection and an internet browser. There's no software to install.
+                </div>
+            </div>
+        </div><br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFAQ3">What happens if I need help?</a>
+                </h5>
+            </div>
+            <div id="collapseFAQ3" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    You can reach us through our Contact us Page. 
+                </div>
+            </div>
+        </div><br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFAQ4">Are my logs encrypted?</a>
+                </h5>
+            </div>
+            <div id="collapseFAQ4" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    Yes, your logs are fully encrypted.
+                </div>
+            </div>
+        </div><br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFAQ5">Is team building and sharing of data possible?</a>
+                </h5>
+            </div>
+            <div id="collapseFAQ5" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    Yes, you can add team members in your project and can also share your date with them.
+                </div>
+            </div>
+        </div><br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFAQ6">How to suggest changes?</a>
+                </h5>
+            </div>
+            <div id="collapseFAQ6" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    You can write your suggestions on User Feedback page .
+                </div>
+            </div>
+        </div><br>
+        
+         </div>
+                    <div class="col-md-6" style="padding: 5%;">
+                    
+                        <img src="{% static "img/FAQs.png" %}" alt="FAQs" style="width:600px;height:350px;">
+                     
+                            
+                    </form>
+
+                    </div>
+                </div>
+            </div>
+{% endblock content %}
