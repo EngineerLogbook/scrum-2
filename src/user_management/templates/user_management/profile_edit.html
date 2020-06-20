@@ -1,0 +1,33 @@
+{% extends "common/base.html" %}
+{% load crispy_forms_tags %}
+{% block content%}
+<div class="container">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="content-section">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                <legend class="border-bottom mb-4">Profile
+                                    Update </legend>
+                                {{ u_form|crispy }}
+                                <br>
+                                {{ p_form|crispy}}
+
+                            </fieldset>
+                            <div class="form-group">
+                                <button class="btn btn-outline-info"
+                                    type="submit">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

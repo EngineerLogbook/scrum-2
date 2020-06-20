@@ -51,7 +51,7 @@ def profile(request):
         'p_form': p_form
     }
 
-    return render(request, 'user_management/profile_update.html', context)
+    return render(request, 'user_management/profile_edit.html', context)
 
 
 class UserDetailView(LoginRequiredMixin, DetailView):

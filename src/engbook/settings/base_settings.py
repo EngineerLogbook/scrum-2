@@ -98,7 +98,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # To be uncommented once these urls are made.
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'profile'
+LOGIN_REDIRECT_URL = 'log-list'
 
 # Email Support for Database
 
