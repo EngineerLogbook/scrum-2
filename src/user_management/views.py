@@ -11,7 +11,8 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(
-                request, f'Your account has been created! You are now able to log in')
+                request,
+                f'Account "{ username }" has been created! Login Your account')
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -71,4 +72,3 @@ def feedback(request):
 
 def tac(request):
     return render(request, 'common/404.html')
-
