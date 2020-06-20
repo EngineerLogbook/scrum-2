@@ -1,71 +1,64 @@
-{% extends "unlogged/base.html" %}
-{% load crispy_forms_tags %}
-{% block content %}
+{% extends "unlogged/base.html" %} {% load crispy_forms_tags %} {% block content %}
+
 <body class="bg-gradient-primary">
 
-  <div class="container">
+    <div class="container">
 
-    <div class="card o-hidden border-0 shadow-lg my-5">
-      <div class="card-body p-0">
-        <!-- Nested Row within Card Body -->
-        <div class="row">
-          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-          <div class="col-lg-7">
-            <div class="p-5">
-              <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-              </div>
-              <form class="user" method="POST">
-                {% csrf_token %}
-                <div class="form-group row controls">
-                  <div class="col-sm-12 mb-12 mb-sm-0">
-                     <input type="text" name="username" maxlength="150" autofocus class="form-control form-control-user textinput textInput"placeholder="Username" required id="id_username"> 
-                  </div>
-                </div>
-                <div class="form-group controls">
-                   <input type="email" name="email" class="emailinput form-control form-control-user" required id="id_email" placeholder="Email Address"> 
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                  <input type="password" name="password1" placeholder="Password" autocomplete="new-password" class="textinput textInput form-control form-control-user" required id="id_password1">
-                  </div>
-                  <div class="col-sm-6">
-                  <input type="password" name="password2" autocomplete="new-password" class="form-control form-control-user textinput textInput" placeholder="Repeat Password" required id="id_password2"> 
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <button class="btn btn-google btn-user btn-block" type="submit">Sign Up</button>
-               </div>
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <form class="user" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row controls">
+                                    <div class="col-sm-12 mb-12 mb-sm-0">
+                                        <input type="text" name="username" maxlength="150" autofocus class="form-control form-control-user textinput textInput" placeholder="Username" required id="id_username">
+                                    </div>
+                                </div>
+                                <div class="form-group controls">
+                                    <input type="email" name="email" class="emailinput form-control form-control-user" required id="id_email" placeholder="Email Address">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" name="password1" placeholder="Password" autocomplete="new-password" class="textinput textInput form-control form-control-user" required id="id_password1">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" name="password2" autocomplete="new-password" class="form-control form-control-user textinput textInput" placeholder="Repeat Password" required id="id_password2">
+                                    </div>
+                                </div>
+                                {% if form.errors %}
+                                <div class="form-group">
 
-              </form>
-              <hr>
-              <div class="text-center">
-                <a class="small" href="{% url 'password_reset' %}">Forgot Password?</a>
-              </div>
-              <div class="text-center">
-                <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
-              </div>
+                                    <small id="helpId" class="text-muted gj-text-align-center">
+                                    <p>Your username and password didn't match. Please try again.</p>
+                                  </small>
+                                </div>
+                                {% endif %}
+                                <div class="form-group">
+                                    <button class="btn btn-google btn-user btn-block" type="submit">Sign Up</button>
+                                </div>
+
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="{% url 'password_reset' %}">Forgot Password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
+
     </div>
 
-
-  </div>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-
-</body>
-
-</html>
-{% endblock content %}
+    <br><br><br><br> {% endblock content %}
