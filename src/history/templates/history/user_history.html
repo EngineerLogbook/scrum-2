@@ -1,0 +1,152 @@
+{% extends 'common/base.html' %} {% block styles %}
+<style>
+    .projects {
+        background-color: white;
+        padding-top: 3em;
+        margin: auto;
+        border-radius: 2rem;
+        padding-bottom: 3em;
+        margin-bottom: 5em;
+    }
+    
+    .project .row {
+        margin: 0;
+        padding: 15px 0;
+        margin-bottom: 15px;
+        border-radius: 1em;
+        padding-left: 10px;
+    }
+    
+    .project div[class*='col-'] {
+        border-right: 1px solid #eee
+    }
+    
+    .project .text h3 {
+        margin-bottom: 0;
+        color: #555
+    }
+    
+    .project .text small {
+        color: #aaa;
+        font-size: 0.75em
+    }
+    
+    .project .project-date span {
+        font-size: 0.9em;
+        color: #999
+    }
+    
+    .project .image {
+        max-width: 100px;
+        min-width: 100px;
+        height: 100px;
+        margin-right: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 1em;
+    }
+    
+    .project .time,
+    .project .comments,
+    .project .time i,
+    .project .comments i,
+    .project .card {
+        margin-bottom: 0
+    }
+    
+    @media (max-width: 991px) {
+        .project .right-col {
+            margin-top: 20px;
+            margin-left: 65px
+        }
+    }
+    
+    .has-shadow {
+        -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .has-shadow:hover {
+        -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .bg-white {
+        background: #fff !important;
+    }
+    
+    .bg-red {
+        background: #ff7676 !important;
+        color: #fff
+    }
+    
+    .bg-red:hover {
+        color: #fff
+    }
+    
+    .project-text-content {
+        /* padding: 5%; */
+        padding-right: 1em;
+        padding-left: 10px;
+    }
+    
+    .project-wrapper {
+        color: black;
+    }
+</style>
+
+{% endblock styles %} {% block content %}
+<div class="container  projects">
+    <div class="container ">
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <h1> {{ page_title }} </h1>
+            </div>
+
+
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <hr>
+
+            </div>
+        </div>
+        {% for hist in history %}
+        <!-- Project-->
+        <div class="project mb-6" style="margin-bottom: 2em;">
+
+            <div class="row bg-white has-shadow">
+
+                <div class="left-col col-lg-9 d-flex align-items-center justify-content-between">
+                    <div class="project-title d-flex align-items-center">
+                        {% comment %} <div class="image has-shadow rounded"><img src="#" alt="..." class="img-fluid"></div> {% endcomment %}
+                        <div class="text project-text-content">
+                                <h3 class="h4">{{ hist.message }}</h3>
+
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="right-col col-lg-3 align-items-end justify-content-around">
+
+                    <div class="form-group ">
+                        Author: {{ hist.user }}
+                    </div>
+                    <div class="project-date"><span class="hidden-sm-down">{{ hist.date_created }}</span></div>
+
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+    <!-- Project-->
+
+</div>
+{% endblock content %} {% block scripts %}
+
+<script>
+</script>
+{% endblock scripts %}

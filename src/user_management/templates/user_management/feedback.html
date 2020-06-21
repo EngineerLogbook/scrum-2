@@ -1,0 +1,44 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container fluid">
+<div class="panel-group" id="accordion">
+<div class="row">
+    <div class="col-md-6">
+                    
+        <h1 class="h3 mb-3 text-white-800">Feedback
+        
+        <a class="btn btn-primary btn-circle">
+                    <i class="fas fa-info-circle text-white"></i>
+                  </a></h1>             
+        
+        <form class="user">
+        <div class="form-group">
+            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+            </div>
+            <h7>Enter Feedback below</h7>
+        
+        <div class="form-group">
+            <textarea rows="8" cols="65" name="comment" form="usrform">
+          </textarea>
+            </div>
+        <div class="form-group">
+                    </div>
+                    <a href="" class="btn btn-primary btn-user btn-block">
+                      Send
+                    </a>
+                    </form>    
+                    </div>
+           
+                    <div class="col-md-6" style="padding: 5%;">
+                    
+                        <img src="{% static "img/feedback.png" %}" alt="Feedback" style="width:600px;height:450px;">
+                         
+                            
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+{% endblock content %}

@@ -8,7 +8,8 @@ from django.db.models.query import QuerySet
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from uuid import UUID
-
+from django.urls import reverse
+from django.db.models import Q
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 
@@ -85,7 +86,7 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     """
     model = Logger
     template_name = 'log/logger_unpublish.html'
-
+@login_required
 def logCreateView(request):
 
     # Get a list of all teams that the user is a part of
@@ -144,7 +145,7 @@ def logCreateView(request):
         messages.add_message(request, messages.SUCCESS, "Log Successfully created.")
         return redirect('log-list')
     return render(request, 'log/create_log.html', context=context)
-
+@login_required
 def logDetailView(request, *args, **kwargs):
 
     logtoview = kwargs.get('pk')
@@ -157,6 +158,28 @@ def logDetailView(request, *args, **kwargs):
 
     try:
         thelog = Logger.objects.get(id=logtoview)
+
+
+        allowedusers = []
+
+        allowedusers.append(thelog.user)
+
+        for users in thelog.access.all():
+            allowedusers.append(users)
+        
+        if thelog.project:
+            if request.user in thelog.project.team.members.all():
+                allowedusers.append(request.user)
+            pass
+
+
+        if request.user not in allowedusers:
+            return render(request, 'common/404.html', {})
+
+
+
+
+
         password = thelog.password
 
 
@@ -167,15 +190,19 @@ def logDetailView(request, *args, **kwargs):
 
         thelog.note = deciphered_text
 
+        userlist = thelog.access.all()
+
         context = {
             "log":thelog,
+            "userlist":userlist,
         }
 
         return render(request, 'log/view_log.html', context)
 
     except ObjectDoesNotExist:
         return HttpResponse("Error: Invalid log ID", status=400)
-    except:
+    except Exception as ಠ_ಠ:
+        print(ಠ_ಠ)
         messages.add_message(request, messages.ERROR, "Log data is corrupt. Decryption failed.")
         return redirect('log-list')
 
@@ -195,7 +222,7 @@ def fileUploadHandler(request):
     if request.method == "GET":
         return JsonResponse({"message":"Get method not allowed"})        
 
-
+@login_required
 def logDeleteView(request):
 
     if request.method != "GET":
@@ -222,15 +249,30 @@ def logDeleteView(request):
             return HttpResponse("Error: Invalid log ID", status=400)
 
 
-
+@login_required
 def logListView(request):
     context = {
-        "logs":Logger.objects.filter(user=request.user).filter(published=True).order_by('-date_created')
+        "logs":Logger.objects.filter(user=request.user).filter(published=True).order_by('-date_created'),
+        "page_title":"My logs:",
+        "userpage":True,
+    }
+    return render(request, 'log/list_view.html', context)
+    
+@login_required
+def allLogsView(request):
+    teams = request.user.team_set.all()
+    projects = Project.objects.filter(team__in=teams)
+    logs = Logger.objects.filter(project__in=projects).filter(published=True) | Logger.objects.filter(user=request.user).filter(published=True)
+
+    context = {
+        "logs":logs.order_by('-date_created'),
+        "page_title":"All logs:",
+        "userpage":True,
     }
     return render(request, 'log/list_view.html', context)
     
 
-
+@login_required
 def logEditView(request, *args, **kwargs):
 
     logtoview = kwargs.get('pk')
@@ -297,7 +339,7 @@ def logEditView(request, *args, **kwargs):
 
     return render(request, 'log/log_edit_view.html', context)
 
-
+@login_required
 def recBinView(request):
     if request.method != "GET":
         return HttpResponse("Error: Invalid request", status=400)
@@ -328,7 +370,6 @@ def recBinView(request):
             except ObjectDoesNotExist:
                 return HttpResponse("Error: Invalid log ID", status=400)
 
-
 def generatePassword(unpaddedPassword):
     if len(unpaddedPassword) < 32:
         generated_padding = (32-len(unpaddedPassword))*"#"
@@ -340,3 +381,100 @@ def generatePassword(unpaddedPassword):
     
     else:
         return unpaddedPassword
+
+@login_required
+def shareController(request):
+    if request.method == "GET":
+        return HttpResponse("GET request not allowed", status=403)
+    if request.method == "POST":
+        print(request.POST.dict())
+        usernames = request.POST.get('usernames', '')
+        logid = request.POST.get('loguuid', '')
+        
+        try:
+            logtoview = UUID(str(logid))
+            
+        except ValueError:
+            return JsonResponse({"message":"Log ID Invalid. Please contact Administrator."}, status=400)
+            
+        try:
+            thelog = Logger.objects.get(id=logtoview)
+            usernames = usernames.split(',')
+
+
+        except ObjectDoesNotExist:
+            return JsonResponse({"message":"Log ID Invalid. Please contact Administrator."}, status=400)
+        except Exception as ಠ_ಠ:
+            print(ಠ_ಠ)
+            return JsonResponse({"message":"An unknown error occurred."}, status=400)
+        print(usernames)
+        if usernames == [""]:
+            thelog.access.set([])
+            return JsonResponse({"message":"Shared users cleared successfully."})
+        
+
+        
+        doesnotexistlist = []
+        existslist = []
+        
+        # Remove the @ sign.
+        usernames = [x[1:] for x in usernames]
+
+        for users in usernames:
+            
+
+            try:
+                existslist.append(User.objects.get(username=users))
+
+            except ObjectDoesNotExist as ಠ_ಠ:
+                doesnotexistlist.append(users)
+            
+            except Exception as ಠ_ಠ:
+                return JsonResponse({"message":"An unknown error occurred."}, status=400)
+            
+        
+        if doesnotexistlist != []:
+            doesnotexistlist = ["@" + x for x in doesnotexistlist]
+
+            if len(doesnotexistlist) == 1:
+
+                return JsonResponse({"message":f"{doesnotexistlist[0]} does not exist."}, status=400)
+            else:
+                return JsonResponse({"message":'Usernames "' + ', '.join(doesnotexistlist) + '" do not exist.'}, status=400)
+
+        
+        thelog.access.set(existslist)
+    if request.method == "GET":
+        pass
+    shareurl = reverse('log-detail', args=[logid])
+    return JsonResponse({"message":f'Log shared Successfully<br>Link : <a href="{shareurl}">{shareurl}</a>'}, status=200)
+
+
+@login_required
+def mySharesView(request):
+
+    context = {
+        "logs":request.user.user_access.all().filter(published=True).order_by('-date_created'),
+        "page_title":"Shared with me:",
+        "userpage":False,
+    }
+    return render(request, 'log/list_view.html', context)
+    
+
+
+def searchResults(request):
+
+    query = request.GET.get('q', '')
+
+    teams = request.user.team_set.all()
+    projects = Project.objects.filter(team__in=teams)
+    logs = Logger.objects.filter(project__in=projects).filter(Q(title__icontains=query) | Q(short_description__icontains=query)) | (Logger.objects.filter(user=request.user)).filter(Q(title__icontains=query) | Q(short_description__icontains=query))
+
+    
+    context = {
+        "logs":logs,
+        "page_title":"Search results:",
+        "userpage":False,
+    }
+    return render(request, 'log/list_view.html', context)
+    

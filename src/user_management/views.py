@@ -2,6 +2,16 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .models import Profile
+from django.views.generic import (
+    View,
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 
 
 def register(request):
@@ -11,7 +21,8 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(
-                request, f'Your account has been created! You are now able to log in')
+                request,
+                f'Account "{ username }" has been created! Login Your account')
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -40,15 +51,21 @@ def profile(request):
         'p_form': p_form
     }
 
-    return render(request, 'user_management/profile.html', context)
-# def profile(request):
-#     return render(request, 'user_management/profile.html')
+    return render(request, 'user_management/profile_edit.html', context)
 
 
+class UserDetailView(LoginRequiredMixin, DetailView):
+    model = Profile
+    template_name = 'user_management/profile.html'
+    context_object_name = 'profile'
+
+
+@login_required
 def contact(request):
     return render(request, 'user_management/contact.html')
 
 
+@login_required
 def privacy(request):
     return render(request, 'user_management/privacy.html')
 
@@ -67,9 +84,16 @@ def notfound(request):
     return render(request, 'common/404.html')
 
 
-def faq(request):
-    return render(request, 'common/404.html')
+@login_required
+def faqs(request):
+    return render(request, 'user_management/faqs.html')
 
 
+@login_required
+def feedback(request):
+    return render(request, 'user_management/feedback.html')
+
+
+@login_required
 def tac(request):
     return render(request, 'common/404.html')
