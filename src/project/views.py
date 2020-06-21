@@ -9,6 +9,8 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Project, Team
+from log.models import Logger
+from django.contrib.auth.decorators import login_required
 
 
 class ProjectListView(LoginRequiredMixin,   ListView):
@@ -86,6 +88,44 @@ class ProjectListAllView(LoginRequiredMixin,  ListView):
     model = Project
     template_name = 'project/project_listall.html'
 
-
+@login_required
 def projectListView(request):
-    return render(request, 'project/projectList.html', {})
+    teams = request.user.team_set.all()
+    project_list = []
+
+    for project in Project.objects.filter(team__in=teams):
+        # add member and log count
+        project.nooflogs = Logger.objects.filter(project=project).count()
+        project.noofmembers = project.team.members.all().count()
+
+        # Limit description length
+        if len(project.description) > 130:
+            project.description = project.description[:130] + "..."
+        project_list.append(project)
+
+    
+        
+    context = {
+        "projects":project_list
+    }
+    return render(request, 'project/projectList.html', context)
+
+
+@login_required
+def projectCreateView(request):
+    if request.method == "GET":
+        context = {
+            "teams":request.user.team_set.all()
+        }
+        return render(request, 'project/createProject.html', context)
+
+    if request.method ==  "POST":
+        title = request.POST.get('project-title')
+        description = request.POST.get('project-description')
+
+        banner = request.POST.get('project-banner')
+        print(request.POST.dict())
+
+        print(type(banner))
+        print(title, description, banner)
+        return render(request, 'project/createProject.html', {})

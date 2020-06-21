@@ -3,7 +3,7 @@
     .projectcard {
         display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 100px;
+        grid-template-rows: 100px 180px;
         grid-template-areas: "image" "text" "stats";
         border-radius: 18px;
         background: white;
@@ -87,28 +87,27 @@
 </style>
 {% endblock styles %} {% block content %}
 <div class="container ">
+    <!-- header -->
     <div class="row justify-content-between">
         <div class="col-4">
             <h1> My Projects </h1>
         </div>
 
-
-
         <div class="col-4 mt-2">
             <a class="btn btn-primary fa-pull-right" href="{% url 'log-create' %}">New Project</a>
-
         </div>
-
-
-
     </div>
+
+    <!-- Divider -->
     <div class="row">
         <div class="col">
             <hr>
-
         </div>
     </div>
+
+    <!-- List of projects -->
     <div class="row">
+       {% for project in projects %}
         <div class="col-lg-4 col-12">
             <div class="projectcard">
                 <div style='grid-area: image;
@@ -119,140 +118,31 @@
                 <div class="projectcard-text">
 
                     <a href="#">
-                        <h2>Project 1</h2>
+                        <h2>{{ project.title }}</h2>
                     </a>
-                    <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod deserunt eligendi dolor</p>
+                    <p> {{ project.description }} </p>
                 </div>
                 <div class="projectcard-stats">
 
                     <div class="stat">
-                        <div class="value">23</div>
+                        <div class="value">{{ project.nooflogs }}</div>
                         <div class="type">Logs</div>
                     </div>
                     <div class="stat">
-                        <div class="value">8</div>
+                        <div class="value">{{ project.noofmembers }}</div>
                         <div class="type">Members</div>
                     </div>
                     <div class="stat">
-                        <div class="value">LogBois<sup></sup></div>
+                        <div class="value">{{ project.team.title }}<sup></sup></div>
                         <div class="type">Team</div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-4 col-12">
-            <div class="projectcard">
-                <div style='grid-area: image;
-            background: url("https://i.pinimg.com/originals/25/fd/82/25fd82083cca67ff257248d8fe6cf578.jpg");
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            background-size: cover;'></div>
-                <div class="projectcard-text">
-
-                    <a href="#">
-                        <h2>Project 2</h2>
-                    </a>
-                    <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod deserunt eligendi dolor</p>
-                </div>
-                <div class="projectcard-stats">
-
-                    <div class="stat">
-                        <div class="value">23</div>
-                        <div class="type">Logs</div>
-                    </div>
-                    <div class="stat">
-                        <div class="value">8</div>
-                        <div class="type">Members</div>
-                    </div>
-                    <div class="stat">
-                        <div class="value">LogBois<sup></sup></div>
-                        <div class="type">Team</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-12">
-            <div class="projectcard">
-                <div class="projectcard-image"></div>
-                <div class="projectcard-text">
-
-                    <a href="#">
-                        <h2>Project 3</h2>
-                    </a>
-                    <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod deserunt eligendi dolor</p>
-                </div>
-                <div class="projectcard-stats">
-
-                    <div class="stat">
-                        <div class="value">23</div>
-                        <div class="type">Logs</div>
-                    </div>
-                    <div class="stat">
-                        <div class="value">8</div>
-                        <div class="type">Members</div>
-                    </div>
-                    <div class="stat">
-                        <div class="value">LogBois<sup></sup></div>
-                        <div class="type">Team</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-12">
-            <div class="projectcard">
-                <div class="projectcard-image"></div>
-                <div class="projectcard-text">
-
-                    <a href="#">
-                        <h2>Project 4</h2>
-                    </a>
-                    <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod deserunt eligendi dolor</p>
-                </div>
-                <div class="projectcard-stats">
-
-                    <div class="stat">
-                        <div class="value">23</div>
-                        <div class="type">Logs</div>
-                    </div>
-                    <div class="stat">
-                        <div class="value">8</div>
-                        <div class="type">Members</div>
-                    </div>
-                    <div class="stat">
-                        <div class="value">LogBois<sup></sup></div>
-                        <div class="type">Team</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-12">
-            <div class="projectcard">
-                <div class="projectcard-image"></div>
-                <div class="projectcard-text">
-
-                    <a href="#">
-                        <h2>Project 1</h2>
-                    </a>
-                    <p>Lorem ipsum dolor sit amet consectetur, Ducimus, repudiandae temporibus omnis illum maxime quod deserunt eligendi dolor</p>
-                </div>
-                <div class="projectcard-stats">
-
-                    <div class="stat">
-                        <div class="value">23</div>
-                        <div class="type">Logs</div>
-                    </div>
-                    <div class="stat">
-                        <div class="value">8</div>
-                        <div class="type">Members</div>
-                    </div>
-                    <div class="stat">
-                        <div class="value">LogBois<sup></sup></div>
-                        <div class="type">Team</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        </div>{% endfor %}
     </div>
 </div>
 {% endblock content %} {% block scripts %} {% endblock scripts %}
+
+
+
+
