@@ -5,9 +5,9 @@ urlpatterns = [
     # Custom
     path('register/', user_views.register, name='register'),
     path('profile/', user_views.profile, name='profile'),
-
+    path('terms/', user_views.terms, name='terms'),
     path('privacy/', user_views.privacy, name='privacy'),
-
+    path('disclaimer/', user_views.disclaimer, name='disclaimer'),
 
     path('contact/', user_views.contact, name='contact'),
     path('404', user_views.notfound, name='notfound'),
