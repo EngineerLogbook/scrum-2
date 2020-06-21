@@ -85,3 +85,7 @@ class ProjectListAllView(LoginRequiredMixin,  ListView):
     """
     model = Project
     template_name = 'project/project_listall.html'
+
+
+def projectListView(request):
+    return render(request, 'project/projectList.html', {})
