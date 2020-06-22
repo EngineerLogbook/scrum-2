@@ -12,6 +12,7 @@ urlpatterns = [
 
 
     path('contact/', user_views.contact, name='contact'),
+    path('ourteam/', user_views.ourteam, name='ourteam'),
     path('404', user_views.notfound, name='notfound'),
     path('faqs/', user_views.faqs, name='faqs'),
     path('feedback/', user_views.feedback, name='feedback'),

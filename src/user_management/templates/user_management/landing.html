@@ -38,14 +38,14 @@
                                         <li><a class="active" href="index.html">Home</a></li>
                                         <li><a href="#aboutsection">About</a></li>
                                         <li><a href="#testimonials">Testimonials</a></li>
-                                        <li><a href="#">Our team</a></li>
+                                        <li><a href="{% url 'ourteam' %}" class="ourteam">Our team</a></li>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                             <div class="log_chat_area d-flex align-items-center">
-                                <a href="{% url 'login' %}" class="login ">
+                                <a href="{% url 'login' %}" class="login">
                                     <i class="fa fa-user"></i>
                                     <span>log in</span>
                                 </a>
@@ -93,7 +93,8 @@
             <div class="inner">
                 <h1>ABOUT</h1>
                 <div class="border"></div>
-                <br>
+                <br><h2 style="text-align: centre;">Eliminate Paper Logs and Spreadsheets</h2>
+                 <p style="text-align: centre;">LogBook allows you to harness the power of technology to eliminate the need for cumbersome paper logs and complex spreadsheets. Now you can even use your mobile device to collect notes and even files such as Images, Pdf's, Videos, Cad, Excel sheets etc. to sync directly into the LogBook.</p>
             </div>
         </div>
         <div class="row" style="background-color: #f1f1f1;">
@@ -110,6 +111,7 @@
                         <h3 style="text-align: left;">Build stronger communication and Collaboration</h3>
                         <p style="text-align: left;">LogBook gives you the platform to keep your team in the loop on what’s going on in your operation. Clearer communication ensures a safer more efficient operation.
                         </p>
+                        <hr>
                     </div>
                 </div>
                 <div class="row">
@@ -117,6 +119,7 @@
                         <h3 style="text-align: left;">Build stronger communication and Collaboration</h3>
                         <p style="text-align: left;">LogBook gives you the platform to keep your team in the loop on what’s going on in your operation. Clearer communication ensures a safer more efficient operation.
                         </p>
+                        <hr>
                     </div>
                     <div class="col-6">
                         <div class="">
@@ -137,6 +140,7 @@
                         <h3 style="text-align: left;">Build stronger communication and Collaboration</h3>
                         <p style="text-align: left;">LogBook gives you the platform to keep your team in the loop on what’s going on in your operation. Clearer communication ensures a safer more efficient operation.
                         </p>
+                        <hr>
                     </div>
                 </div>
             </div>
