@@ -69,9 +69,19 @@ def contact(request):
 def privacy(request):
     return render(request, 'user_management/privacy.html')
 
+def terms(request):
+    return render(request, 'user_management/terms.html')
+
+def disclaimer(request):
+    return render(request, 'user_management/disclaimer.html')
+
 
 def landing_page_view(request):
     return render(request, 'user_management/landing.html', context={})
+
+
+def ourteam(request):
+    return render(request, 'user_management/ourteam.html')
 
 
 def notfound(request):
