@@ -80,6 +80,10 @@ def landing_page_view(request):
     return render(request, 'user_management/landing.html', context={})
 
 
+def ourteam(request):
+    return render(request, 'user_management/ourteam.html')
+
+
 def notfound(request):
     return render(request, 'common/404.html')
 
