@@ -14,7 +14,29 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={'placeholder': 'Email', 'class': 'form-control'}),
+        max_length=254,
+    )
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder': 'First Name', 'class': 'form-control'}),
+        max_length=30,
+        required=True,
+    )
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Last Name', 'class': 'form-control'}),
+        max_length=30,
+        required=True,
+    )
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Username', 'class': 'form-control'}),
+        max_length=30,
+        required=True,
+    )
 
     class Meta:
         model = User
@@ -22,6 +44,14 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+
+    phone = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Phone', 'class': 'form-control'}),
+        max_length=30,
+        required=True,
+    )
+
     class Meta:
         model = Profile
         fields = ['gender', 'degree', 'field_study',
