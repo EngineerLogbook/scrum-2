@@ -12,7 +12,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
 
     <link rel="stylesheet" href="{% static 'landing/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'landing/style.css' %}">
 
 </head>
@@ -93,7 +93,7 @@
             <div class="inner">
                 <h1>ABOUT</h1>
                 <div class="border"></div>
-            
+
             </div>
         </div>
         <div class="row" style="background-color: #f1f1f1;">
@@ -108,7 +108,8 @@
 
                     <div class="col-6" style="padding: 2.3% 10%;">
                         <h3 style="text-align: left;">Keep your personal data safe and secure</h3>
-                        <p style="text-align: left;">LogBook allows you to harness the power of technology to eliminate the need for cumbersome paper logs and complex spreadsheets. Now you can even use your web browser to collect notes and even files such as Images, Pdf's, Videos, Cad files, Excel sheets etc. to sync directly into the LogBook, which is Encrypted i.e. totally secure and inaccessible to anyone else without your permission.                         </p>
+                        <p style="text-align: left;">LogBook allows you to harness the power of technology to eliminate the need for cumbersome paper logs and complex spreadsheets. Now you can even use your web browser to collect notes and even files such as Images, Pdf's, Videos,
+                            Cad files, Excel sheets etc. to sync directly into the LogBook, which is Encrypted i.e. totally secure and inaccessible to anyone else without your permission. </p>
                         <hr>
                     </div>
                 </div>
@@ -215,7 +216,9 @@
                                     document.write(new Date().getFullYear());
                                 </script>
                                 All rights reserved | Thapar Institute
-                                <a href="#" target="_blank"></a>
+                                <br>
+
+                                <a href="{% url 'terms' %}" target="_blank"> Terms of Service</a> | <a href="{% url 'disclaimer' %}" target="_blank"> Disclaimer</a>
 
                             </p>
                         </div>
