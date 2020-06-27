@@ -252,8 +252,8 @@ def logDeleteView(request):
 @login_required
 def logListView(request):
     context = {
-        "logs":Logger.objects.filter(user=request.user).filter(published=True).order_by('-date_created'),
-        "page_title":"My logs:",
+        "logs":Logger.objects.filter(user=request.user, project=None).filter(published=True).order_by('-date_created'),
+        "page_title":"Personal logs:",
         "userpage":True,
     }
     return render(request, 'log/list_view.html', context)
