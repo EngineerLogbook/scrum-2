@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Profile
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
 from django.views.generic import (
     View,
     ListView,
@@ -15,6 +16,9 @@ from django.views.generic import (
     DeleteView
 )
 
+class RedirectingLoginView(LoginView):
+    redirect_authenticated_user = True
+    template_name = 'user_management/login.html'
 
 def register(request):
     if request.method == 'POST':
