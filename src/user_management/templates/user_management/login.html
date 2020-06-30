@@ -4,18 +4,18 @@
 
 <body class="bg-gradient-primary">
 
-  <div class="container">
+  <div class="container" style="margin-bottom: 100px;">
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
 
-      <div class="col-xl-10 col-lg-12 col-md-9">
+      <div class="col-xl-12 col-lg-12 col-md-9">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 col-12">
                 <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="3000">
                   <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -38,6 +38,18 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
+                                  {% if messages %}
+                <div class="container">
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button> {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% endif %}
                   <form class="user" method="POST">
                     {% csrf_token %}
                     <div class="form-group controls">
@@ -79,8 +91,5 @@
     </div>
 
   </div>
-  <br>
-  <br>
-  <br>
-  <br>
+  
   {% endblock content %}

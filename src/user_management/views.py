@@ -28,6 +28,7 @@ def register(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
+   
     return render(request, 'user_management/register.html', {'form': form})
 
 
