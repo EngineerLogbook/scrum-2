@@ -129,3 +129,8 @@ def projectCreateView(request):
         print(type(banner))
         print(title, description, banner)
         return render(request, 'project/createProject.html', {})
+
+
+@login_required
+def gettingStartedView(request):
+    return render(request, 'project/teampage.html', {})

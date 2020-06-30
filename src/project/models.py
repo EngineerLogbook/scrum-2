@@ -62,7 +62,7 @@ class Project(DesignBaseClass):
         upload_to='project_header', blank=True, null=True)
     logo = models.ImageField(upload_to='project_logo', blank=True, null=True)
     project_admin = models.ForeignKey(User, on_delete=models.PROTECT, default=None, blank=True, null=True)
-
+    password = models.CharField(max_length=255, default='', blank=True, null=True)
 
 class Team(DesignBaseClass):
     """
@@ -73,6 +73,7 @@ class Team(DesignBaseClass):
     members = models.ManyToManyField(User)
     token = models.UUIDField(
         default=uuid.uuid4)  # email joining
+    password = models.CharField(max_length=255, default='', blank=True, null=True)
 
     def checkMembers(self):
         """

@@ -16,5 +16,6 @@ urlpatterns = [
     path('team/<uuid:pk>/update',
          views.TeamUpdateView.as_view(), name='team-update'),
     path('team/', views.TeamListView.as_view(), name='team-list'),
-    path('team/all', views.TeamListAllView.as_view(), name='team-listall')
+    path('team/all', views.TeamListAllView.as_view(), name='team-listall'),
+    path('get-started/', views.gettingStartedView, name='get-started')
 ]
