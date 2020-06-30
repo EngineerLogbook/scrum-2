@@ -47,15 +47,33 @@ class DesignBaseClass(models.Model):
         except:
             ValidationError("Internal Server Error")
 
+class Project(DesignBaseClass):
+    """
+        Project Models 
+    """
+
+    
+    access_token = models.UUIDField(
+        default=uuid.uuid4)
+
+    description = models.TextField(max_length=512)
+
+    image = models.ImageField(
+        upload_to='project_header', blank=True, null=True)
+    logo = models.ImageField(upload_to='project_logo', blank=True, null=True)
+    project_admin = models.ForeignKey(User, on_delete=models.PROTECT, default=None, blank=True, null=True)
+    password = models.CharField(max_length=255, default='', blank=True, null=True)
 
 class Team(DesignBaseClass):
     """
     Teams for Capstone Project Profanity Check
     """
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=None, blank=True, null=True)
     description = models.CharField(max_length=255)
     members = models.ManyToManyField(User)
     token = models.UUIDField(
         default=uuid.uuid4)  # email joining
+    password = models.CharField(max_length=255, default='', blank=True, null=True)
 
     def checkMembers(self):
         """
@@ -67,18 +85,3 @@ class Team(DesignBaseClass):
             return ValidationError(" Less 2 Members not Allowed")
 
 
-class Project(DesignBaseClass):
-    """
-        Project Models 
-    """
-
-    team = models.ForeignKey(
-        Team,  on_delete=models.PROTECT)
-    access_token = models.UUIDField(
-        default=uuid.uuid4)
-
-    description = models.TextField(max_length=512)
-
-    image = models.ImageField(
-        upload_to='project_header', blank=True, null=True)
-    logo = models.ImageField(upload_to='project_logo', blank=True, null=True)

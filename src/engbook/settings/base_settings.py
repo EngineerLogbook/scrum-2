@@ -127,3 +127,5 @@ MESSAGE_TAGS = {
 
 
 LOGOUT_REDIRECT_URL = "landing-page"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

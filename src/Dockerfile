@@ -19,15 +19,11 @@ RUN apk add build-base python-dev py-pip jpeg-dev zlib-dev
 
 # install psycopg2 dependencies
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev
+    && apk add --no-cache postgresql-dev gcc python3-dev musl-dev libffi-dev openssl-dev
 
 # install packages
 COPY ./requirements.txt /usr/src/app/requirements.txt
-RUN python -m pip install -U --force-reinstall pip
-RUN pip install wheel
-RUN pip install -r requirements.txt
-RUN pip install gunicorn==19.9.0
-RUN pip install psycopg2-binary==2.8.3
+RUN python -m pip install -U --force-reinstall pip && pip install wheel && pip install -r requirements.txt && pip install gunicorn==19.9.0 psycopg2-binary==2.8.3
 
 
 # copy entrypoint.sh
