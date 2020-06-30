@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Profile
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import (
     View,
     ListView,
@@ -20,9 +22,9 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            # messages.success(
-            #     request,
-            #     f'Account "{ username }" has been created! You can now log in.')
+            messages.success(
+                request,
+                f'Account "{ username }" has been created! You can now log in.')
             return redirect('login')
     else:
         form = UserRegisterForm()
