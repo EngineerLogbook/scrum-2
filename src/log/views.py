@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.db.models import Q
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
-
+import re
 from django.views.generic import (
     View,
     ListView,
@@ -188,7 +188,9 @@ def logDetailView(request, *args, **kwargs):
 
         deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
 
-        thelog.note = deciphered_text
+        thelog.note = re.sub('+','',deciphered_text)
+        
+
 
         userlist = thelog.access.all()
 
@@ -293,7 +295,7 @@ def logEditView(request, *args, **kwargs):
 
         deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
 
-        thelog.note = deciphered_text
+        thelog.note = re.sub('+','',deciphered_text)
     except ObjectDoesNotExist:
         return HttpResponse("Error: Invalid log ID", status=400)
     except:
