@@ -12,6 +12,7 @@ class TeamAdmin(admin.ModelAdmin):
         'description',
         'members',
         'token',
+        'project',
         'reviewed',
     )
 
@@ -34,7 +35,7 @@ class TeamAdmin(admin.ModelAdmin):
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     fields = (
-        'team',
+
         'title',
         'description',
         'image',
@@ -46,7 +47,6 @@ class ProjectAdmin(admin.ModelAdmin):
 
     list_display = (
         'title',
-        'team',
         'date_created',
         'slug',
 
@@ -58,5 +58,5 @@ class ProjectAdmin(admin.ModelAdmin):
         'published',
         'reviewed',
     )
-    list_filter = ('date_created', 'published', 'reviewed', 'team')
+    list_filter = ('date_created', 'published', 'reviewed')
     search_fields = ('slug',)

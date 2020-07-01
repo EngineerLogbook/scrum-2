@@ -13,6 +13,7 @@ from log.models import Logger
 from django.contrib.auth.decorators import login_required
 
 
+
 class ProjectListView(LoginRequiredMixin,   ListView):
     """
         Lists of Projects in a single view of a Specific Logged IN USER
@@ -90,10 +91,15 @@ class ProjectListAllView(LoginRequiredMixin,  ListView):
 
 @login_required
 def projectListView(request):
+    
     teams = request.user.team_set.all()
     project_list = []
 
-    for project in Project.objects.filter(team__in=teams):
+    for team in teams:
+        try:
+            project = team.project
+        except:
+            pass
         # add member and log count
         project.nooflogs = Logger.objects.filter(project=project).count()
         project.noofmembers = project.team.members.all().count()
