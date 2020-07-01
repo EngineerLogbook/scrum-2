@@ -1,0 +1,148 @@
+{% extends 'common/base.html' %} {% load static %} {% block styles %}
+<style>
+    .projectcard {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 100px 180px;
+        grid-template-areas: "image" "text" "stats";
+        border-radius: 18px;
+        background: white;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
+        font-family: roboto;
+        text-align: center;
+        transition: 0.5s ease;
+        cursor: pointer;
+        margin: 25px;
+    }
+    
+    .projectcard-image {
+        grid-area: image;
+        background: url("https://i.pinimg.com/originals/25/fd/82/25fd82083cca67ff257248d8fe6cf578.jpg");
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        background-size: cover;
+    }
+    
+    .projectcard-text {
+        grid-area: text;
+        margin: 25px;
+    }
+    
+    .projectcard-text p {
+        color: grey;
+        font-size: 15px;
+        font-weight: 300;
+    }
+    
+    .projectcard-text h2 {
+        margin-top: 0px;
+        font-size: 28px;
+    }
+    
+    .projectcard-stats {
+        grid-area: stats;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background: rgb(0, 74, 158);
+    }
+    
+    .projectcard-stats .stat {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: white;
+    }
+    
+    .projectcard-stats .border {
+        border-left: 1px solid rgb(172, 26, 87);
+        border-right: 1px solid rgb(172, 26, 87);
+    }
+    
+    .projectcard-stats .value {
+        font-size: 22px;
+        font-weight: 500;
+    }
+    
+    .projectcard-stats .value sup {
+        font-size: 12px;
+    }
+    
+    .projectcard-stats .type {
+        font-size: 11px;
+        font-weight: 300;
+        text-transform: uppercase;
+    }
+    
+    .projectcard:hover {
+        transform: scale(1.10);
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+    }
+    
+    .stat-border-left {}
+</style>
+{% endblock styles %} {% block content %}
+<div class="container ">
+    <!-- header -->
+    <div class="row justify-content-between">
+        <div class="col-4">
+            <h1> My Projects </h1>
+        </div>
+
+        <div class="col-4 mt-2">
+            <a class="btn btn-primary fa-pull-right" href="{% url 'log-create' %}">New Project</a>
+        </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+
+    <!-- List of projects -->
+    <div class="row">
+       {% for project in projects %}
+        <div class="col-lg-4 col-12">
+            <div class="projectcard">
+                <div style='grid-area: image;
+            background: url("https://i.pinimg.com/originals/25/fd/82/25fd82083cca67ff257248d8fe6cf578.jpg");
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            background-size: cover;'></div>
+                <div class="projectcard-text">
+
+                    <a href="#">
+                        <h2>{{ project.title }}</h2>
+                    </a>
+                    <p> {{ project.description }} </p>
+                </div>
+                <div class="projectcard-stats">
+
+                    <div class="stat">
+                        <div class="value">{{ project.nooflogs }}</div>
+                        <div class="type">Logs</div>
+                    </div>
+                    <div class="stat">
+                        <div class="value">{{ project.noofmembers }}</div>
+                        <div class="type">Members</div>
+                    </div>
+                    <div class="stat">
+                        <div class="value">{{ project.team.title }}<sup></sup></div>
+                        <div class="type">Team</div>
+                    </div>
+                </div>
+            </div>
+        </div>{% endfor %}
+    </div>
+</div>
+{% endblock content %} {% block scripts %} {% endblock scripts %}
+
+
+
+

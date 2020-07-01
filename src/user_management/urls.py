@@ -13,6 +13,7 @@ urlpatterns = [
     path('disclaimer/', user_views.disclaimer, name='disclaimer'),
 
     path('contact/', user_views.contact, name='contact'),
+    path('ourteam/', user_views.ourteam, name='ourteam'),
     path('404', user_views.notfound, name='notfound'),
     path('faqs/', user_views.faqs, name='faqs'),
     path('feedback/', user_views.feedback, name='feedback'),
@@ -20,7 +21,7 @@ urlpatterns = [
     path('privacypolicy/', user_views.privacy, name='privacy-policy'),
 
     # In Built
-    path('login/', auth_views.LoginView.as_view(template_name='user_management/login.html'), name='login'),
+    path('login/', user_views.RedirectingLoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(
         template_name='user_management/logout.html'), name='logout'),
     path('password-reset/', auth_views.PasswordResetView.as_view(

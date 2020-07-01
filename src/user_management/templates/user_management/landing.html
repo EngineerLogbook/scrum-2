@@ -12,7 +12,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
 
     <link rel="stylesheet" href="{% static 'landing/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'landing/style.css' %}">
 
 </head>
@@ -38,14 +38,14 @@
                                         <li><a class="active" href="index.html">Home</a></li>
                                         <li><a href="#aboutsection">About</a></li>
                                         <li><a href="#testimonials">Testimonials</a></li>
-                                        <li><a href="#">Our team</a></li>
+                                        <li><a href="{% url 'ourteam' %}" class="ourteam">Our team</a></li>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                             <div class="log_chat_area d-flex align-items-center">
-                                <a href="{% url 'login' %}" class="login ">
+                                <a href="{% url 'login' %}" class="login">
                                     <i class="fa fa-user"></i>
                                     <span>log in</span>
                                 </a>
@@ -89,14 +89,14 @@
 
 
     <div class="all_courses">
-        <div class="testimonials" id="aboutsection">
-            <div class="inner">
+        <div class="testimonials" id="aboutsection" style="background-color: #fff;">
+            <div class="inner" >
                 <h1>ABOUT</h1>
                 <div class="border"></div>
-                <br>
+
             </div>
         </div>
-        <div class="row" style="background-color: #f1f1f1;">
+        <div class="row" style="background-color: #fff;">
             <div class="col-12" style="margin-left: 0em;">
                 <div class="row">
                     <div class="col-6">
@@ -106,17 +106,18 @@
                         </div>
                     </div>
 
-                    <div class="col-6" style="padding: 3% 10%;">
-                        <h3 style="text-align: left;">Build stronger communication and Collaboration</h3>
-                        <p style="text-align: left;">LogBook gives you the platform to keep your team in the loop on what’s going on in your operation. Clearer communication ensures a safer more efficient operation.
-                        </p>
+                    <div class="col-6" style="padding: 2.3% 10%;">
+                        <h3 style="text-align: left;">Keep your personal data Safe and Secure</h3>
+                        <p style="text-align: left;">LogBook allows you to harness the power of technology to eliminate the need for cumbersome paper logs and complex spreadsheets. Now you can even use your web browser to collect notes and even files such as Images, Pdf's, Videos, Cad files, Excel sheets etc. to sync directly into the LogBook, which is Encrypted i.e. totally secure and inaccessible to anyone else without your permission.                         </p>
+                        <hr>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6" style="padding: 3% 10%;">
-                        <h3 style="text-align: left;">Build stronger communication and Collaboration</h3>
-                        <p style="text-align: left;">LogBook gives you the platform to keep your team in the loop on what’s going on in your operation. Clearer communication ensures a safer more efficient operation.
+                        <h3 style="text-align: left;">Build stronger Communication and Collaboration</h3>
+                        <p style="text-align: left;">LogBook gives you the platform to build your team and work together. Clearer communication ensures a more efficient operation.
                         </p>
+                        <hr>
                     </div>
                     <div class="col-6">
                         <div class="">
@@ -133,10 +134,11 @@
 
                         </div>
                     </div>
-                    <div class="col-6" style="padding: 3% 10%;">
-                        <h3 style="text-align: left;">Build stronger communication and Collaboration</h3>
-                        <p style="text-align: left;">LogBook gives you the platform to keep your team in the loop on what’s going on in your operation. Clearer communication ensures a safer more efficient operation.
+                    <div class="col-6" style="padding: 3.3% 10%;">
+                        <h3 style="text-align: left;">Access to Sharing</h3>
+                        <p style="text-align: left;">LogBook gives you the platform and the advantage to share your work with the team members involved in a project, even with the non team members such as professors for the evaluation of the daily work  done during the Capstone Project.
                         </p>
+                        <hr>
                     </div>
                 </div>
             </div>
@@ -172,7 +174,7 @@
 
                     <div class="col">
                         <div class="testimonial">
-                            <img src="{% static 'landing/p2.png' %}" alt="">
+                            <img src="{% static 'landing/img/ajay.PNG' %}" alt="">
                             <div class="name">Ajay Batish</div>
 
                             <p>
@@ -185,7 +187,7 @@
                         <div class="testimonial">
                             <img src="{% static 'landing/img/sksharma.png' %}" alt="">
                             <div class="name" style="margin: 20px 0 0 0;">Sandeep Sharma</div>
-                            <p>-Assistant Professor</p>
+                            <p>-Associate Professor</p>
                             <hr>
 
                             <p>
@@ -196,6 +198,8 @@
                         </div>
                     </div>
                 </div>
+                                                <a href="http://www.thapar.edu/""><img src="{% static 'landing/img/thaparlogo.png' %}" alt=""></a>
+
             </div>
         </div>
         <!-- Footer Starts -->
@@ -213,7 +217,9 @@
                                     document.write(new Date().getFullYear());
                                 </script>
                                 All rights reserved | Thapar Institute
-                                <a href="#" target="_blank"></a>
+                                <br>
+
+                                <a href="{% url 'terms' %}" target="_blank"> Terms of Service</a> | <a href="{% url 'disclaimer' %}" target="_blank"> Disclaimer</a>
 
                             </p>
                         </div>
