@@ -3,7 +3,8 @@ import uuid
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
-
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 # Create your models here.
 
 
@@ -47,12 +48,12 @@ class DesignBaseClass(models.Model):
         except:
             ValidationError("Internal Server Error")
 
+
 class Project(DesignBaseClass):
     """
         Project Models 
     """
 
-    
     access_token = models.UUIDField(
         default=uuid.uuid4)
 
@@ -61,19 +62,28 @@ class Project(DesignBaseClass):
     image = models.ImageField(
         upload_to='project_header', blank=True, null=True)
     logo = models.ImageField(upload_to='project_logo', blank=True, null=True)
-    project_admin = models.ForeignKey(User, on_delete=models.PROTECT, default=None, blank=True, null=True)
-    password = models.CharField(max_length=255, default='', blank=True, null=True)
+    project_admin = models.ForeignKey(
+        User, on_delete=models.PROTECT, default=None, blank=True, null=True)
+    password = models.CharField(
+        max_length=255, default='', blank=True, null=True)
+    logo_thumbnail = ImageSpecField(source='logo',
+                                    processors=[ResizeToFill(150, 150)],
+                                    format='JPEG',
+                                    options={'quality': 60})
+
 
 class Team(DesignBaseClass):
     """
     Teams for Capstone Project Profanity Check
     """
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, default=None, blank=True, null=True)
     description = models.CharField(max_length=255)
     members = models.ManyToManyField(User)
     token = models.UUIDField(
         default=uuid.uuid4)  # email joining
-    password = models.CharField(max_length=255, default='', blank=True, null=True)
+    password = models.CharField(
+        max_length=255, default='', blank=True, null=True)
 
     def checkMembers(self):
         """
@@ -83,5 +93,3 @@ class Team(DesignBaseClass):
             return True
         else:
             return ValidationError(" Less 2 Members not Allowed")
-
-

@@ -13,7 +13,6 @@ from log.models import Logger
 from django.contrib.auth.decorators import login_required
 
 
-
 class ProjectListView(LoginRequiredMixin,   ListView):
     """
         Lists of Projects in a single view of a Specific Logged IN USER
@@ -40,6 +39,11 @@ class ProjectDetailView(LoginRequiredMixin,  DetailView):
     model = Project
     context_object_name = 'project'
     template_name = 'project/project_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project_teams'] = Team.objects.filter(project=self.object)
+        return context
 
 
 class ProjectUpdateView(LoginRequiredMixin,  UpdateView):
@@ -89,9 +93,10 @@ class ProjectListAllView(LoginRequiredMixin,  ListView):
     model = Project
     template_name = 'project/project_listall.html'
 
+
 @login_required
 def projectListView(request):
-    
+
     teams = request.user.team_set.all()
     project_list = []
 
@@ -109,10 +114,8 @@ def projectListView(request):
             project.description = project.description[:130] + "..."
         project_list.append(project)
 
-    
-        
     context = {
-        "projects":project_list
+        "projects": project_list
     }
     return render(request, 'project/projectList.html', context)
 
@@ -121,11 +124,11 @@ def projectListView(request):
 def projectCreateView(request):
     if request.method == "GET":
         context = {
-            "teams":request.user.team_set.all()
+            "teams": request.user.team_set.all()
         }
         return render(request, 'project/createProject.html', context)
 
-    if request.method ==  "POST":
+    if request.method == "POST":
         title = request.POST.get('project-title')
         description = request.POST.get('project-description')
 
