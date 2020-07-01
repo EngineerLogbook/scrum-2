@@ -43,14 +43,13 @@ def project_history(sender, instance, created, **kwargs):
     if created:
         History.objects.create(
             project=instance,
-            team=instance.team,
+
             message=f'Project "{instance.title}" Created'
         )
 
     else:
         History.objects.create(
             project=instance,
-            team=instance.team,
             message=f'Project "{instance.title}" Modified'
         )
 
