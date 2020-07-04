@@ -235,8 +235,10 @@
 
                 if (request.status == 200) {
                     show_alert(`${request.response.message}`, "success", `${request.response.link}`);
+                } else if (request.status == 413){
+                    show_alert(`Error : File exceeds the 25MB limit. `, "danger");
                 } else {
-                    show_alert(`Error uploading file`, "danger");
+                    show_alert(`Error uploading file - Code ${request.status}`, "danger");
                 }
 
                 reset();
@@ -244,8 +246,9 @@
             });
 
             request.addEventListener("error", function(e) {
+                console.log(e);
                 reset();
-                show_alert(`Error uploading file`, "warning");
+                show_alert(`Error uploading file - Code ${request.status}`, "danger");
 
             });
 

@@ -12,10 +12,6 @@ then
     echo "PostgreSQL started"
 fi
 
-# Clean the database and remove all tables
-python manage.py flush --noinput
-
-
 # Generate new database tables
 python manage.py migrate
 
@@ -25,7 +21,7 @@ python manage.py collectstatic --noinput
 # Generate superuser
 export DJANGO_SUPERUSER_PASSWORD="password"
 export DJANGO_SUPERUSER_USERNAME="admin"
-export DJANGO_SUPERUSER_EMAIL="testmail@example.com"
+export DJANGO_SUPERUSER_EMAIL="logbook@thapar.edu"
 python manage.py createsuperuser --noinput
 
 
