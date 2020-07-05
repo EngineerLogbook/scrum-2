@@ -86,20 +86,22 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     """
     model = Logger
     template_name = 'log/logger_unpublish.html'
+
 @login_required
 def logCreateView(request):
 
-    # Get a list of all teams that the user is a part of
+    
     user_teams = request.user.team_set.all()
     project_list = []
 
-    # Get a list of all projects that the user's teams have made
     for team in user_teams:
-        [project_list.append(x) for x in team.project_set.all()]
+        project_list.append(team.project)
 
+    
     # pass in this list
     context = {
         "projects":project_list,
+        
     }
     if request.method == "POST":
         log_title = request.POST.get('log-title', "")
@@ -168,7 +170,7 @@ def logDetailView(request, *args, **kwargs):
             allowedusers.append(users)
         
         if thelog.project:
-            if request.user in thelog.project.team.members.all():
+            if (request.user.team_set.all() & thelog.project.team_set.all()).exists():
                 allowedusers.append(request.user)
             pass
 
@@ -186,9 +188,12 @@ def logDetailView(request, *args, **kwargs):
         BLOCK_SIZE = 32
         encryption_suite = AES.new(password.encode(), AES.MODE_ECB)
 
-        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
+        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note))
+        padding = deciphered_text[-1]
+        deciphered_text = deciphered_text[:-padding].decode()
 
-        thelog.note = re.sub('+','',deciphered_text)
+
+        thelog.note = deciphered_text
         
 
 
@@ -293,9 +298,11 @@ def logEditView(request, *args, **kwargs):
         BLOCK_SIZE = 32
         encryption_suite = AES.new(password.encode(), AES.MODE_ECB)
 
-        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
+        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note))
+        padding = deciphered_text[-1]
+        deciphered_text = deciphered_text[:-padding].decode()
 
-        thelog.note = re.sub('+','',deciphered_text)
+        thelog.note = deciphered_text
     except ObjectDoesNotExist:
         return HttpResponse("Error: Invalid log ID", status=400)
     except:
@@ -323,17 +330,9 @@ def logEditView(request, *args, **kwargs):
 
 
 
-    # Get a list of all teams that the user is a part of
-    user_teams = request.user.team_set.all()
-    project_list = []
-
-    # Get a list of all projects that the user's teams have made
-    for team in user_teams:
-        [project_list.append(x) for x in team.project_set.all()]
 
     context = {
         "log":thelog,
-        "projects":project_list,
 
     }
 

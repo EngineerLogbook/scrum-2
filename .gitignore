@@ -154,3 +154,5 @@ db.sqlite3
 
 docs/public/
 .DS_STORE
+
+backup/rclone.conf

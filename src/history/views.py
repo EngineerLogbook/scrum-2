@@ -22,7 +22,7 @@ def completeHistoryView(request):
     user_teams = request.user.team_set.all()
     for team in user_teams:
         [history_list.append(te.id) for te in team.history_set.all()]
-        for project in team.project_set.all():
+        for project in Project.objects.all():
             [history_list.append(te.id) for te in project.history_set.all()]
 
     [history_list.append(te.id) for te in request.user.history_set.all()]
