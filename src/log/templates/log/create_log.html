@@ -113,13 +113,13 @@
                             <div class="mb-3 mt-3">
 
                                 <h2 class="mb-3" style="font-weight: 300">Upload Attachment</h2>
-
                                 <div class="form-group mb-3">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" name="file_input" id="file_input" oninput="input_filename();">
                                         <label id="file_input_label" class="custom-file-label" for="image">Select file</label>
                                     </div>
                                 </div>
+                                <p> <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i> Warning : Files you upload as attachments are unencrypted. <br>Please encrypt before uploading sensitive data. <a href="https://www.digitalcitizen.life/create-password-protected-zip-file-windows"> More Info </a></a></p>
 
                                 <button onclick="upload();" id="upload_btn" class="btn btn-primary">Upload</button>
 
