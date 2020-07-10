@@ -2,7 +2,9 @@
 
 
 <link rel="stylesheet" href="{% static 'log/createlog.css' %}">
-<link rel="stylesheet" href="{% static 'log/simplemde.min.css' %}"> {% endblock styles %} {% block content %}
+<link rel="stylesheet" href="{% static 'log/simplemde.min.css' %}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+{% endblock styles %} {% block content %}
 
 
 <div class="container-fluid">
@@ -19,7 +21,8 @@
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="validationCustom01">Title</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder="Log Title" value="" name="log-title" required>
+                            <input type="text" class="form-control" id="validationCustom01" placeholder="Log Title"
+                                value="" name="log-title" required>
                             <div class="invalid-feedback">
                                 Title cannot be blank
                             </div>
@@ -31,7 +34,10 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroupPrepend">#</span>
                                 </div>
-                                <input name="log-description" type="text" class="form-control" id="validationCustomUsername" placeholder="Enter a short description for searchability" aria-describedby="inputGroupPrepend">
+                                <input name="log-description" type="text" class="form-control"
+                                    id="validationCustomUsername"
+                                    placeholder="Enter a short description for searchability"
+                                    aria-describedby="inputGroupPrepend">
 
                             </div>
                         </div>
@@ -50,25 +56,29 @@
 
                         <div class="col-md-6 mb-3">
                             <select id="inputState" class="form-control" name="selection">
-                              <option selected>Personal Log</option>
-                              {% for project in projects %}
-                              
-                              <option> {{ project.title }} </option>
-                              {% endfor %}
+                                <option selected>Personal Log</option>
+                                {% for project in projects %}
+
+                                <option> {{ project.title }} </option>
+                                {% endfor %}
 
                             </select>
                         </div>
                         <div class="input-group mb-3 col-md-6">
 
 
-                            <input name="custom-password" type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Encrypt with custom password" id="passwordCustom" disabled required>
+                            <input name="custom-password" type="text" class="form-control"
+                                aria-label="Text input with checkbox" placeholder="Encrypt with custom password"
+                                id="passwordCustom" disabled required>
 
                             <div class="input-group-append" id="aaa">
                                 <div class="input-group-text">
-                                    <input type="checkbox" name="custom-password-check" aria-label="Checkbox for following text input" onmousedown="document.getElementById('passwordCustom').disabled = this.checked">
+                                    <input type="checkbox" name="custom-password-check"
+                                        aria-label="Checkbox for following text input"
+                                        onmousedown="document.getElementById('passwordCustom').disabled = this.checked">
                                 </div>
                             </div>
-                                                                                    <div class="invalid-feedback">
+                            <div class="invalid-feedback">
                                 Fill in a custom password or uncheck for default.
                             </div>
                         </div>
@@ -89,9 +99,12 @@
 
 
                     <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Create Log</button>
+                        <button class="btn btn-primary fa-pull-right" type="submit">Create Log</button>
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                            data-target="#userFilesModal"> Saved Attachments</button>
+                        <button type="button" class="btn btn-outline-primary" data-toggle="modal"
+                            data-target="#exampleModalCenter"> New Attachment </button>
 
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter"> Upload files </button>
                     </div>
 
                 </form>
@@ -101,8 +114,51 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="userFilesModal" tabindex="-1" role="dialog" aria-labelledby="userFilesModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="userFilesModalLabel">My Attachments</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <table id="userFiles" class="display" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Size (KB)</th>
+                            <th>Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for attachment in files %}
+                        <tr>
+                            <td>{{ attachment.title }}</td>
+                            <td>{{ attachment.file.size | filesizeformat}}</td>
+                            <td><a href="{{ attachment.file.url }}" class="btn btn-outline-primary" onclick="copyURI(event)">Copy</a></td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+                <br>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-body">
@@ -115,27 +171,36 @@
                                 <h2 class="mb-3" style="font-weight: 300">Upload Attachment</h2>
                                 <div class="form-group mb-3">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="file_input" id="file_input" oninput="input_filename();">
-                                        <label id="file_input_label" class="custom-file-label" for="image">Select file</label>
+                                        <input type="file" class="custom-file-input" name="file_input" id="file_input"
+                                            oninput="input_filename();">
+                                        <label id="file_input_label" class="custom-file-label" for="image">Select
+                                            file</label>
                                     </div>
                                 </div>
-                                <p> <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i> Warning : Files you upload as attachments are unencrypted. <br>Please encrypt before uploading sensitive data. <a href="https://www.digitalcitizen.life/create-password-protected-zip-file-windows"> More Info </a></a></p>
+                                <p> <i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i> Warning :
+                                    Files you upload as attachments are unencrypted. <br>Please encrypt before uploading
+                                    sensitive data. <a
+                                        href="https://www.digitalcitizen.life/create-password-protected-zip-file-windows">
+                                        More Info </a></a></p>
 
                                 <button onclick="upload();" id="upload_btn" class="btn btn-primary">Upload</button>
 
                                 <button class="btn btn-primary d-none" id="loading_btn" type="button" disabled>
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            Uploading...
-                          </button>
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
+                                    Uploading...
+                                </button>
 
-                                <button type="button" id="cancel_btn" class="btn btn-secondary d-none">Cancel upload</button>
+                                <button type="button" id="cancel_btn" class="btn btn-secondary d-none">Cancel
+                                    upload</button>
 
                             </div>
 
                             <div id="progress_wrapper" class="d-none">
                                 <label id="progress_status"></label>
                                 <div class="progress mb-3">
-                                    <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="25"
+                                        aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
 
@@ -219,9 +284,9 @@
 
             data.append("file", file);
             data.append('csrfmiddlewaretoken', '{{ csrf_token }}');
-            
 
-            request.upload.addEventListener("progress", function(e) {
+
+            request.upload.addEventListener("progress", function (e) {
 
                 var loaded = e.loaded;
                 var total = e.total
@@ -232,11 +297,11 @@
 
             })
 
-            request.addEventListener("load", function(e) {
+            request.addEventListener("load", function (e) {
 
                 if (request.status == 200) {
                     show_alert(`${request.response.message}`, "success", `${request.response.link}`);
-                }  else {
+                } else {
                     show_alert(`Error uploading file - Code ${request.status} : ${request.response.message}`, "danger");
                 }
 
@@ -244,14 +309,14 @@
 
             });
 
-            request.addEventListener("error", function(e) {
+            request.addEventListener("error", function (e) {
                 console.log(e);
                 reset();
                 show_alert(`Unable to upload: Please check your internet connection. Code : ${request.status}`, "danger");
 
             });
 
-            request.addEventListener("abort", function(e) {
+            request.addEventListener("abort", function (e) {
                 reset();
                 show_alert(`Upload cancelled`, "primary");
 
@@ -260,7 +325,7 @@
             request.open("post", "{% url 'file-upload' %}");
             request.send(data);
 
-            cancel_btn.addEventListener("click", function() {
+            cancel_btn.addEventListener("click", function () {
                 request.abort();
             })
 
@@ -282,11 +347,19 @@
             file_input_label.innerText = "Select file";
 
         }
+        $(document).ready(function () {
+            $('#userFiles').DataTable();
+        });
+
+        function copyURI(evt) {
+            evt.preventDefault();
+            navigator.clipboard.writeText(event.currentTarget.href);
+        }
     </script>
 
     <script src="{% static 'log/createlog.js' %}"></script>
     <script src="{% static 'log/simplemde.min.js' %}"></script>
     <script src="{% static 'log/markdown.js' %}"></script>
-
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
     {% endblock scripts %}

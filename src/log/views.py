@@ -103,6 +103,7 @@ def logCreateView(request):
     # pass in this list
     context = {
         "projects":project_list,
+        "files":LogFile.objects.filter(user=request.user),
         
     }
     if request.method == "POST":
@@ -148,6 +149,7 @@ def logCreateView(request):
 
         messages.add_message(request, messages.SUCCESS, "Log Successfully created.")
         return redirect('log-list')
+    
     return render(request, 'log/create_log.html', context=context)
 @login_required
 def logDetailView(request, *args, **kwargs):
@@ -350,6 +352,7 @@ def logEditView(request, *args, **kwargs):
 
     context = {
         "log":thelog,
+        "files":LogFile.objects.filter(user=request.user),
 
     }
 
