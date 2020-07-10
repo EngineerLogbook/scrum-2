@@ -35,6 +35,8 @@ class Logger(DesignBaseClass):
         self.date_modified = timezone.now()
         super(Logger, self).save(*args, **kwargs)
 
+def user_directory_path(instance, filename):
+    return 'logfile/user_{0}/{1}'.format(instance.user.username, filename)
 
 class LogFile(DesignBaseClass):
     FILE_TYPES = [
@@ -44,9 +46,9 @@ class LogFile(DesignBaseClass):
         ("misc", "misc")
     ]
 
-    file = models.FileField(upload_to="logfile")
+    file = models.FileField(upload_to=user_directory_path)
     filetype = models.CharField(max_length=100, choices=FILE_TYPES, null=True, blank=True)
-    log = models.ForeignKey(Logger, on_delete=models.PROTECT, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class LogURL(models.Model):

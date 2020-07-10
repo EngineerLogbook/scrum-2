@@ -9,10 +9,10 @@ from project.models import Project, Team
 class History(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date_created = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True, blank=True)
-    project = models.ForeignKey(Project, on_delete=models.PROTECT, null=True, blank=True)
-    team = models.ForeignKey(Team, on_delete=models.PROTECT, null=True, blank=True)
-    logger = models.ForeignKey(Logger, on_delete=models.PROTECT, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True)
+    team = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True, blank=True)
+    logger = models.ForeignKey(Logger, on_delete=models.SET_NULL, null=True, blank=True)
     message = models.TextField(null=True, blank=True)
 
     class Meta:

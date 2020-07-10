@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.contrib.auth.models import User
 from project.models import Project, Team
 from log.models import Logger
@@ -71,3 +71,16 @@ def team_history(sender, instance, created, **kwargs):
             team=instance,
             message=f'Team "{instance.title}" Modified '
         )
+
+@receiver(pre_delete, sender=Logger)
+def project_history(sender, instance, **kwargs):
+
+    listOhistories = History.objects.filter(logger=instance)
+    for hist in listOhistories:
+        hist.message += " (Log No Longer Exists)"
+        hist.save()
+    History.objects.create(
+        message=f'Log "{instance.title}" deleted.',
+        user=instance.user
+    )
+

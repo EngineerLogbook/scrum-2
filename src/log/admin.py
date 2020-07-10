@@ -4,17 +4,6 @@ from django.contrib import admin
 from .models import Logger, LogFile, LogURL
 
 
-class LogFileInLine(admin.TabularInline):
-    model = LogFile
-    fields = (
-        'title',
-        'file',
-        'filetype',
-
-    )
-    extra = 1
-    verbose_name = "Attachment"
-
 
 class LogURLInline(admin.TabularInline):
     model = LogURL
@@ -51,7 +40,7 @@ class LoggerAdmin(admin.ModelAdmin):
         'project',
     )
     search_fields = ('slug',)
-    inlines = [LogFileInLine, LogURLInline]
+    inlines = [LogURLInline]
 
 
 @admin.register(LogFile)

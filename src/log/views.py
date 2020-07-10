@@ -26,6 +26,8 @@ from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+import pathlib
+import secrets
 # Create your views here.
 
 
@@ -214,13 +216,26 @@ def logDetailView(request, *args, **kwargs):
         return redirect('log-list')
 
 
-
+@login_required
 def fileUploadHandler(request):
     if request.method == "POST":
         print(request.POST.dict())
+        print(request.COOKIES['filesize'])
         filetoupload = request.FILES['file']
 
-        savedfile = LogFile.objects.create(file=filetoupload, title=filetoupload.name)
+        try:
+            filesize = int(request.COOKIES['filesize'])
+            if filesize > 25000000:
+                return JsonResponse({"message":"File exceeds 25 MB Limit."},status=413)
+
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message":"Bad Request"}, status=400)
+        
+        file_extension = pathlib.Path(filetoupload.name).suffix
+        file_name = filetoupload.name
+        filetoupload.name = secrets.token_hex(10) + file_extension
+        savedfile = LogFile.objects.create(file=filetoupload, title=file_name, user=request.user)
         SITE_PROTOCOL = 'http://'
         if request.is_secure():
             SITE_PROTOCOL = 'https://'
@@ -262,6 +277,7 @@ def logListView(request):
         "logs":Logger.objects.filter(user=request.user, project=None).filter(published=True).order_by('-date_created'),
         "page_title":"Personal logs:",
         "userpage":True,
+        "welcomemessage":'Create your first log by clicking on the "New Log" Button !',
     }
     return render(request, 'log/list_view.html', context)
     
@@ -275,6 +291,7 @@ def allLogsView(request):
         "logs":logs.order_by('-date_created'),
         "page_title":"All logs:",
         "userpage":True,
+        "welcomemessage":'Create your first log by clicking on the "New Log" Button !',
     }
     return render(request, 'log/list_view.html', context)
     
@@ -343,7 +360,13 @@ def logEditView(request, *args, **kwargs):
 @login_required
 def recBinView(request):
     if request.method != "GET":
-        return HttpResponse("Error: Invalid request", status=400)
+        logs_to_delete = Logger.objects.filter(user=request.user).filter(published=False)
+        try:
+            logs_to_delete.delete()
+        except Exception as e:
+            messages.add_message(request, messages.ERROR, f"Could not empty recycle bin. Error: {e}")
+        messages.add_message(request, messages.SUCCESS, f"Recycle bin was cleared successfully.")
+        return redirect('log-bin')
     
     else:
         logtodelete = request.GET.get('id', "")
@@ -479,3 +502,7 @@ def searchResults(request):
     }
     return render(request, 'log/list_view.html', context)
     
+@login_required
+def deleteAllLogs(request):
+    user = request.user
+    logs = Logger.objects.filter(user=request.user, )
