@@ -30,8 +30,10 @@ services:
     volumes:
       - static_volume:/usr/src/app/static
       - media_volume:/usr/src/app/media
+      - ./webserver/certs:/etc/nginx/certs
     ports:
       - 8000:80
+      - 443:443
     depends_on:
       - web
 

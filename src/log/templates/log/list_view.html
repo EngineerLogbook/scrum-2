@@ -119,6 +119,10 @@
 
             </div>
         </div>
+        {% if not logs %}
+        <div class="project">
+            <h6>{{ welcomemessage }}</h6>
+        </div> {% endif %}
         {% for log in logs %}
         <!-- Project-->
         <div class="project">
