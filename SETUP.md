@@ -4,7 +4,7 @@
 * Clone this repository.
 
 ```bash
-git clone https://github.com/MagnumDingusEdu/django-templating-boilerplate
+git clone https://github.com/EngineerLogbook/scrum-2.git
 ```
 
 
