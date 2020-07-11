@@ -96,3 +96,4 @@ We are thankful for the guidance of :
 * [Dr Sanjeev Bedi](https://uwaterloo.ca/engineering-ideas-clinic/people-profiles/sanjeev-bedi-peng) - Professor, University of Waterloo 
 * [Dr Ajay Batish](http://www.thapar.edu/faculties/view/Dr.-Ajay-Batish/MTQy/Nw==) - Professor, Thapar Institute of Engineering & Technology
 * [Mr A S Jawanda](http://thapar.edu/faculties/view/A.-S.-Jawanda/MTU4/MTY=) - Associate Professor, Thapar Institute of Engineering & Technology
+* [Dr Sandeep Sharma](http://thapar.edu/faculties/view/Dr.-Sandeep-Sharma/MTYz/MTY=) - Assistant Professor, Thapar Institute of Engineering & Technology
