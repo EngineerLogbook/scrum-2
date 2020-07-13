@@ -1,28 +1,19 @@
+{% extends "common/base.html" %}
 {% load static %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title> Terms of Service </title>
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <!-- Custom styles for this template-->
-    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet"> {% block styles %} {% endblock styles %}
-    <!-- Bootstrap CSS -->
-
-</head>
-
-<body id="page-top" background="https://colorlib.com/preview/theme/edumark/img/banner/footer_bg.png" style="color:white";>
-    <div class="courses_details_info">
-        <div class="container">
-        <div class="single_courses">
+<!-- Begin Page Content -->
+<div class="container fluid">
+<div class="panel-group" id="accordion">
+<div class="row">
+    <div class="col-md-6">
+                    
+        <h1 class="h3 mb-3 text-white-800"> Terms And Conditions
+        
+        <a class="btn btn-primary btn-circle">
+                    <i class="fas fa-info-circle text-white"></i>
+                  </a></h1>            
+        
             <h2><br>Welcome to Logbook<br><br></h2>
             <p>These terms of service outline the rules and regulations for the use of Logbook's Website.</p> 
             <p>By accessing this website we assume you accept these terms of service in full. Do not continue to use Logbook's website 
@@ -104,7 +95,7 @@
             site.</ol></p>
         
             <p>If you are among the organizations listed in paragraph 2 above and are interested in linking to our website,
-            you must notify us by sending an e-mail to <a href="mailto:logbook@gmail.com" title="send an email to logbook@gmail.com" style="color: black;">logbook@gmail.com</a>.
+            you must notify us by sending an e-mail to <a href="mailto:logbook@thapar.edu" title="send an email to logbook@thapar.edu" style="color: black;">logbook@thapar.edu</a>.
             Please include your name, your organization name, contact information (such as a phone number and/or e-mail
             address) as well as the URL of your site, a list of any URLs from which you intend to link to our Web site,
             and a list of the URL(s) on our site to which you would like to link. Allow 2-3 weeks for a response.</p>
@@ -131,32 +122,17 @@
             libelous, obscene or criminal, or which infringes, otherwise violates, or advocates the infringement or
             other violation of, any third party rights.</p>
 
-            
-        </div>
-        </div>
-        </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    {% comment %}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
-    <script src="{% static 'simplemde.min.js' %}"></script>
-    <script src="{% static 'markdown.js' %}"></script> {% endcomment %} {% block scripts %} {% endblock scripts %}
+         </div>
+                    <div class="col-md-6" style="padding: 5%;">
+                    
+                        <img src="{% static "img/FAQs.png" %}" alt="FAQs" style="width:600px;height:350px;">
+                     
+                            
+                    </form>
 
-</body>
-
-</html>
+                    </div>
+                </div>
+            </div>
+{% endblock content %}
