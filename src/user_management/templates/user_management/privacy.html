@@ -1,30 +1,20 @@
+{% extends "common/base.html" %}
 {% load static %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title> Privacy Policy </title>
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <!-- Custom styles for this template-->
-    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet"> {% block styles %} {% endblock styles %}
-    <!-- Bootstrap CSS -->
-
-</head>
-
-<body id="page-top" background="https://colorlib.com/preview/theme/edumark/img/banner/footer_bg.png" style="color:white;">
-    <div class="courses_details_info">
-        <div class="container">
-        <div class="single_courses">
+<!-- Begin Page Content -->
+<div class="container fluid">
+<div class="panel-group" id="accordion">
+<div class="row">
+    <div class="col-md-6">
+                    
+        <h1 class="h3 mb-3 text-white-800"> Privacy Policy
+        
+        <a class="btn btn-primary btn-circle">
+                    <i class="fas fa-info-circle text-white"></i>
+                  </a></h1>            
+        
         <h2><br>Privacy Policy</h2><br><br>
-        <h4>Generic Privacy Policy</h4>
         <p>    This privacy policy will help you understand how Engineering Logbook uses and protects the data you provide to us when you visit and use Engineering Logbook.<br>
         
             We reserve the right to change this policy at any given time, of which you will be promptly updated. If you want to make sure that you are up to date with the latest changes, we advise you to frequently visit this page.
@@ -72,32 +62,17 @@
             If you have already agreed to share your information with us, feel free to contact us via email and we will be more than happy to change this for you.
             Engineering Logbook will not lease, sell or distribute your personal information to any third parties, unless we have your permission. We might do so if the law forces us. Your personal information will be used when we need to send you promotional materials if you agree to this privacy policy.
             
-             </p>
-        </div>
-        </div>
-        </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+             </p>  
 
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+         </div>
+                    <div class="col-md-6" style="padding: 5%;">
+                    
+                        <img src="{% static "img/FAQs.png" %}" alt="FAQs" style="width:600px;height:350px;">
+                     
+                            
+                    </form>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    {% comment %}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
-    <script src="{% static 'simplemde.min.js' %}"></script>
-    <script src="{% static 'markdown.js' %}"></script> {% endcomment %} {% block scripts %} {% endblock scripts %}
-
-</body>
-
-</html>
+                    </div>
+                </div>
+            </div>
+{% endblock content %}
