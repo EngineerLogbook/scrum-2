@@ -15,4 +15,5 @@ urlpatterns = [
     path('log/share', views.shareController, name='log-share'),
     path('log/shared', views.mySharesView, name='shared-with-me'),
     path('log/search', views.searchResults, name='search-results'),
+    path('markdownguide/', views.markdownGuide, name='guide'),
 ]

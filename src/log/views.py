@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, FileResponse, Http404
 from django.contrib.auth.decorators import login_required
 from .models import Logger, LogFile, LogURL
 from django.contrib import messages
@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.db.models import Q
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
-import re
+import re, os
 from django.views.generic import (
     View,
     ListView,
@@ -28,6 +28,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import pathlib
 import secrets
+from engbook.settings.base_settings import BASE_DIR
 # Create your views here.
 
 
@@ -206,6 +207,7 @@ def logDetailView(request, *args, **kwargs):
         context = {
             "log":thelog,
             "userlist":userlist,
+            "files":LogFile.objects.filter(user=request.user),
         }
 
         return render(request, 'log/view_log.html', context)
@@ -509,3 +511,12 @@ def searchResults(request):
 def deleteAllLogs(request):
     user = request.user
     logs = Logger.objects.filter(user=request.user, )
+
+
+def markdownGuide(request):
+    try:
+
+        return FileResponse(open(os.path.join(BASE_DIR, 'log', 'markdown-guide.pdf'), 'rb'), content_type='application/pdf')
+
+    except FileNotFoundError:
+        raise Http404()
