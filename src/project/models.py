@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
+from django.urls import reverse
 # Create your models here.
 
 
@@ -54,16 +55,15 @@ class Project(DesignBaseClass):
         Project Models 
     """
 
-    access_token = models.UUIDField(
-        default=uuid.uuid4)
+    access_token = models.UUIDField(default=uuid.uuid4)
 
     description = models.TextField(max_length=512)
 
-    image = models.ImageField(
-        upload_to='project_header', blank=True, null=True)
-    logo = models.ImageField(upload_to='project_logo', blank=True, null=True)
-    project_admin = models.ForeignKey(
-        User, on_delete=models.PROTECT, default=None, blank=True, null=True)
+    image = models.ImageField(default='project_header/default.png',
+                              upload_to='project_header', blank=True, null=True)
+    logo = models.ImageField(default='project_logo/default.png',
+                             upload_to='project_logo', blank=True, null=True)
+
     password = models.CharField(
         max_length=255, default='', blank=True, null=True)
     logo_thumbnail = ImageSpecField(source='logo',
@@ -71,10 +71,13 @@ class Project(DesignBaseClass):
                                     format='JPEG',
                                     options={'quality': 60})
 
+    def get_absolute_url(self):
+        return reverse("project-detail", kwargs={"pk": self.id})
+
 
 class Team(DesignBaseClass):
     """
-    Teams for Capstone Project Profanity Check
+    Teams for Capstone Project (Profanity Check)
     """
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, default=None, blank=True, null=True)
@@ -84,6 +87,8 @@ class Team(DesignBaseClass):
         default=uuid.uuid4)  # email joining
     password = models.CharField(
         max_length=255, default='', blank=True, null=True)
+    # project_admin = models.ForeignKey(
+    #     User, on_delete=models.PROTECT, default=None, blank=True, null=True)
 
     def checkMembers(self):
         """

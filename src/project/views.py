@@ -30,6 +30,7 @@ class ProjectListView(LoginRequiredMixin,   ListView):
 class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
     template_name = 'project/project_create.html'
+    fields = ['title', 'description']
 
 
 class ProjectDetailView(LoginRequiredMixin,  DetailView):
@@ -59,6 +60,7 @@ class TeamListView(LoginRequiredMixin,  ListView):
 class TeamCreateView(LoginRequiredMixin,  CreateView):
     model = Team
     template_name = 'project/team_create.html'
+    fields = ['title', 'project', 'members', 'description']
 
 
 class TeamDetailView(LoginRequiredMixin,  DetailView):
