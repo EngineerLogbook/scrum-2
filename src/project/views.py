@@ -60,7 +60,7 @@ class TeamListView(LoginRequiredMixin,  ListView):
 class TeamCreateView(LoginRequiredMixin,  CreateView):
     model = Team
     template_name = 'project/team_create.html'
-    fields = ['title', 'project', 'members', 'description']
+    fields = ['title', 'project', 'description']
 
 
 class TeamDetailView(LoginRequiredMixin,  DetailView):

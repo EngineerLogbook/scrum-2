@@ -87,14 +87,18 @@ class Team(DesignBaseClass):
         default=uuid.uuid4)  # email joining
     password = models.CharField(
         max_length=255, default='', blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse("team-detail", kwargs={"pk": self.pk})
+
     # project_admin = models.ForeignKey(
     #     User, on_delete=models.PROTECT, default=None, blank=True, null=True)
 
-    def checkMembers(self):
-        """
-        Query to check wether there are less than 2 members on the group
-        """
-        if (1):
-            return True
-        else:
-            return ValidationError(" Less 2 Members not Allowed")
+    # def checkMembers(self):
+    #     """
+    #     Query to check wether there are less than 2 members on the group
+    #     """
+    #     if (1):
+    #         return True
+    #     else:
+    #         return ValidationError(" Less 2 Members not Allowed")
