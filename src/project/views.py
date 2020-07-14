@@ -105,16 +105,18 @@ def projectListView(request):
     for team in teams:
         try:
             project = team.project
-        except:
-            pass
-        # add member and log count
-        project.nooflogs = Logger.objects.filter(project=project).count()
-        project.noofmembers = project.team.members.all().count()
+            # add member and log count
+            project.nooflogs = Logger.objects.filter(project=project).count()
+            project.noofteams = project.team_set.all().count()
+            print(project.noofteams, project.nooflogs)
 
-        # Limit description length
-        if len(project.description) > 130:
-            project.description = project.description[:130] + "..."
-        project_list.append(project)
+            # Limit description length
+            if len(project.description) > 130:
+                project.description = project.description[:130] + "..."
+            project_list.append(project)            
+        except Exception as e:
+            print(e)
+
 
     context = {
         "projects": project_list

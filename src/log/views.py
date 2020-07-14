@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, FileResponse, Http404
 from django.contrib.auth.decorators import login_required
 from .models import Logger, LogFile, LogURL
 from django.contrib import messages
@@ -12,7 +12,7 @@ from django.urls import reverse
 from django.db.models import Q
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
-import re
+import re, os
 from django.views.generic import (
     View,
     ListView,
@@ -26,6 +26,9 @@ from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+import pathlib
+import secrets
+from engbook.settings.base_settings import BASE_DIR
 # Create your views here.
 
 
@@ -86,20 +89,23 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     """
     model = Logger
     template_name = 'log/logger_unpublish.html'
+
 @login_required
 def logCreateView(request):
 
-    # Get a list of all teams that the user is a part of
+    
     user_teams = request.user.team_set.all()
     project_list = []
 
-    # Get a list of all projects that the user's teams have made
     for team in user_teams:
-        [project_list.append(x) for x in team.project_set.all()]
+        project_list.append(team.project)
 
+    
     # pass in this list
     context = {
         "projects":project_list,
+        "files":LogFile.objects.filter(user=request.user),
+        
     }
     if request.method == "POST":
         log_title = request.POST.get('log-title', "")
@@ -144,6 +150,7 @@ def logCreateView(request):
 
         messages.add_message(request, messages.SUCCESS, "Log Successfully created.")
         return redirect('log-list')
+    
     return render(request, 'log/create_log.html', context=context)
 @login_required
 def logDetailView(request, *args, **kwargs):
@@ -168,7 +175,7 @@ def logDetailView(request, *args, **kwargs):
             allowedusers.append(users)
         
         if thelog.project:
-            if request.user in thelog.project.team.members.all():
+            if (request.user.team_set.all() & thelog.project.team_set.all()).exists():
                 allowedusers.append(request.user)
             pass
 
@@ -186,9 +193,12 @@ def logDetailView(request, *args, **kwargs):
         BLOCK_SIZE = 32
         encryption_suite = AES.new(password.encode(), AES.MODE_ECB)
 
-        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
+        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note))
+        padding = deciphered_text[-1]
+        deciphered_text = deciphered_text[:-padding].decode()
 
-        thelog.note = re.sub('+','',deciphered_text)
+
+        thelog.note = deciphered_text
         
 
 
@@ -197,6 +207,7 @@ def logDetailView(request, *args, **kwargs):
         context = {
             "log":thelog,
             "userlist":userlist,
+            "files":LogFile.objects.filter(user=request.user),
         }
 
         return render(request, 'log/view_log.html', context)
@@ -209,13 +220,26 @@ def logDetailView(request, *args, **kwargs):
         return redirect('log-list')
 
 
-
+@login_required
 def fileUploadHandler(request):
     if request.method == "POST":
         print(request.POST.dict())
+        print(request.COOKIES['filesize'])
         filetoupload = request.FILES['file']
 
-        savedfile = LogFile.objects.create(file=filetoupload, title=filetoupload.name)
+        try:
+            filesize = int(request.COOKIES['filesize'])
+            if filesize > 25000000:
+                return JsonResponse({"message":"File exceeds 25 MB Limit."},status=413)
+
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message":"Bad Request"}, status=400)
+        
+        file_extension = pathlib.Path(filetoupload.name).suffix
+        file_name = filetoupload.name
+        filetoupload.name = secrets.token_hex(10) + file_extension
+        savedfile = LogFile.objects.create(file=filetoupload, title=file_name, user=request.user)
         SITE_PROTOCOL = 'http://'
         if request.is_secure():
             SITE_PROTOCOL = 'https://'
@@ -257,6 +281,7 @@ def logListView(request):
         "logs":Logger.objects.filter(user=request.user, project=None).filter(published=True).order_by('-date_created'),
         "page_title":"Personal logs:",
         "userpage":True,
+        "welcomemessage":'Create your first log by clicking on the "New Log" Button !',
     }
     return render(request, 'log/list_view.html', context)
     
@@ -270,6 +295,7 @@ def allLogsView(request):
         "logs":logs.order_by('-date_created'),
         "page_title":"All logs:",
         "userpage":True,
+        "welcomemessage":'Create your first log by clicking on the "New Log" Button !',
     }
     return render(request, 'log/list_view.html', context)
     
@@ -293,9 +319,11 @@ def logEditView(request, *args, **kwargs):
         BLOCK_SIZE = 32
         encryption_suite = AES.new(password.encode(), AES.MODE_ECB)
 
-        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note)).decode()
+        deciphered_text = encryption_suite.decrypt(bytes.fromhex(thelog.note))
+        padding = deciphered_text[-1]
+        deciphered_text = deciphered_text[:-padding].decode()
 
-        thelog.note = re.sub('+','',deciphered_text)
+        thelog.note = deciphered_text
     except ObjectDoesNotExist:
         return HttpResponse("Error: Invalid log ID", status=400)
     except:
@@ -323,17 +351,10 @@ def logEditView(request, *args, **kwargs):
 
 
 
-    # Get a list of all teams that the user is a part of
-    user_teams = request.user.team_set.all()
-    project_list = []
-
-    # Get a list of all projects that the user's teams have made
-    for team in user_teams:
-        [project_list.append(x) for x in team.project_set.all()]
 
     context = {
         "log":thelog,
-        "projects":project_list,
+        "files":LogFile.objects.filter(user=request.user),
 
     }
 
@@ -344,7 +365,13 @@ def logEditView(request, *args, **kwargs):
 @login_required
 def recBinView(request):
     if request.method != "GET":
-        return HttpResponse("Error: Invalid request", status=400)
+        logs_to_delete = Logger.objects.filter(user=request.user).filter(published=False)
+        try:
+            logs_to_delete.delete()
+        except Exception as e:
+            messages.add_message(request, messages.ERROR, f"Could not empty recycle bin. Error: {e}")
+        messages.add_message(request, messages.SUCCESS, f"Recycle bin was cleared successfully.")
+        return redirect('log-bin')
     
     else:
         logtodelete = request.GET.get('id', "")
@@ -480,3 +507,16 @@ def searchResults(request):
     }
     return render(request, 'log/list_view.html', context)
     
+@login_required
+def deleteAllLogs(request):
+    user = request.user
+    logs = Logger.objects.filter(user=request.user, )
+
+
+def markdownGuide(request):
+    try:
+
+        return FileResponse(open(os.path.join(BASE_DIR, 'log', 'markdown-guide.pdf'), 'rb'), content_type='application/pdf')
+
+    except FileNotFoundError:
+        raise Http404()

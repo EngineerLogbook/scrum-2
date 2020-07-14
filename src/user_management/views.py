@@ -99,6 +99,13 @@ def notfound(request):
 def faqs(request):
     return render(request, 'user_management/faqs.html')
 
+@login_required
+def terms(request):
+    return render(request, 'user_management/terms.html')
+
+@login_required
+def aboutus(request):
+    return render(request, 'user_management/about.html')
 
 @login_required
 def feedback(request):

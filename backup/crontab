@@ -1,0 +1,6 @@
+# Backup media every 5 minutes
+*/5 * * * * root /media.sh
+
+# Backup database every minute
+* * * * * root /db.sh
+# An empty line is required at the end of this file for a valid cron file.

@@ -54,7 +54,7 @@ Currently this project make it simple for you to create logs and add maintain en
 
 ## Getting Started ⚙️
 
-These instructions in [WORKFLOW](WORKFLOW.md) will get you a copy of the project up and running on your local machine for development and testing purposes. 
+These instructions in [SETUP](SETUP.md) will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
 ## Built With ⚒
 * ### Backend 📡
@@ -96,3 +96,4 @@ We are thankful for the guidance of :
 * [Dr Sanjeev Bedi](https://uwaterloo.ca/engineering-ideas-clinic/people-profiles/sanjeev-bedi-peng) - Professor, University of Waterloo 
 * [Dr Ajay Batish](http://www.thapar.edu/faculties/view/Dr.-Ajay-Batish/MTQy/Nw==) - Professor, Thapar Institute of Engineering & Technology
 * [Mr A S Jawanda](http://thapar.edu/faculties/view/A.-S.-Jawanda/MTU4/MTY=) - Associate Professor, Thapar Institute of Engineering & Technology
+* [Dr Sandeep Sharma](http://thapar.edu/faculties/view/Dr.-Sandeep-Sharma/MTYz/MTY=) - Associate Professor, Thapar Institute of Engineering & Technology

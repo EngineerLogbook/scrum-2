@@ -4,13 +4,16 @@
 * Clone this repository.
 
 ```bash
-git clone https://github.com/MagnumDingusEdu/django-templating-boilerplate
+git clone https://github.com/EngineerLogbook/scrum-2.git
 ```
 
 
 * Set up your virtual environment
 
 ```bash
+# Change into the directory
+cd scrum-2/
+
 # Generate the neessary files
 python -m venv env
 OR

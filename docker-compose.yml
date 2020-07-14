@@ -2,6 +2,7 @@ version: "3.3"
 
 services:
   web:
+    container_name: log_application
     build: ./src
     command: gunicorn engbook.wsgi:application --bind 0.0.0.0:8000
     volumes:
@@ -16,6 +17,7 @@ services:
       - db
 
   db:
+    container_name: log_database
     image: postgres:12.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
@@ -23,12 +25,25 @@ services:
       - ./src/.env.db
 
   nginx:
+    container_name: log_webserver
     build: ./webserver
     volumes:
       - static_volume:/usr/src/app/static
       - media_volume:/usr/src/app/media
+      - ./webserver/certs:/etc/nginx/certs
     ports:
-      - 80:80
+      - 8000:80
+      - 443:443
+    depends_on:
+      - web
+
+  backup:
+    container_name: log_backup
+    build: ./backup
+    volumes:
+      - media_volume:/usr/src/app/media
+      - postgres_data:/usr/src/app/database   
+      - /var/run/docker.sock:/var/run/docker.sock      
     depends_on:
       - web
 volumes:

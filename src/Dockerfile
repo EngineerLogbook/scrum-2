@@ -33,6 +33,5 @@ RUN chmod +x /usr/src/app/entrypoint.sh
 # copy project
 COPY . /usr/src/app/
 
-RUN ls -la /usr/src/app
 # run entrypoint.sh
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
