@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import (
+    TemplateView,
     View,
     ListView,
     DetailView,
@@ -11,6 +12,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Project, Team
 from log.models import Logger
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import JoinTeamForm
+from django.http import JsonResponse
 
 
 class ProjectListView(LoginRequiredMixin,   ListView):
@@ -63,6 +67,13 @@ class TeamCreateView(LoginRequiredMixin,  CreateView):
     fields = ['title', 'project', 'description']
 
 
+class JoinTeamView(LoginRequiredMixin, TemplateView):
+    """
+        View for Joining Team that has been created
+    """
+    template_name = 'project/team_join.html'
+
+
 class TeamDetailView(LoginRequiredMixin,  DetailView):
     """
        Details of specific team in the website
@@ -73,7 +84,7 @@ class TeamDetailView(LoginRequiredMixin,  DetailView):
 
 class TeamUpdateView(LoginRequiredMixin,  UpdateView):
     """
-        Update The Team Details 
+        Update The Team Details
     """
     model = Team
     template_name = 'project/team_update.html'
@@ -113,10 +124,9 @@ def projectListView(request):
             # Limit description length
             if len(project.description) > 130:
                 project.description = project.description[:130] + "..."
-            project_list.append(project)            
+            project_list.append(project)
         except Exception as e:
             print(e)
-
 
     context = {
         "projects": project_list
@@ -147,3 +157,41 @@ def projectCreateView(request):
 @login_required
 def gettingStartedView(request):
     return render(request, 'project/teampage.html', {})
+
+
+@login_required
+def jointeamview(request):
+
+    if request.method == "POST":
+        form = JoinTeamForm(request.POST)
+        form_token = request.POST.get('token')
+        if form.is_valid():
+            t = Team.objects.filter(token=form_token)[0]
+
+            # if t.members :
+            #     messages.warning(request, 'You have already been added to team %s', t.title)
+            #     return redirect('team-detail', id='title')
+
+            if t:
+                t.members.add(request.user)
+                t.save()
+                context = {
+                    Team: t
+                }
+                messages.success(request, 'Added to Team ', t.title)
+                return render(request, 'project/team_join_confirm.html', context)
+            else:
+
+                context = {
+                    "form": JoinTeamForm
+                }
+                messages.info(request, 'Enter key to join your team')
+                return render(request, 'project/team_join.html', context)
+
+    elif request.method == "GET":
+
+        context = {
+            "form": JoinTeamForm
+        }
+        messages.info(request, 'Enter key to join your team')
+        return render(request, 'project/team_join.html', context)

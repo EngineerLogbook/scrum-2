@@ -7,7 +7,7 @@
   <h1 class="display-4">
   <img src="{{ project.logo_thumbnail.url }}" alt="Project :{{project.title.url}} logo" class="img-thumbnail">
   Project: {{project.title }}</h1>
-  <p class="lead">{{project.title}}</p>
+  {% comment %} <p class="lead">{{project.title}}</p> {% endcomment %}
   <hr class="my-4">
   <p>{{project.description}}</p>
   <a class="btn btn-primary btn-lg" href="#" role="button">Create Team</a>
