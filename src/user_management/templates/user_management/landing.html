@@ -15,234 +15,406 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'landing/style.css' %}">
 
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:900" rel="stylesheet"> -->
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        #notfound {
+            position: relative;
+            height: 100vh;
+        }
+
+        #notfound .notfound {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .notfound {
+            max-width: 520px;
+            width: 100%;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .notfound .notfound-404 {
+            position: relative;
+            height: 240px;
+        }
+
+        .notfound .notfound-404 h1 {
+            font-family: 'Montserrat', sans-serif;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            font-size: 252px;
+            font-weight: 900;
+            margin: 0px;
+            color: #262626;
+            text-transform: uppercase;
+            letter-spacing: -40px;
+            margin-left: -20px;
+        }
+
+        .notfound .notfound-404 h1>span {
+            text-shadow: -8px 0px 0px #fff;
+        }
+
+        .notfound .notfound-404 h3 {
+            font-family: 'Cabin', sans-serif;
+            position: relative;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #262626;
+            margin: 0px;
+            letter-spacing: 3px;
+            padding-left: 6px;
+        }
+
+        .notfound h2 {
+            font-family: 'Cabin', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            /* text-transform: uppercase; */
+            color: #000;
+            margin-top: 0px;
+            margin-bottom: 25px;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .notfound .notfound-404 {
+                height: 200px;
+            }
+
+            .notfound .notfound-404 h1 {
+                font-size: 200px;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .notfound .notfound-404 {
+                height: 162px;
+            }
+
+            .notfound .notfound-404 h1 {
+                font-size: 162px;
+                height: 150px;
+                line-height: 162px;
+            }
+
+            .notfound h2 {
+                font-size: 16px;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
-    <!-- Header starts -->
-    <header>
-        <div class="header-area ">
-            <div id="sticky-header" class="main-header-area">
-                <div class="container-fluid p-0">
-                    <div class="row align-items-center no-gutters">
-                        <div class="col-xl-2 col-lg-2">
-                            <div class="logo-img">
-                                <a href="index.html">
-                                    <img src="{% static 'landing/img/logofinal.png' %}" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xl-7 col-lg-7">
-                            <div class="main-menu  d-none d-lg-block">
-                                <nav>
-                                    <ul id="navigation">
-                                        <li><a class="active" href="index.html">Home</a></li>
-                                        <li><a href="#aboutsection">About</a></li>
-                                        <li><a href="#testimonials">Testimonials</a></li>
-                                        <li><a href="{% url 'ourteam' %}" class="ourteam">Our team</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 d-none d-lg-block">
-                            <div class="log_chat_area d-flex align-items-center">
-                                <a href="{% url 'login' %}" class="login">
-                                    <i class="fa fa-user"></i>
-                                    <span>log in</span>
-                                </a>
-                                <div class="live_chat_btn">
-                                    <a class="boxed_btn_orange" href="mailto:logbook@thapar.edu">
-                                        <span>Contact</span>
+    <div id="content_container">
+        <!-- Header starts -->
+        <header>
+            <div class="header-area ">
+                <div id="sticky-header" class="main-header-area">
+                    <div class="container-fluid p-0">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col-xl-2 col-lg-2">
+                                <div class="logo-img">
+                                    <a href="index.html">
+                                        <img src="{% static 'landing/img/logofinal.png' %}" alt="">
                                     </a>
                                 </div>
+                            </div>
+                            <div class="col-xl-7 col-lg-7">
+                                <div class="main-menu  d-none d-lg-block">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a class="active" href="index.html">Home</a></li>
+                                            <li><a href="#aboutsection">About</a></li>
+                                            <li><a href="#testimonials">Testimonials</a></li>
+                                            <li><a href="{% url 'ourteam' %}" class="ourteam">Our team</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                                <div class="log_chat_area d-flex align-items-center">
+                                    <a href="{% url 'login' %}" class="login">
+                                        <i class="fa fa-user"></i>
+                                        <span>log in</span>
+                                    </a>
+                                    <div class="live_chat_btn">
+                                        <a class="boxed_btn_orange" href="mailto:logbook@thapar.edu">
+                                            <span>Contact</span>
+                                        </a>
+                                    </div>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- header-end -->
+
+        <!-- slider_area_start -->
+        <div class="slider_area ">
+            <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1"
+                style="background-image: url({% static 'landing/img/banner/banner.png' %});">
+                <div class="container">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-xl-6 col-md-6">
+                            <div class="illastrator_png">
+                                <img src="{% static 'landing/img/banner/edu_ilastration.png' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6">
+                            <div class="slider_info">
+                                <h3>Goodbye <br> paper <br> Logs.
+                                </h3>
+                                <a href="{% url 'register' %}" class="boxed_btn">Sign up</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
-    <!-- header-end -->
+        <!-- slider_area_end -->
 
-    <!-- slider_area_start -->
-    <div class="slider_area ">
-        <div class="single_slider d-flex align-items-center justify-content-center slider_bg_1" style="background-image: url({% static 'landing/img/banner/banner.png' %});">
-            <div class="container">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-xl-6 col-md-6">
-                        <div class="illastrator_png">
-                            <img src="{% static 'landing/img/banner/edu_ilastration.png' %}" alt="">
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-md-6">
-                        <div class="slider_info">
-                            <h3>Goodbye <br> paper <br> Logs.
-                            </h3>
-                            <a href="{% url 'register' %}" class="boxed_btn">Sign up</a>
-                        </div>
-                    </div>
+
+        <div class="all_courses">
+            <div class="testimonials" id="aboutsection" style="background-color: #fff;">
+                <div class="inner">
+                    <h1>ABOUT</h1>
+                    <div class="border"></div>
+
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- slider_area_end -->
-
-
-    <div class="all_courses">
-        <div class="testimonials" id="aboutsection" style="background-color: #fff;">
-            <div class="inner" >
-                <h1>ABOUT</h1>
-                <div class="border"></div>
-
-            </div>
-        </div>
-        <div class="row" style="background-color: #fff;">
-            <div class="col-12" style="margin-left: 0em;">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="">
-                            <img src="{% static 'landing/img/encryption1.png' %}" alt="">
-
-                        </div>
-                    </div>
-
-                    <div class="col-6" style="padding: 2.3% 10%;">
-                        <h3 style="text-align: left;">Keep your personal data Safe and Secure</h3>
-                        <p style="text-align: left;">LogBook allows you to harness the power of technology to eliminate the need for cumbersome paper logs and complex spreadsheets. Now you can even use your web browser to collect notes and even files such as Images, Pdf's, Videos, Cad files, Excel sheets etc. to sync directly into the LogBook, which is Encrypted i.e. totally secure and inaccessible to anyone else without your permission.                         </p>
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-6" style="padding: 3% 10%;">
-                        <h3 style="text-align: left;">Build stronger Communication and Collaboration</h3>
-                        <p style="text-align: left;">LogBook gives you the platform to build your team and work together. Clearer communication ensures a more efficient operation.
-                        </p>
-                        <hr>
-                    </div>
-                    <div class="col-6">
-                        <div class="">
-                            <img src="{% static 'landing/img/team1.png' %}" alt="">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <div class="">
-                            <img src="{% static 'landing/img/sharing1.png' %}" alt="">
-
-                        </div>
-                    </div>
-                    <div class="col-6" style="padding: 3.3% 10%;">
-                        <h3 style="text-align: left;">Access to Sharing</h3>
-                        <p style="text-align: left;">LogBook gives you the platform and the advantage to share your work with the team members involved in a project, even with the non team members such as professors for the evaluation of the daily work  done during the Capstone Project.
-                        </p>
-                        <hr>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- about_area_end -->
-
-
-    <div class="all_courses">
-        <div class="testimonials" id="testimonials">
-            <div class="inner">
-                <h1>TESTIMONIALS</h1>
-                <div class="border"></div>
-                <P>"We want to express our deepest gratitude to Dr. Sanjeev Bedi Professor of Mechanical and Mechatronics Engineering, University of Waterloo, for giving us the opportunity to be a part of this wonderful journey and making this project happen."
-                    <br> -The team
-                </P>
-                <div class="row">
-                    <div class="col" style="height: 100%;">
-                        <div class="testimonial">
-                            <img src="{% static 'landing/img/jawandaSir-min.png' %}" alt="">
-                            <div class="name" style="margin: 20px 0 0 0;">Ajayinder S Jawanda</div>
-                            <p>-Associate Professor</p>
-                            <hr>
-
-
-                            <p>
-                                “It was a treat to experience the execution of a software-based project executed so beautifully by a multi-disciplinary team of budding engineers. It was also a pleasure to see the enthusiasm, teamwork, professionalism which lead to the final engineered
-                                product, following the generic engineering design process.” <br><br><br>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="testimonial" style="height: auto;">
-                            <img src="{% static 'landing/img/Ajay.PNG' %}" alt="">
-                            <div class="name" style="margin: 20px 0 0 0;">Ajay Batish</div>
-                            <p>-Deputy Director & Professor</p>
-                            <hr>
-                            <p>
-                                “This is an exemplary project execution by a multi-disciplinary team of students demonstrating what experiential learning on a real-world project is all about. This should serve well to inspire students of all engineering branches to learn skills beyond the curriculum which would help them secure careers using software tools in the new normal after the pandemic.”
-
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="testimonial">
-                            <img src="{% static 'landing/img/sksharma.png' %}" alt="">
-                            <div class="name" style="margin: 20px 0 0 0;">Sandeep Sharma</div>
-                            <p>-Associate Professor</p>
-                            <hr>
-
-                            <p>
-                                “Coming together is a beginning. Keeping together is progress. Working together is success.” -Henry Ford. <br> These young budding engineers, drawn from diverse domains, have proved it true. I am really proud of this team
-                                and wish them great success in all future endeavours. <br><br><br>
-
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                                                <a href="http://www.thapar.edu/""><img src="{% static 'landing/img/thaparlogo.png' %}" alt=""></a>
-
-            </div>
-        </div>
-        <!-- Footer Starts -->
-        <footer class="footer footer_bg_1" style="  background-image: url({% static 'landing/img/banner/footer_bg.png' %});">
-            <div class="copy-right_text">
-                <div class="container">
-                    <div class="footer_border"></div>
+            <div class="row" style="background-color: #fff;">
+                <div class="col-12" style="margin-left: 0em;">
                     <div class="row">
-                        <div class="col-xl-12">
-                            <p class="copy_right text-center" style="color: white ;">
+                        <div class="col-6">
+                            <div class="">
+                                <img src="{% static 'landing/img/encryption1.png' %}" alt="">
 
-                                Copyright ©️
-                                <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
-                                <script type="text/javascript">
-                                    document.write(new Date().getFullYear());
-                                </script>
-                                All rights reserved | Thapar Institute
-                                <br>
+                            </div>
+                        </div>
 
-                                <a href="{% url 'terms' %}" target="_blank"> Terms of Service</a> | <a href="{% url 'disclaimer' %}" target="_blank"> Disclaimer</a>
-
+                        <div class="col-6" style="padding: 2.3% 10%;">
+                            <h3 style="text-align: left;">Keep your personal data Safe and Secure</h3>
+                            <p style="text-align: left;">LogBook allows you to harness the power of technology to
+                                eliminate
+                                the need for cumbersome paper logs and complex spreadsheets. Now you can even use your
+                                web
+                                browser to collect notes and even files such as Images, Pdf's, Videos, Cad files, Excel
+                                sheets etc. to sync directly into the LogBook, which is Encrypted i.e. totally secure
+                                and
+                                inaccessible to anyone else without your permission. </p>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" style="padding: 3% 10%;">
+                            <h3 style="text-align: left;">Build stronger Communication and Collaboration</h3>
+                            <p style="text-align: left;">LogBook gives you the platform to build your team and work
+                                together. Clearer communication ensures a more efficient operation.
                             </p>
+                            <hr>
+                        </div>
+                        <div class="col-6">
+                            <div class="">
+                                <img src="{% static 'landing/img/team1.png' %}" alt="">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="">
+                                <img src="{% static 'landing/img/sharing1.png' %}" alt="">
+
+                            </div>
+                        </div>
+                        <div class="col-6" style="padding: 3.3% 10%;">
+                            <h3 style="text-align: left;">Access to Sharing</h3>
+                            <p style="text-align: left;">LogBook gives you the platform and the advantage to share your
+                                work
+                                with the team members involved in a project, even with the non team members such as
+                                professors for the evaluation of the daily work done during the Capstone Project.
+                            </p>
+                            <hr>
                         </div>
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- Footer Ends -->
+        </div>
 
-        <script src="{% static 'landing/jquery.min.js' %}"></script>
+        <!-- about_area_end -->
 
-        <script>
-            $(document).ready(function() {
-                $('a[href*=\\#]').on('click', function(e) {
-                    e.preventDefault();
-                    $('html, body').animate({
-                        scrollTop: $(this.hash).offset().top
-                    }, 500);
-                });
+
+        <div class="all_courses">
+            <div class="testimonials" id="testimonials">
+                <div class="inner">
+                    <h1>TESTIMONIALS</h1>
+                    <div class="border"></div>
+                    <P>"We want to express our deepest gratitude to Dr. Sanjeev Bedi Professor of Mechanical and
+                        Mechatronics Engineering, University of Waterloo, for giving us the opportunity to be a part of
+                        this
+                        wonderful journey and making this project happen."
+                        <br> -The team
+                    </P>
+                    <div class="row">
+                        <div class="col" style="height: 100%;">
+                            <div class="testimonial">
+                                <img src="{% static 'landing/img/jawandaSir-min.png' %}" alt="">
+                                <div class="name" style="margin: 20px 0 0 0;">Ajayinder S Jawanda</div>
+                                <p>-Associate Professor</p>
+                                <hr>
+
+
+                                <p>
+                                    “It was a treat to experience the execution of a software-based project executed so
+                                    beautifully by a multi-disciplinary team of budding engineers. It was also a
+                                    pleasure to
+                                    see the enthusiasm, teamwork, professionalism which lead to the final engineered
+                                    product, following the generic engineering design process.” <br><br><br>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="testimonial" style="height: auto;">
+                                <img src="{% static 'landing/img/Ajay.PNG' %}" alt="">
+                                <div class="name" style="margin: 20px 0 0 0;">Ajay Batish</div>
+                                <p>-Deputy Director & Professor</p>
+                                <hr>
+                                <p>
+                                    “This is an exemplary project execution by a multi-disciplinary team of students
+                                    demonstrating what experiential learning on a real-world project is all about. This
+                                    should serve well to inspire students of all engineering branches to learn skills
+                                    beyond
+                                    the curriculum which would help them secure careers using software tools in the new
+                                    normal after the pandemic.”
+
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="testimonial">
+                                <img src="{% static 'landing/img/sksharma.png' %}" alt="">
+                                <div class="name" style="margin: 20px 0 0 0;">Sandeep Sharma</div>
+                                <p>-Associate Professor</p>
+                                <hr>
+
+                                <p>
+                                    “Coming together is a beginning. Keeping together is progress. Working together is
+                                    success.” -Henry Ford. <br> These young budding engineers, drawn from diverse
+                                    domains,
+                                    have proved it true. I am really proud of this team
+                                    and wish them great success in all future endeavours. <br><br><br>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="http://www.thapar.edu/""><img src=" {% static 'landing/img/thaparlogo.png' %}" alt=""></a>
+
+                </div>
+            </div>
+            <!-- Footer Starts -->
+            <footer class="footer footer_bg_1"
+                style="  background-image: url({% static 'landing/img/banner/footer_bg.png' %});">
+                <div class="copy-right_text">
+                    <div class="container">
+                        <div class="footer_border"></div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <p class="copy_right text-center" style="color: white ;">
+
+                                    Copyright ©️
+                                    <script type="text/javascript" async=""
+                                        src="https://www.google-analytics.com/analytics.js"></script>
+                                    <script type="text/javascript">
+                                        document.write(new Date().getFullYear());
+                                    </script>
+                                    All rights reserved | Thapar Institute
+                                    <br>
+
+                                    <a href="{% url 'terms' %}" target="_blank"> Terms of Service</a> | <a
+                                        href="{% url 'disclaimer' %}" target="_blank"> Disclaimer</a>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Footer Ends -->
+        </div>
+    </div>
+    <div id="bad_size" style="display: none;">
+        <div id="notfound">
+            <div class="notfound">
+                <div class="">
+                    <h3><b>Oops! Unsupported Screen Resolution</b></h3>
+                                       
+                </div>
+                <h2>Please switch to a pc, or maximize the window.</h2>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'landing/jquery.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('a[href*=\\#]').on('click', function (e) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 500);
             });
-        </script>
+
+            window.addEventListener('resize', function (event) {
+
+                let isMobile = window.matchMedia("only screen and (max-width: 980px)").matches;
+
+
+                if (isMobile) {
+                    document.getElementById("content_container").style.display = "none";
+                    document.getElementById("bad_size").style.display = "block";
+                    // document.getElementById("content_container").innerHTML = "This site is not available on smaller devices as of now. Any inconvenience is regretted."
+                    console.log("YooHoo");
+                } else {
+                    document.getElementById("content_container").style.display = "block";
+                    document.getElementById("bad_size").style.display = "none";
+                }
+
+
+            });
+        });
+
+
+    </script>
 
 </body>
 
