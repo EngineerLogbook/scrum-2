@@ -87,7 +87,7 @@ class TeamDetailView(LoginRequiredMixin,  DetailView):
         team = self.get_object()
         context['show_token'] = False
         context['members'] = team.members.all()
-
+        context['project'] = team.project
         if self.request.user in team.members.all():
             context['show_token'] = True
 

@@ -32,7 +32,7 @@
     }
 </style>
 
- <div class="col-lg-6 mb-4">
+ <div class="col-lg-12 mb-4">
 
               <!-- Illustrations -->
               <div class="card shadow mb-12">
@@ -70,5 +70,25 @@
                   </table>
                 
                 </div>
+                <br>
+                <br>
+
+                <div class="card shadow mb-6">
+                <div class="card-header py-6">
+                  <h6 class="m-0 font-weight-bold text-primary">Project</h6>
+                </div>
+                <div class="card-body">
+                  <div class="text-center">
+                    <img class="img-fluid px-12 px-sm-6 mt-6 mb-6" style="width: 25rem;" src="
+                    {% static 'img/undraw_redesign_feedback_48ti.svg' %}" alt="">
+                  </div>
+                  <h2>Participating in Project : {{ project.title }}</h2>
+                    
+                </div>
+
               </div>
+
+
+              
+              
 {% endblock content %}
