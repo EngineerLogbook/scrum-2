@@ -196,6 +196,7 @@
         </div>
     </div>
 </div>
+
 {% endblock content %} {% block scripts %}
 
 <script src="{% static 'log/marked.min.js' %}"></script>
@@ -204,24 +205,6 @@
     document.getElementById('log-content').innerHTML =
         marked(document.getElementById('log-content').innerHTML);
 
-
-    // function sendDeleteRequest() {
-    //     var xhttp = new XMLHttpRequest()
-    //     xhttp.open("POST", "{% url 'log-delete' %}", true);
-    //     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    //     xhttp.onload = function() {
-    //         if (xhttp.readyState === xhttp.DONE) {
-    //             if (xhttp.status === 200) {
-    //                 console.log(xhttp.response.status);
-    //             }
-    //         }
-    //     };
-
-    //     xhttp.send("logid={{ log.id }}&csrfmiddlewaretoken={{ csrf_token }}");
-
-
-    // }
 
     function editPageRedirect() {
         console.log("Hello");

@@ -122,23 +122,22 @@
 
                 <div class="left-col col-lg-9 d-flex align-items-center justify-content-between">
                     <div class="project-title d-flex align-items-center">
-                        <div class="image has-shadow rounded"><img src="{{log.user.profile.image.url}}" alt="..." class="img-fluid"></div>
                         <div class="text project-text-content">
-                            <a href="{% url 'log-detail' log.id %}">
-                                <h3 class="h4">{{ log.title }}</h3>
+                            <a href="{% url 'team-detail' team.id %}">
+                                <h3 class="h4">{{ team.title }}</h3>
                             </a>
-                            <small>{{ log.short_description }}</small>
+                            <small>{{ team.short_description }}</small>
                         </div>
                     </div>
                 </div>
                 <div class="right-col col-lg-3 align-items-end justify-content-around">
                     <div class="project-wrapper mb-2">
-                        {% if log.project %} Project: {{ log.project }} {% else %} Personal Log {% endif %}
+                        Project: {{ team.project }} 
                     </div>
                     <div class="form-group ">
-                        Author: {{ log.user.username }}
+                        {% comment %} Author: {{ team.member.username }} {% endcomment %}
                     </div>
-                    <div class="project-date"><span class="hidden-sm-down">{{ log.date_modified }}</span></div>
+                    <div class="project-date"><span class="hidden-sm-down">{{ team.date_modified }}</span></div>
 
                 </div>
             </div>

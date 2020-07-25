@@ -1,0 +1,74 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .log-view {
+        background: white;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        width: 100%;
+        border-radius: 1rem;
+        padding-bottom: 5%;
+        padding: 5%;
+        color: black;
+    }
+
+    .main-heading {
+        /* margin-top: 2em; */
+        font-size: 3.5em;
+    }
+
+    .log-content-row {
+        margin-top: 2em;
+    }
+
+    .log-content {
+        color: #858796;
+    }
+
+    .btn-lg {
+        border-radius: 1.2rem;
+    }
+</style>
+
+ <div class="col-lg-6 mb-4">
+
+              <!-- Illustrations -->
+              <div class="card shadow mb-12">
+                <div class="card-header py-12">
+                  <h6 class="m-0 font-weight-bold text-primary">Team Details </h6>
+                </div>
+                <div class="card-body">
+                  <div class="text-center">
+                    <img class="img-fluid px-12 px-sm-12 mt-12 mb-12" style="width: 25rem;" src="
+                    {% static 'img/undraw_team_goals_hrii.svg' %}" alt="">
+                  </div>
+                  <h2>Team : {{ team.title }}</h2>
+                    {% if show_token %}
+                    <p>Join Code: {{ team.token }}</p>
+                    {% endif %}
+                    <h3> Team Members </h3>
+                
+                  <table>
+                  <thead>
+                    <tr>
+                      <th>email</th>
+                      <th>name </th>
+                      <th>username</th>
+                    </tr>
+                  </thead>
+                    {% for member in members %}
+                      <tbody>
+                      <tr>
+                        <td>{{member.email}}</td>
+                        <td>{{member.first_name}} {{member.last_name}}</td>
+                        <td>{{member.username}}</td>
+                      </tr>
+                      </tbody>
+                    {% endfor %}
+                  </table>
+                
+                </div>
+              </div>
+{% endblock content %}

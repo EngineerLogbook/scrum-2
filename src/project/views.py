@@ -59,6 +59,7 @@ class ProjectUpdateView(LoginRequiredMixin,  UpdateView):
 class TeamListView(LoginRequiredMixin,  ListView):
     model = Team
     template_name = 'proeject/team_list.html'
+    context_object_name = 'teams'
 
 
 class TeamCreateView(LoginRequiredMixin,  CreateView):
@@ -80,6 +81,17 @@ class TeamDetailView(LoginRequiredMixin,  DetailView):
     """
     model = Team
     template_name = 'project/team_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        team = self.get_object()
+        context['show_token'] = False
+        context['members'] = team.members.all()
+
+        if self.request.user in team.members.all():
+            context['show_token'] = True
+
+        return context
 
 
 class TeamUpdateView(LoginRequiredMixin,  UpdateView):
