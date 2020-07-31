@@ -14,7 +14,7 @@ from log.models import Logger
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import JoinTeamForm
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponseRedirect
 
 
 class ProjectListView(LoginRequiredMixin,   ListView):
@@ -68,6 +68,11 @@ class TeamCreateView(LoginRequiredMixin,  CreateView):
     fields = ['title', 'project', 'description']
 
 
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.members.add(self.request.user)
+        return HttpResponseRedirect(self.get_success_url())
+        
 class JoinTeamView(LoginRequiredMixin, TemplateView):
     """
         View for Joining Team that has been created
@@ -125,9 +130,9 @@ def projectListView(request):
     teams = request.user.team_set.all()
     project_list = []
 
-    for team in teams:
+    for project in Project.objects.all():
         try:
-            project = team.project
+            
             # add member and log count
             project.nooflogs = Logger.objects.filter(project=project).count()
             project.noofteams = project.team_set.all().count()
@@ -188,7 +193,7 @@ def jointeamview(request):
                 t.members.add(request.user)
                 t.save()
                 context = {
-                    Team: t
+                    "Team": t
                 }
                 messages.success(request, 'Added to Team ', t.title)
                 return render(request, 'project/team_join_confirm.html', context)
@@ -199,7 +204,13 @@ def jointeamview(request):
                 }
                 messages.info(request, 'Enter key to join your team')
                 return render(request, 'project/team_join.html', context)
+        else:
 
+            context = {
+                "form": JoinTeamForm
+            }
+            messages.error(request, 'Incorrect token')
+            return render(request, 'project/team_join.html', context)
     elif request.method == "GET":
 
         context = {

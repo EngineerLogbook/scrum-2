@@ -28,7 +28,9 @@
             padding: 0;
             margin: 0;
         }
-
+        p {
+            font-size: 1.15em;
+        }
         #notfound {
             position: relative;
             height: 100vh;
@@ -123,6 +125,56 @@
                 font-size: 16px;
             }
         }
+
+
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .arrow {
+            text-align: center;
+            width: 49px;
+            height: 49px;
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            padding-top: 500px;
+            z-index: 9;
+            border-radius: 50%;
+            border-color: white;
+            -webkit-transition: background-color 0.25s ease-in-out;
+            transition: background-color 0.25s ease-in-out;
+        }
+
+        .bounce {
+            -moz-animation: bounce 2s infinite;
+            -webkit-animation: bounce 2s infinite;
+            animation: bounce 2s infinite;
+            display: block;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-30px);
+            }
+
+            60% {
+                transform: translateY(-15px);
+            }
+        }
     </style>
 
 </head>
@@ -138,7 +190,8 @@
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo-img">
                                     <a href="index.html">
-                                        <img src="{% static 'landing/img/logofinal.png' %}" alt="">
+                                        <img src="{% static 'landing/img/logofinal.png' %}" alt=""
+                                            style="width: 210px;">
                                     </a>
                                 </div>
                             </div>
@@ -198,7 +251,9 @@
             </div>
         </div>
         <!-- slider_area_end -->
-
+        <div class="arrow bounce">
+            <a class="fa fa-arrow-down fa-2x" href="#aboutsection"></a>
+        </div>
 
         <div class="all_courses">
             <div class="testimonials" id="aboutsection" style="background-color: #fff;">
@@ -212,13 +267,13 @@
                 <div class="col-12" style="margin-left: 0em;">
                     <div class="row">
                         <div class="col-6">
-                            <div class="">
+                            <div class="fa-pull-right">
                                 <img src="{% static 'landing/img/encryption1.png' %}" alt="">
 
                             </div>
                         </div>
 
-                        <div class="col-6" style="padding: 2.3% 10%;">
+                        <div class="col-6 fa-pull-left" style="padding: 2.3% 10%;">
                             <h3 style="text-align: left;">Keep your personal data Safe and Secure</h3>
                             <p style="text-align: left;">LogBook allows you to harness the power of technology to
                                 eliminate
@@ -232,7 +287,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6" style="padding: 3% 10%;">
+                        <div class="col-6 fa-pull-right" style="padding: 3% 10%;">
                             <h3 style="text-align: left;">Build stronger Communication and Collaboration</h3>
                             <p style="text-align: left;">LogBook gives you the platform to build your team and work
                                 together. Clearer communication ensures a more efficient operation.
@@ -240,7 +295,7 @@
                             <hr>
                         </div>
                         <div class="col-6">
-                            <div class="">
+                            <div class="fa-pull-left">
                                 <img src="{% static 'landing/img/team1.png' %}" alt="">
 
                             </div>
@@ -249,7 +304,7 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <div class="">
+                            <div class="fa-pull-right">
                                 <img src="{% static 'landing/img/sharing1.png' %}" alt="">
 
                             </div>
@@ -377,7 +432,7 @@
             <div class="notfound">
                 <div class="">
                     <h3><b>Oops! Unsupported Screen Resolution</b></h3>
-                                       
+
                 </div>
                 <h2>Please switch to a pc, or maximize the window.</h2>
             </div>

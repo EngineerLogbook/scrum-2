@@ -10,7 +10,7 @@
   {% comment %} <p class="lead">{{project.title}}</p> {% endcomment %}
   <hr class="my-4">
   <p>{{project.description}}</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Create Team</a>
+  <a class="btn btn-primary btn-lg" href="{% url 'team-create' %}" role="button">Create Team</a>
   {% for team in project_teams %}
   <div class="card">
   <div class="card-header">

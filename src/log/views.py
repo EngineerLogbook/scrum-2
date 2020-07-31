@@ -289,11 +289,11 @@ def logListView(request):
 def allLogsView(request):
     teams = request.user.team_set.all()
     projects = Project.objects.filter(team__in=teams)
-    logs = Logger.objects.filter(project__in=projects).filter(published=True) | Logger.objects.filter(user=request.user).filter(published=True)
+    logs = Logger.objects.filter(project__in=projects).filter(published=True)
 
     context = {
         "logs":logs.order_by('-date_created'),
-        "page_title":"All logs:",
+        "page_title":"Project logs:",
         "userpage":True,
         "welcomemessage":'Create your first log by clicking on the "New Log" Button !',
     }

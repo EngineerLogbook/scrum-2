@@ -61,7 +61,7 @@ class Project(DesignBaseClass):
 
     image = models.ImageField(default='project_header/default.png',
                               upload_to='project_header', blank=True, null=True)
-    logo = models.ImageField(default='project_logo/default.png',
+    logo = models.ImageField(default='default.png',
                              upload_to='project_logo', blank=True, null=True)
 
     password = models.CharField(
