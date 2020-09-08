@@ -1,4 +1,6 @@
 from django.urls import path
+
+from project.views import deleteTeamView
 from . import views
 
 urlpatterns = [
@@ -17,5 +19,6 @@ urlpatterns = [
          views.TeamUpdateView.as_view(), name='team-update'),
     path('team/', views.TeamListView.as_view(), name='team-list'),
     path('team/all', views.TeamListAllView.as_view(), name='team-listall'),
-    path('get-started/', views.gettingStartedView, name='get-started')
+    path('get-started/', views.gettingStartedView, name='get-started'),
+    path('team/delete', views.deleteTeamView, name='delete-team')
 ]

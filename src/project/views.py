@@ -1,4 +1,8 @@
-from django.shortcuts import render
+from uuid import UUID
+from django.core.exceptions import ObjectDoesNotExist
+from django.http.response import HttpResponse
+from django.shortcuts import redirect, render
+from django.views.decorators.http import require_http_methods
 from django.views.generic import (
     TemplateView,
     View,
@@ -14,8 +18,8 @@ from log.models import Logger
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import JoinTeamForm
-from django.http import JsonResponse,HttpResponseRedirect
-
+from django.http import JsonResponse, HttpResponseRedirect
+from django.urls import reverse_lazy
 
 class ProjectListView(LoginRequiredMixin,   ListView):
     """
@@ -36,6 +40,12 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     template_name = 'project/project_create.html'
     fields = ['title', 'description']
 
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.admin = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 class ProjectDetailView(LoginRequiredMixin,  DetailView):
     """
@@ -61,18 +71,28 @@ class TeamListView(LoginRequiredMixin,  ListView):
     template_name = 'proeject/team_list.html'
     context_object_name = 'teams'
 
+    def get_queryset(self):
+        listOProjects = self.request.user.team_set.all(
+        ).values_list('project', flat=True).distinct()
+        teams = Team.objects.filter(project_id__in=listOProjects)
+        
+        return teams
+
+
 
 class TeamCreateView(LoginRequiredMixin,  CreateView):
     model = Team
     template_name = 'project/team_create.html'
     fields = ['title', 'project', 'description']
 
-
     def form_valid(self, form):
         self.object = form.save()
         self.object.members.add(self.request.user)
+        self.object.admin = self.request.user
+        self.object.save()
         return HttpResponseRedirect(self.get_success_url())
-        
+
+
 class JoinTeamView(LoginRequiredMixin, TemplateView):
     """
         View for Joining Team that has been created
@@ -123,6 +143,22 @@ class ProjectListAllView(LoginRequiredMixin,  ListView):
     model = Project
     template_name = 'project/project_listall.html'
 
+@login_required
+@require_http_methods(['POST',])
+def deleteTeamView(request):
+    try:
+        pk = request.POST.get('pk', "")
+        team = Team.objects.get(id=pk)
+        if request.user != team.admin:
+            return HttpResponse("You are not authorized to perform this action", status=400)
+        team.delete()
+        messages.success(request, "Team Deleted Successfully")
+        return redirect('team-list')
+    except ObjectDoesNotExist:
+        return HttpResponse("Bad Request", status=400)
+    
+    return HttpResponse()
+
 
 @login_required
 def projectListView(request):
@@ -132,7 +168,7 @@ def projectListView(request):
 
     for project in Project.objects.all():
         try:
-            
+
             # add member and log count
             project.nooflogs = Logger.objects.filter(project=project).count()
             project.noofteams = project.team_set.all().count()

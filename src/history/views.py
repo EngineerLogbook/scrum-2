@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
+
+from project.models import Project
 from .models import History
 # Create your views here.
 

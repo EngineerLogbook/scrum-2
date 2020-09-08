@@ -13,7 +13,7 @@ class DesignBaseClass(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=127)
-    slug = models.SlugField(max_length=255, null=True)
+    slug = models.SlugField(max_length=255, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     published = models.BooleanField(default=True)
     reviewed = models.BooleanField(default=False)
@@ -70,6 +70,7 @@ class Project(DesignBaseClass):
                                     processors=[ResizeToFill(150, 150)],
                                     format='JPEG',
                                     options={'quality': 60})
+    admin = models.ForeignKey(User, null=True,blank=True, on_delete=models.SET_NULL, related_name='projectadmin')
 
     def get_absolute_url(self):
         return reverse("project-detail", kwargs={"pk": self.id})
@@ -87,6 +88,8 @@ class Team(DesignBaseClass):
         default=uuid.uuid4)  # email joining
     password = models.CharField(
         max_length=255, default='', blank=True, null=True)
+    admin = models.ForeignKey(User, null=True,blank=True, on_delete=models.SET_NULL, related_name='teamadmin')
+
 
     def get_absolute_url(self):
         return reverse("team-detail", kwargs={"pk": self.pk})

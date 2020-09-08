@@ -7,14 +7,6 @@ from .models import Team, Project
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
 
-    fields = (
-        'title',
-        'description',
-        'members',
-        'token',
-        'project',
-        'reviewed',
-    )
 
     list_display = (
 
@@ -34,16 +26,7 @@ class TeamAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    fields = (
 
-        'title',
-        'description',
-        'image',
-        'logo',
-        'access_token',
-        'reviewed'
-
-    )
 
     list_display = (
         'title',

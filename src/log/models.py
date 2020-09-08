@@ -15,11 +15,11 @@ class Tags(DesignBaseClass):
 class Logger(DesignBaseClass):
 
     note = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
     date_modified = models.DateTimeField(null=True)
     project = models.ForeignKey(
-        Project, on_delete=models.PROTECT, null=True, blank=True)
+        Project, on_delete=models.SET_NULL, null=True, blank=True)
     short_description = models.CharField(max_length=255, null=True, blank=True)
     tag = models.ManyToManyField(Tags, blank=True)
     default_password = models.BooleanField(default=True,)
@@ -53,7 +53,7 @@ class LogFile(DesignBaseClass):
 
 class LogURL(models.Model):
     url = models.URLField()
-    log = models.ForeignKey(Logger,  on_delete=models.PROTECT)
+    log = models.ForeignKey(Logger,  on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return f'{self.url}'
