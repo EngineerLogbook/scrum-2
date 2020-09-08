@@ -1,6 +1,6 @@
 from .base_settings import *
 
-DEBUG = True 
+DEBUG = False 
 DATABASES = {
     "default": {
         "ENGINE": config("SQL_ENGINE", "django.db.backends.sqlite3"),
