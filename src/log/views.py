@@ -223,18 +223,16 @@ def logDetailView(request, *args, **kwargs):
 @login_required
 def fileUploadHandler(request):
     if request.method == "POST":
-        print(request.POST.dict())
-        print(request.COOKIES['filesize'])
         filetoupload = request.FILES['file']
 
-        try:
-            filesize = int(request.COOKIES['filesize'])
-            if filesize > 25000000:
-                return JsonResponse({"message":"File exceeds 25 MB Limit."},status=413)
+#         try:
+#             filesize = int(request.COOKIES['filesize'])
+#             if filesize > 25000000:
+#                 return JsonResponse({"message":"File exceeds 25 MB Limit."},status=413)
 
-        except Exception as e:
-            print(e)
-            return JsonResponse({"message":"Bad Request"}, status=400)
+#         except Exception as e:
+#             print(e)
+#             return JsonResponse({"message":"Bad Request"}, status=400)
         
         file_extension = pathlib.Path(filetoupload.name).suffix
         file_name = filetoupload.name
