@@ -1,8 +1,33 @@
 {% extends "common/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-   <div class="content-section" style="padding: 10rem;">
-   <div class="card shadow mb-8" style="width: 45rem;">
+
+<style>
+.custom-card {
+    min-width : 100%;
+}
+
+.center-content {
+
+    display : grid;
+    place-items : center;
+    
+}
+@media only screen and (min-width: 992px) {
+
+    .custom-card {
+        min-width:80%
+    }
+    .center-content {
+        padding : 10rem;
+    }
+}
+
+</style>
+
+<div class="container">
+    <div class="content-section center-content" >
+   <div class="card shadow mb-8 custom-card" > 
    <div class="card-header py-8" class="card-header py-8">
    <h6 class="m-0 font-weight-bold text-primary">Create Team 🥳</h6>
    </div>
@@ -10,6 +35,7 @@
         <form method="POST" enctype='multipart/form-data'>
             {% csrf_token %}
             <fieldset class="form-group">
+            
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
@@ -17,6 +43,7 @@
             </div>
         </form>
         </div>
+ </div>
+ </div> 
 </div>
-    </div>
 {% endblock content %}

@@ -86,9 +86,8 @@
 
     .project-text-content {
         /* padding: 5%; */
-        padding-right: 1em;
-        padding-left: 10px;
-    }
+        padding-right: 1em; 
+           }
 
     .project-wrapper {
         color: black;
@@ -100,7 +99,8 @@
     <div class="container ">
         <div class="row justify-content-between">
             <div class="col-4">
-                <h1> {{ page_title }} </h1>
+                <h2> {{ page_title }} </h2
+                >
             </div>
 
             {% if userpage %}
@@ -130,7 +130,7 @@
             <div class="row bg-white has-shadow">
 
                 <div class="left-col col-lg-9 d-flex align-items-center justify-content-between">
-                    <div class="project-title d-flex align-items-center">
+                    <div class="project-title d-flex flex-wrap align-items-center">
                         <div class="image has-shadow rounded"><img src="{{log.user.profile.image.url}}" alt="..."
                                 class="img-fluid"></div>
                         <div class="text project-text-content">
@@ -141,7 +141,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="right-col col-lg-3 align-items-end justify-content-around">
+                <div class="col col-lg-3 align-items-end justify-content-around">
                     <div class="project-wrapper mb-2">
                         {% if log.project %} Project: {{ log.project }} {% else %} Personal Log {% endif %}
                     </div>
