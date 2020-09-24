@@ -1,6 +1,7 @@
 amqp==1.4.9
 anyjson==0.3.3
 asgiref==3.2.7
+astroid==2.4.2
 autopep8==1.5.2
 backcall==0.2.0
 billiard==3.3.0.23
@@ -16,11 +17,15 @@ django-debug-toolbar==2.2
 django-extensions==2.2.9
 django-formtools==2.2
 django-imagekit==4.0.2
+djangorestframework==3.11.1
 djecrety==1.0.13
 ipython==7.15.0
 ipython-genutils==0.2.0
+isort==5.5.3
 jedi==0.17.1
 kombu==3.0.37
+lazy-object-proxy==1.4.3
+mccabe==0.6.1
 parso==0.7.0
 pexpect==4.8.0
 pickleshare==0.7.5
@@ -32,9 +37,12 @@ pycodestyle==2.6.0
 pycparser==2.20
 pycryptodome==3.9.7
 Pygments==2.6.1
+pylint==2.6.0
 python-decouple==3.3
 pytz==2020.1
 six==1.15.0
 sqlparse==0.3.1
+toml==0.10.1
 traitlets==4.3.3
 wcwidth==0.2.4
+wrapt==1.12.1

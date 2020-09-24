@@ -37,5 +37,9 @@ urlpatterns = [
 
     # For ungregisterd users
 
-    path('', user_views.landing_page_view, name='landing-page')
+    path('', user_views.landing_page_view, name='landing-page'),
+
+    # For userlist search
+
+    path('api/user/' , user_views.UserAPIView.as_view())
 ]
