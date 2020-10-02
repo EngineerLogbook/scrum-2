@@ -1,11 +1,36 @@
 {% extends "common/base.html" %}
 {% load crispy_forms_tags %}
 {% block content%}
+
+<style>
+.custom-card {
+    min-width : 100%;
+}
+
+.center-content {
+
+    display : grid;
+    place-items : center;
+    margin-bottom : 2rem;
+
+}
+@media only screen and (min-width: 992px) {
+
+
+    .center-content {
+        padding : 5rem;
+    }
+}
+
+</style>
 <div class="container">
     <!-- Outer Row -->
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="content-section center-content" >
+   <div class="card shadow mb-8 custom-card" > 
+  
+            <div class="card-header py-8" class="card-header py-8">
+           
+           
                 <a href="{% url 'user-detail' request.user.profile.id %}">
                     <div class="form-group">
                         <button class="btn btn-outline-info" type="submit"> Back
@@ -38,5 +63,11 @@
             </div>
         </div>
     </div>
+    </div>
+     </div>
+    </div>
 </div>
 {% endblock content %}
+{% comment %} 
+  <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9"> {% endcomment %}
