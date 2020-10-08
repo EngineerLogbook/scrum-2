@@ -7,6 +7,11 @@ from .models import Profile
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
+from rest_framework import generics
+from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated
+from .serializers import UserSerializer
+from rest_framework import filters
 from django.views.generic import (
     View,
     ListView,
@@ -19,6 +24,15 @@ from django.views.generic import (
 class RedirectingLoginView(LoginView):
     redirect_authenticated_user = True
     template_name = 'user_management/login.html'
+
+class UserAPIView(generics.ListCreateAPIView):
+    search_fields = ['username']
+    filter_backends = (filters.SearchFilter,)
+    permission_classes = [IsAuthenticated]
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
 
 def register(request):
     if request.method == 'POST':

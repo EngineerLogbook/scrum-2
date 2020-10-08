@@ -34,7 +34,9 @@ INSTALLED_APPS = [
     # 'localflavour',  # https://django-localflavor.readthedocs.io/en/latest /
     'django_extensions',  # https://django-extensions.readthedocs.io/en/latest/index.html
     'imagekit',
-]
+    #restframework
+    'rest_framework'
+]y
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -130,3 +132,10 @@ MESSAGE_TAGS = {
 LOGOUT_REDIRECT_URL = "landing-page"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+#rest framework configuration
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
