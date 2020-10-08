@@ -21,6 +21,7 @@ class UserRegisterForm(UserCreationForm):
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(
+        disabled = True,
         widget=forms.EmailInput(
             attrs={'placeholder': 'Email', 'class': 'form-control'}),
         max_length=254,
@@ -46,7 +47,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name']
+        fields = ['username', 'email' , 'first_name', 'last_name']
 
 
 class ProfileUpdateForm(forms.ModelForm):
