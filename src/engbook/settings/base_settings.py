@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'imagekit',
     #restframework
     'rest_framework'
-]y
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
