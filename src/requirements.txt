@@ -6,6 +6,7 @@ autopep8==1.5.2
 backcall==0.2.0
 billiard==3.3.0.23
 celery==3.1.26.post2
+certifi==2020.11.8
 cffi==1.14.0
 decorator==4.4.2
 Django==3.0.7
@@ -40,9 +41,11 @@ Pygments==2.6.1
 pylint==2.6.0
 python-decouple==3.3
 pytz==2020.1
+sentry-sdk==0.19.4
 six==1.15.0
 sqlparse==0.3.1
 toml==0.10.1
 traitlets==4.3.3
+urllib3==1.26.2
 wcwidth==0.2.4
 wrapt==1.12.1

@@ -3,7 +3,8 @@
 import os
 from decouple import config
 from django.contrib import messages
-
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 SECRET_KEY = config('SECRET_KEY')
 ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', "*").split(' ')
@@ -34,7 +35,7 @@ INSTALLED_APPS = [
     # 'localflavour',  # https://django-localflavor.readthedocs.io/en/latest /
     'django_extensions',  # https://django-extensions.readthedocs.io/en/latest/index.html
     'imagekit',
-    #restframework
+    # restframework
     'rest_framework'
 ]
 
@@ -133,9 +134,20 @@ LOGOUT_REDIRECT_URL = "landing-page"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-#rest framework configuration
+# rest framework configuration
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+
+
+sentry_sdk.init(
+    dsn="https://000eacf72667419780e9ac63341f6dfd@o484060.ingest.sentry.io/5536829",
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
