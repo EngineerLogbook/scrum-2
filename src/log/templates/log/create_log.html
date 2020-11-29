@@ -59,7 +59,7 @@
                                 <option selected>Personal Log</option>
                                 {% for project in projects %}
 
-                                <option> {{ project.title }} </option>
+                                <option value="{{ project.id }}"> {{ project.title }}  </option>
                                 {% endfor %}
 
                             </select>

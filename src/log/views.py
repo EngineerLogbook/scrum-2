@@ -137,7 +137,7 @@ def logCreateView(request):
                 
             )            
         else:
-            project = Project.objects.get(title=log_project)
+            project = Project.objects.get(id=log_project)
             newlog = Logger.objects.create(
                 title=log_title,
                 short_description=log_description,
