@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-
+from django.views.generic.base import RedirectView
 
 def trigger_error(request):
     division_by_zero = 1/0
@@ -16,6 +16,7 @@ urlpatterns = [
     path('',  include('log.urls')),
     path('',  include('history.urls')),
     path('gdtbNQsMBVuqfQEhpANtGDxcZwHg/', trigger_error)
+    path('jointeam/', RedirectView.as_view(url='http://bit.ly/join-logbook-team'))
 ]
 
 
