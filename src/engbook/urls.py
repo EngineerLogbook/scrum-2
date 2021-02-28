@@ -15,7 +15,7 @@ urlpatterns = [
     path('',  include('project.urls')),
     path('',  include('log.urls')),
     path('',  include('history.urls')),
-    path('gdtbNQsMBVuqfQEhpANtGDxcZwHg/', trigger_error)
+    path('gdtbNQsMBVuqfQEhpANtGDxcZwHg/', trigger_error),
     path('jointeam/', RedirectView.as_view(url='http://bit.ly/join-logbook-team'))
 ]
 
