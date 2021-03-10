@@ -21,9 +21,11 @@ from django.views.generic import (
     DeleteView
 )
 
+
 class RedirectingLoginView(LoginView):
     redirect_authenticated_user = True
     template_name = 'user_management/login.html'
+
 
 class UserAPIView(generics.ListCreateAPIView):
     search_fields = ['username']
@@ -31,7 +33,6 @@ class UserAPIView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
 
 
 def register(request):
@@ -46,7 +47,7 @@ def register(request):
             return redirect('login')
     else:
         form = UserRegisterForm()
-   
+
     return render(request, 'user_management/register.html', {'form': form})
 
 
@@ -90,8 +91,10 @@ def contact(request):
 def privacy(request):
     return render(request, 'user_management/privacy.html')
 
+
 def terms(request):
     return render(request, 'user_management/terms.html')
+
 
 def disclaimer(request):
     return render(request, 'user_management/disclaimer.html')
@@ -99,6 +102,10 @@ def disclaimer(request):
 
 def landing_page_view(request):
     return render(request, 'user_management/landing.html', context={})
+
+
+def landing_page_view_1(request):
+    return render(request, 'pages/landing.html', context={})
 
 
 def ourteam(request):
@@ -113,13 +120,16 @@ def notfound(request):
 def faqs(request):
     return render(request, 'user_management/faqs.html')
 
+
 @login_required
 def terms(request):
     return render(request, 'user_management/terms.html')
 
+
 @login_required
 def aboutus(request):
     return render(request, 'user_management/about.html')
+
 
 @login_required
 def feedback(request):
