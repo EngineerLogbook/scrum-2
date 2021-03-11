@@ -1,11 +1,19 @@
-{% extends 'common/base.html' %} {% block styles %}
+{% extends 'common/base.html' %} 
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/list_view.css' %}">
+
 <style>
+
+    {% comment %} .projects *{
+        box-sizing: border-box;
+    }
     .projects {
         background-color: white;
         padding-top: 2em;
-        margin: auto;
-        border-radius: 2rem;
         padding-bottom: 3em;
+        border-radius: 2rem;
         margin-bottom: 5em;
     }
 
@@ -14,7 +22,6 @@
         padding: 15px 0;
         margin-bottom: 15px;
         border-radius: 1em;
-        padding-left: 10px;
     }
 
     .project div[class*='col-'] {
@@ -54,12 +61,6 @@
         margin-bottom: 0
     }
 
-    @media (max-width: 991px) {
-        .project .right-col {
-            margin-top: 20px;
-            margin-left: 65px
-        }
-    }
 
     .has-shadow {
         -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);
@@ -92,44 +93,95 @@
 
     .project-wrapper {
         color: black;
-    }
+    } {% endcomment %}
 </style>
 
-{% endblock styles %} {% block content %}
-<div class="container  projects">
-    <div class="container ">
-        <div class="row justify-content-between">
-            <div class="col-4">
-                <h1> {{ page_title }} </h1>
+{% endblock styles %} 
+
+{% block content %}
+
+    <div class="logs container">
+
+        <div class="page-title">
+            <h2 class="m-0">{{page_title}}</h2>
+            {% if userpage %}
+            <a class="btn btn-primary" href="{% url 'log-create' %}">New Log</a>
+            {% endif %}
+        </div>
+
+        <hr>
+
+        {% if not logs %}
+
+            <div class="log">
+                <h6>{{welcomemessage}}</h6>
+            </div>
+        
+        {% endif %}
+
+        {% for log in logs %}
+
+            <div class="log has-shadow">
+
+                <div class="log-right">
+                    <div class="image has-shadow">
+                        <img src="{{log.user.profile.image.url}}" alt="..."class="img-fluid">
+                    </div>
+                    <div class="log-text-content m-3">
+                        <h3>
+                            <a href="{% url 'log-detail' log.id %}">
+                                {{ log.title }}
+                            </a>
+                        </h3>
+                        <p>{{ log.short_description }}</p>
+                    </div>
+                </div>
+                <div class="log-left">
+                    <p><strong>Project:</strong> {% if log.project %} 
+                        Project: {{ log.project }} 
+                        {% else %} Personal Log 
+                        {% endif %}
+                    </p>
+                    <p><strong>Author:</strong> {{ log.user.username }}</p>
+                    <small>{{ log.date_modified }}</small>
+                </div>
+            </div>
+
+        {% endfor %}
+    
+    </div>
+
+
+{% comment %} <div class="container projects">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h2> {{ page_title }} </h2>
             </div>
 
             {% if userpage %}
-
-            <div class="col-4 " style="margin: 0px;">
-                <a class="btn btn-primary fa-pull-right" href="{% url 'log-create' %}">New Log</a>
-
+            <div>
+                <a class="btn btn-primary" href="{% url 'log-create' %}">New Log</a>
             </div>
             {% endif %}
-
-
         </div>
+        
         <div class="row">
             <div class="col">
                 <hr>
-
             </div>
         </div>
+
         {% if not logs %}
+        
         <div class="project">
             <h6>{{ welcomemessage }}</h6>
         </div> {% endif %}
+
         {% for log in logs %}
         <!-- Project-->
         <div class="project">
-
             <div class="row bg-white has-shadow">
-
-                <div class="left-col col-lg-9 d-flex align-items-center justify-content-between">
+                <div class="col-md-9 col-sm-12 d-flex align-items-center justify-content-between">
                     <div class="project-title d-flex align-items-center">
                         <div class="image has-shadow rounded"><img src="{{log.user.profile.image.url}}" alt="..."
                                 class="img-fluid"></div>
@@ -141,7 +193,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="right-col col-lg-3 align-items-end justify-content-around">
+                <div class="col-md-3 col-sm-12 align-items-end justify-content-around">
                     <div class="project-wrapper mb-2">
                         {% if log.project %} Project: {{ log.project }} {% else %} Personal Log {% endif %}
                     </div>
@@ -156,12 +208,13 @@
 
         {% endfor %}
 
-    </div>
     <!-- Project-->
 
-</div>
-{% endblock content %} {% block scripts %}
+</div> {% endcomment %}
 
+{% endblock content %} 
+
+{% block scripts %}
 <script>
 </script>
 {% endblock scripts %}
