@@ -1,6 +1,7 @@
-/*! `Custom` Bootstrap 4 theme */
-@import url("https://fonts.googleapis.com/css2?family=Acme&display=swap");
-$headings-font-family: "Acme", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
+$headings-font-family: "Nunito", sans-serif;
+$font-family-base: "Montserrat", sans-serif;
 
 $primary: #c8b6ff;
 $secondary: #868e96;
@@ -14,5 +15,3 @@ $enable-gradients: false;
 $spacer: 1.2rem;
 $border-width: 2px;
 $btn-border-radius: 1.35rem;
-
-// Add SASS theme customizations here..

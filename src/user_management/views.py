@@ -21,6 +21,8 @@ from django.views.generic import (
     DeleteView
 )
 
+from .models import Team, TeamMember
+
 
 class RedirectingLoginView(LoginView):
     redirect_authenticated_user = True
@@ -110,6 +112,17 @@ def landing_page_view_1(request):
 
 def ourteam(request):
     return render(request, 'user_management/ourteam.html')
+
+
+def ourteam_1(request):
+    teams = Team.objects.all()
+    members = TeamMember.objects.all()
+
+    context = {
+        "teams": teams,
+        "members": members
+    }
+    return render(request, 'pages/ourteam.html', context)
 
 
 def notfound(request):

@@ -14,6 +14,7 @@ urlpatterns = [
 
     path('contact/', user_views.contact, name='contact'),
     path('ourteam/', user_views.ourteam, name='ourteam'),
+    path('ourteam/1/', user_views.ourteam_1, name='ourteam-1'),
     path('404', user_views.notfound, name='notfound'),
     path('faqs/', user_views.faqs, name='faqs'),
     path('aboutus/', user_views.aboutus, name='aboutus'),
