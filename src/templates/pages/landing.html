@@ -1,8 +1,25 @@
-{% extends 'pages/base.html' %}
+{% extends 'pages/base.html' %} {% block head_tag %} {% load static %}
 
+<link rel="stylesheet" href="{% static 'pages/css/landing.min.css' %}" />
+{% endblock head_tag %} {% block content %}
 
-{% block content %}
+<div class="container-fluid my-3 px-0">
+  <div
+    id="carouselExampleFade"
+    class="carousel slide corousel-fade"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <div class="box">
+        <div class="carousel-item active">
+          <img src="../static/img/h1.jpg" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src="../static/img/h2.jpg" class="d-block w-100" alt="..." />
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <h1>Landing Page</h1>
-
-{% endblock content %}
+  {% endblock content %}
+</div>

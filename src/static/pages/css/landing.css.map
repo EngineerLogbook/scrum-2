@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CAAC;EACH,OAAO,EAAE,IAAI;EACb,UAAU,EAAE,GAAG;EACf,MAAM,EAAE,IAAI;EACZ,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,UAAU;EACvB,eAAe,EAAE,MAAM;EACvB,cAAc,EAAE,MAAM;EACtB,gBAAgB,EAAE,gDAAgD;EAClE,KAAK,EAAE,KAAK;EACZ,OAAO,EAAE,CAAC;CACX",
+    "sources": [
+        "../scss/landing.scss"
+    ],
+    "names": [],
+    "file": "landing.css"
+}

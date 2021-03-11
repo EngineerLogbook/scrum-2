@@ -1,0 +1,18 @@
+/*! `Custom` Bootstrap 4 theme */
+@import url("https://fonts.googleapis.com/css2?family=Acme&display=swap");
+$headings-font-family: "Acme", sans-serif;
+
+$primary: #c8b6ff;
+$secondary: #868e96;
+$success: #28a745;
+$danger: #dc3545;
+$info: #17a2b8;
+$warning: #ffc107;
+$light: #f8f9fa;
+$dark: #5e60ce;
+$enable-gradients: false;
+$spacer: 1.2rem;
+$border-width: 2px;
+$btn-border-radius: 1.35rem;
+
+// Add SASS theme customizations here..

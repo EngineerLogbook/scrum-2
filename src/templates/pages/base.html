@@ -1,41 +1,37 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
 
     <!--FontAwesome CDN-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
 
     <!--Custom Bootstrap CSS-->
-    <link rel="stylesheet" href="{% static 'pages/css/main.min.css' %}">
+    <link rel="stylesheet" href="{% static 'pages/css/main.min.css' %}" />
 
-    {% block head_tag %}
-    
-    {% endblock head_tag %}
+    {% block head_tag %} {% endblock head_tag %}
 
     <title>{% block title_tag %}Digital Logbook{% endblock title_tag %}</title>
-</head>
-<body>
-    
+  </head>
+  <body>
     {% include 'components/pages/navbar.html' %}
-    
-    <main>
-        <div class="container">
-            {% block content %}
-            
-            {% endblock content %}
-        </div>
-    </main>
 
+    <main>
+      <div class="container-fluid">
+        {% block content %} {% endblock content %}
+      </div>
+    </main>
 
     {% include 'components/pages/footer.html' %}
 
     <script src="{% static 'pages/js/bootstrap.bundle.min.js' %}"></script>
-    {% block script %}
-    {% endblock script %}
-</body>
+    {% block script %} {% endblock script %}
+  </body>
 </html>

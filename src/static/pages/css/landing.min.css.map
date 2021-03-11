@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,AAAC,CACH,OAAO,CAAE,IAAI,CACb,UAAU,CAAE,GAAG,CACf,MAAM,CAAE,IAAI,CACZ,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,UAAU,CACvB,eAAe,CAAE,MAAM,CACvB,cAAc,CAAE,MAAM,CACtB,gBAAgB,CAAE,gDAAgD,CAClE,KAAK,CAAE,KAAK,CACZ,OAAO,CAAE,CAAC,CACX",
+    "sources": [
+        "../scss/landing.scss"
+    ],
+    "names": [],
+    "file": "landing.min.css"
+}
