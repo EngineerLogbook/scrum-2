@@ -1,6 +1,6 @@
-{% extends "pages/base.html" %} {% load crispy_forms_tags %} {% block content %}
-
-<body class="bg-gradient-primary">
+{% extends "pages/base.html" %} 
+{% load crispy_forms_tags %} 
+{% block content %}
 
     <div class="container">
 
@@ -16,22 +16,6 @@
                             </div>
                             <form class="user" method="POST">
                                 {% csrf_token %}
-                                {% comment %} <div class="form-group row controls">
-                                    <div class="col-sm-12 mb-12 mb-sm-0">
-                                        <input type="text" name="username" maxlength="150" autofocus class="form-control form-control-user textinput textInput" placeholder="Username" required id="id_username">
-                                    </div>
-                                </div>
-                                <div class="form-group controls">
-                                    <input type="email" name="email" class="emailinput form-control form-control-user" required id="id_email" placeholder="Email Address">
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" name="password1" placeholder="Password" autocomplete="new-password" class="textinput textInput form-control form-control-user" required id="id_password1">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" name="password2" autocomplete="new-password" class="form-control form-control-user textinput textInput" placeholder="Repeat Password" required id="id_password2">
-                                    </div>
-                                </div> {% endcomment %}
 
                                 {{form|crispy}}
 
@@ -56,4 +40,5 @@
 
     </div>
 
-    <br><br><br><br> {% endblock content %}
+    <br><br><br><br> 
+{% endblock content %}

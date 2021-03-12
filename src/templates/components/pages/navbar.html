@@ -21,7 +21,10 @@
         <a class="nav-link" href="{% url 'ourteam' %}">Our Team</a>
       </li>
     </ul>
-    <ul class="navbar-nav">
+    <ul id="nav-btns">
+      <li id="login-btn" class="nav-item">
+        <a class="btn btn-sm btn-outline-danger text-white" href="{% url 'login' %}">Login</a>
+      </li>
       <li class="nav-item">
         <a class="btn btn-sm btn-danger" href="{% url 'register' %}">Sign Up</a>
       </li>
