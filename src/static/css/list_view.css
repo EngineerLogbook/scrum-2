@@ -1,24 +1,31 @@
 .logs.container {
   display: flex;
-  padding: 0;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
+.logs {
+  padding: 2rem;
+  background: #fff;
+  max-width: 80%;
+  border-radius: 10px;
+}
+
 .logs .page-title {
-  width: 95%;
+  width: 100%;
   padding: 0.75rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid #eee;
 }
 
 .log {
   padding: 1rem;
   margin-bottom: 2rem;
-  width: 80%;
+  width: 100%;
   border-radius: 10px;
   background-color: white;
 
@@ -31,6 +38,18 @@
 
 .logs .log-right {
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logs .log-right .log-text-content {
+  margin-top: 1rem;
+}
+
+.logs .log-right a {
+  color: black;
 }
 
 .logs .log-right .image {
@@ -54,9 +73,9 @@
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .logs .page-title {
-    width: 80%;
+    width: 100%;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -74,11 +93,17 @@
   .logs .log-right {
     flex: 1;
     display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     margin-bottom: 0rem;
-    border-right: 1px solid #eee;
+  }
+  .logs .log-right .log-text-content {
+    margin-top: 0;
+    margin-left: 2rem;
   }
   .logs .log-left {
-    margin-left: 1rem;
+    padding-left: 2rem;
+    border-left: 3px solid #eee;
   }
 }
 
