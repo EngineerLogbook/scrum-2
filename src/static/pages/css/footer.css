@@ -1,6 +1,6 @@
 footer {
   /* background: #c8b6ff; */
-  background-image: linear-gradient(180deg, #c8b6ff 0%, #4e73df 100%);
+  background-color: #4e73df;
   height: auto;
   width: 100vw;
   padding-top: 40px;
@@ -18,15 +18,17 @@ footer {
 
 .footer-content h3 {
   font-size: 3rem;
-  font-weight: 500;
+  font-weight: 550;
   text-transform: capitalize;
   line-height: 5rem;
+  color: #f8f9fa;
 }
 .footer-content p {
   max-width: 500px;
   margin: 10px auto;
   line-height: 28px;
   font-size: 16px;
+  color: #f8f9fa;
 }
 .socials {
   list-style: none;
@@ -40,14 +42,14 @@ footer {
 }
 .socials a {
   text-decoration: none;
-  color: #03071e;
+  color: #f8f9fa;
 }
 .socials a i {
   font-size: 1.5rem;
   transition: #f8f9fa 0.4s ease;
 }
 .socials a:hover i {
-  color: #f8f9fa;
+  color: #03071e;
 }
 
 .footer-bottom {
