@@ -1,25 +1,139 @@
-{% extends 'pages/base.html' %} {% block head_tag %} {% load static %}
+{% extends 'pages/base.html' %} {% load static %} {% block head_tag %}
 
-<link rel="stylesheet" href="{% static 'pages/css/landing.min.css' %}" />
+<link rel="stylesheet" href="{% static 'pages/css/landing.css' %}" />
 {% endblock head_tag %} {% block content %}
-
-<div class="container-fluid my-3 px-0">
-  <div
-    id="carouselExampleFade"
-    class="carousel slide corousel-fade"
-    data-bs-ride="carousel"
-  >
-    <div class="carousel-inner">
-      <div class="box">
-        <div class="carousel-item active">
-          <img src="../static/img/h1.jpg" class="d-block w-100" alt="..." />
-        </div>
-        <div class="carousel-item">
-          <img src="../static/img/h2.jpg" class="d-block w-100" alt="..." />
-        </div>
-      </div>
+<div class="banner">
+  <div class="row">
+    <div class="col-md-12"></div>
+    <div class="col-md-8 offset-md-2 info">
+      <h1 class="text-center">LEARN, IMPLEMENT, UPGRADE!</h1>
+      <p class="text-center">
+        Say No to Paper Books.<br />Switch to <strong>LOGBOOKS</strong>.
+      </p>
+      <a href="#" class="btn btn-md text-center">Sign Up</a>
     </div>
   </div>
-
-  {% endblock content %}
 </div>
+<div class="wrapper">
+  <h1>Why prefer a logbook?</h1>
+  <div class="about">
+    <div class="about_features">
+      <div class="about_img">
+        <img
+          src="https://images.unsplash.com/photo-1523437018642-93ccba0eec9c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+          alt="Team_image"
+        />
+      </div>
+      <h3>Keeps you personal data safe</h3>
+      <p>
+        You can use your web browser to collect notes and even files such as
+        Images, Pdf's, Videos, Cad files, Excel sheets etc. to sync directly
+        into the LogBook, which is encrypted i.e. totally secure and
+        inaccessible to anyone else without your permission.
+      </p>
+    </div>
+    <div class="about_features">
+      <div class="about_img">
+        <img
+          src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fHRlYW18ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          alt="Team_image"
+        />
+      </div>
+      <h3>Builds stronger Collaboration</h3>
+      <p>
+        LogBook gives you the platform to build your team and work together.
+        Clearer communication ensures a more efficient operation. Thus you can
+        collaborate with people easily which prevents the headache of manual
+        team formation.
+      </p>
+    </div>
+    <div class="about_features">
+      <div class="about_img">
+        <img
+          src="https://images.unsplash.com/photo-1580983559367-0dc2f8934365?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjF8fHNoYXJpbmclMjBmaWxlcyUyMG9uJTIwY29tcHV0ZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          alt="Team_image"
+        />
+      </div>
+      <h3>Provides access to sharing</h3>
+      <p>
+        LogBook gives you the platform and the advantage to share your work with the team members involved in a project, even with the non team members such as professors for the evaluation of the daily work done during the Capstone Project.
+      </p>
+    </div>
+  </div>
+</div>
+<section>
+		<!-- Swiper -->
+	  <div class="swiper-container">
+	    <div class="swiper-wrapper">
+	      <div class="swiper-slide">
+	      	<div class="testimonialBox">
+	      		<img src="{% static 'img/quote.png' %}" class="quote">
+	      		<div class="content">
+	      			<p>It was a treat to experience the execution of a software-based project executed so beautifully by a multi-disciplinary team of budding engineers. It was also a pleasure to see the enthusiasm, teamwork, professionalism which lead to the final engineered product, following the generic engineering design process.</p>
+	      			<div class="details">
+	      				<div class="imgBx">
+	      					<img src="{% static 'img/1.jpeg' %}">
+	      				</div>
+	      				<h3>AJAYINDER S JAWANDA<br><br><span>-Associate Professor</span></h3>
+	      			</div>
+	      		</div>
+	      	</div>
+	      </div>
+	      <div class="swiper-slide">
+	      	<div class="testimonialBox">
+	      		<img src="{% static 'img/quote.png' %}" class="quote">
+	      		<div class="content">
+	      			<p>This is an exemplary project execution by a multi-disciplinary team of students demonstrating what experiential learning on a real-world project is all about. This should serve well to inspire students of all engineering branches to learn skills beyond the curriculum which would help them secure careers using software tools in the new normal after the pandemic</p>
+	      			<div class="details">
+	      				<div class="imgBx">
+	      					<img src="{% static 'img/2.jpg' %}">
+	      				</div>
+	      				<h3>AJAY BATISH<br><br><span>-Deputy Director & Professor</span></h3>
+	      			</div>
+	      		</div>
+	      	</div>
+	      </div>
+	      <div class="swiper-slide">
+	      	<div class="testimonialBox">
+	      		<img src="{% static 'img/quote.png' %}" class="quote">
+	      		<div class="content">
+	      			<p>Coming together is a beginning. Keeping together is progress. Working together is success.” -Henry Ford.
+					    These young budding engineers, drawn from diverse domains, have proved it true. I am really proud of this team and wish them great success in all future endeavours.</p>
+	      			<div class="details">
+	      				<div class="imgBx">
+	      					<img src="{% static 'img/3.jpg' %}">
+	      				</div>
+	      				<h3>SANDEEP SHARMA<br><br><span>-Associate Professor</span></h3>
+	      			</div>
+	      		</div>
+	      	</div>
+	      </div>
+	      </div>
+	    </div>
+	    <!-- Add Pagination -->
+	    <!-- <div class="swiper-pagination"></div> -->
+	  </div>
+
+	</section>
+	
+{% endblock content %}
+
+{% block script %}
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+          effect: 'coverflow',
+          grabCursor: true,
+          centeredSlides: true,
+          slidesPerView: 'auto',
+          coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          },
+          // loop: true,
+        });
+    </script>
+  {% endblock script %}
