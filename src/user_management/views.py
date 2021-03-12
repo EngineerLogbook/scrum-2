@@ -103,18 +103,10 @@ def disclaimer(request):
 
 
 def landing_page_view(request):
-    return render(request, 'user_management/landing.html', context={})
-
-
-def landing_page_view_1(request):
     return render(request, 'pages/landing.html', context={})
 
 
 def ourteam(request):
-    return render(request, 'user_management/ourteam.html')
-
-
-def ourteam_1(request):
     teams = Team.objects.all()
     members = TeamMember.objects.all()
 

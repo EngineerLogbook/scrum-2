@@ -14,7 +14,6 @@ urlpatterns = [
 
     path('contact/', user_views.contact, name='contact'),
     path('ourteam/', user_views.ourteam, name='ourteam'),
-    path('ourteam/1/', user_views.ourteam_1, name='ourteam-1'),
     path('404', user_views.notfound, name='notfound'),
     path('faqs/', user_views.faqs, name='faqs'),
     path('aboutus/', user_views.aboutus, name='aboutus'),
@@ -39,7 +38,6 @@ urlpatterns = [
     # For ungregisterd users
 
     path('', user_views.landing_page_view, name='landing-page'),
-    path('1/', user_views.landing_page_view_1, name='landing-page-1'),
 
     # For userlist search
 

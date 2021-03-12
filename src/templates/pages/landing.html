@@ -1,20 +1,26 @@
-{% extends 'pages/base.html' %} {% load static %} {% block head_tag %}
+{% extends 'pages/base.html' %} 
+{% load static %} 
 
+{% block head_tag %}
 <link rel="stylesheet" href="{% static 'pages/css/landing.css' %}" />
-{% endblock head_tag %} {% block content %}
-<div class="banner">
-  <div class="row">
-    <div class="col-md-12"></div>
-    <div class="col-md-8 offset-md-2 info">
+
+{% endblock head_tag %}
+
+{% block content %}
+<section class="banner">
+    <div class="info">
       <h1 class="text-center">LEARN, IMPLEMENT, UPGRADE!</h1>
       <p class="text-center">
         Say No to Paper Books.<br />Switch to <strong>LOGBOOKS</strong>.
       </p>
-      <a href="#" class="btn btn-md text-center">Sign Up</a>
+      <div class="btns">
+        <a href="{% url 'login' %}" class="btn btn-lg btn-danger text-center">Login</a>
+        <a href="{% url 'register' %}" class="btn btn-lg btn-primary text-center">Sign Up</a>
+      </div>
     </div>
-  </div>
-</div>
-<div class="wrapper">
+</section>
+
+<div id="about" class="wrapper">
   <h1>Why prefer a logbook?</h1>
   <div class="about">
     <div class="about_features">
@@ -61,7 +67,8 @@
     </div>
   </div>
 </div>
-<section>
+
+<section id="testimonials">
 		<!-- Swiper -->
 	  <div class="swiper-container">
 	    <div class="swiper-wrapper">
@@ -108,20 +115,21 @@
 	      		</div>
 	      	</div>
 	      </div>
-	      </div>
 	    </div>
+	  </div>
 	    <!-- Add Pagination -->
 	    <!-- <div class="swiper-pagination"></div> -->
 	  </div>
 
-	</section>
+</section>
 	
 {% endblock content %}
 
 {% block script %}
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="{% static 'pages/js/navbar.js' %}"></script>
     <script>
-        var swiper = new Swiper('.swiper-container', {
+        const swiper = new Swiper('.swiper-container', {
           effect: 'coverflow',
           grabCursor: true,
           centeredSlides: true,
@@ -133,7 +141,6 @@
             modifier: 1,
             slideShadows: true,
           },
-          // loop: true,
         });
     </script>
   {% endblock script %}

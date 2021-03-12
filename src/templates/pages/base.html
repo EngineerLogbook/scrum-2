@@ -15,7 +15,8 @@
 
     <!--Custom Bootstrap CSS-->
     <link rel="stylesheet" href="{% static 'pages/css/main.min.css' %}" />
-
+    <link rel="stylesheet" href="{% static 'pages/css/navbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/css/footer.css' %}" />
     {% block head_tag %} {% endblock head_tag %}
 
     <title>{% block title_tag %}Digital Logbook{% endblock title_tag %}</title>
@@ -32,6 +33,7 @@
     {% include 'components/pages/footer.html' %}
 
     <script src="{% static 'pages/js/bootstrap.bundle.min.js' %}"></script>
+    
     {% block script %} {% endblock script %}
   </body>
 </html>
