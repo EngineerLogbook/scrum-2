@@ -1,15 +1,11 @@
-.logs.container {
+.logs {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.logs {
-  padding: 2rem;
-  background: #fff;
-  max-width: 80%;
   border-radius: 10px;
+  max-width: 1150px;
+  margin: 0 auto;
 }
 
 .logs .page-title {
@@ -25,7 +21,7 @@
 .log {
   padding: 1rem;
   margin-bottom: 2rem;
-  width: 100%;
+  width: 90%;
   border-radius: 10px;
   background-color: white;
 
@@ -46,6 +42,11 @@
 
 .logs .log-right .log-text-content {
   margin-top: 1rem;
+}
+
+.logs .log-right .log-text-content p {
+  max-width: 35ch;
+  margin: 0 auto;
 }
 
 .logs .log-right a {
@@ -89,6 +90,7 @@
     padding: 2rem;
     flex-direction: row;
     text-align: left;
+    width: 100%;
   }
   .logs .log-right {
     flex: 1;
@@ -101,19 +103,26 @@
     margin-top: 0;
     margin-left: 2rem;
   }
+  .logs .log-right .log-text-content p {
+    max-width: 55ch;
+    margin: 0 auto;
+  }
   .logs .log-left {
     padding-left: 2rem;
     border-left: 3px solid #eee;
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 400px) {
   .logs .page-title {
     padding: 0.75rem;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     text-align: center;
+  }
+  .logs .log-right .log-text-content {
+    width: 25ch;
   }
   .logs .page-title .btn {
     margin-top: 0.75rem;
