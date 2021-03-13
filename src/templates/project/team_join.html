@@ -1,23 +1,27 @@
 {% extends "common/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-   <div class="content-section" style="padding: 8rem;">
-   <div class="card shadow mb-8" style="width: 45rem;">
-   <div class="card-header py-8" class="card-header py-8">
-   <h6 class="m-0 font-weight-bold text-primary">Join Team🥳</h6>
-   </div>
-        <div class="card-body">
-        <form method="POST" enctype='multipart/form-data'>
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Maintain logs together 🖋</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-primary" type="submit">Join Team 🎈</button>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="m-0 font-weight-bold text-primary">Join Team🥳</h6>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" enctype='multipart/form-data'>
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                <legend class="border-bottom mb-4">Maintain logs together 🖋</legend>
+                                {{ form|crispy }}
+                            </fieldset>
+                            <div class="form-group">
+                                <button class="btn btn-outline-primary" type="submit">Join Team 🎈</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </form>
-         </div>
-</div>
+        </div>
     </div>
 {% endblock content %}

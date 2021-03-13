@@ -5,11 +5,11 @@
   justify-content: center;
   border-radius: 10px;
   max-width: 1150px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .logs .page-title {
-  width: 100%;
+  width: 90%;
   padding: 0.75rem;
   display: flex;
   flex-direction: row;
@@ -56,6 +56,8 @@
 .logs .log-right .image {
   width: 100px;
   height: 100px;
+  min-width: 100px;
+  min-height: 100px;
 }
 
 .logs .log-left {
@@ -104,7 +106,7 @@
     margin-left: 2rem;
   }
   .logs .log-right .log-text-content p {
-    max-width: 55ch;
+    max-width: 70ch;
     margin: 0 auto;
   }
   .logs .log-left {
