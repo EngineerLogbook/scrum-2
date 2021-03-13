@@ -1,32 +1,35 @@
-{% load static %}
-{% url 'landing-page' as landing_page %}
-<nav id="navbar" class="navbar {% if request.path != landing_page %}scroll{% endif %}">
-    <span id="nav-toggle" class="btn p-0">
-      <img src="{% static 'img/nav-icon.svg' %}" alt="nav-toogle">
-    </span>
-    <a class="logo" href="{% url 'landing-page' %}">
-      <img src="{% static 'img/logofinal.png' %}" alt="logbook's logo" width="140">
-    </a>
-    <ul id="nav-ul" class="nav-links mx-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'landing-page' %}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/#about">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/#testimonials">Testimonials</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'ourteam' %}">Our Team</a>
-      </li>
-    </ul>
-    <ul id="nav-btns">
-      <li id="login-btn" class="nav-item">
-        <a class="btn btn-sm btn-outline-danger text-white" href="{% url 'login' %}">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="btn btn-sm btn-danger" href="{% url 'register' %}">Sign Up</a>
-      </li>
-    </ul>
+{% load static %} {% url 'landing-page' as landing_page %}
+<nav
+  id="navbar"
+  class="navbar {% if request.path != landing_page %}scroll{% endif %}"
+>
+  <span id="nav-toggle" class="btn p-0">
+    <img src="{% static 'img/nav-icon.svg' %}" alt="nav-toogle" />
+  </span>
+  <a class="logo" href="{% url 'landing-page' %}">
+    <img
+      src="{% static 'img/logofinal.png' %}"
+      alt="logbook's logo"
+      width="140"
+    />
+  </a>
+  <ul id="nav-ul" class="nav-links mx-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'landing-page' %}">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/#about">About</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/#testimonials">Testimonials</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'ourteam' %}">Our Team</a>
+    </li>
+  </ul>
+  <ul id="nav-btns">
+    <li class="nav-item">
+      <a class="btn btn-sm btn-danger" href="{% url 'register' %}">Sign Up</a>
+    </li>
+  </ul>
 </nav>

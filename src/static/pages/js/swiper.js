@@ -11,4 +11,5 @@ const swiper = new Swiper(".swiper-container", {
     slideShadows: true,
     initialSlide: 1,
   },
+  //loop: true,
 });
