@@ -36,10 +36,10 @@
                     <div class="log-text-content">
                         <h3>
                             <a href="{% url 'log-detail' log.id %}">
-                                {{ log.title }}
+                                {{ log.title|truncatewords:10 }}
                             </a>
                         </h3>
-                        <p>{{ log.short_description }}</p>
+                        <p>{{ log.short_description|truncatechars:250 }}</p>
                     </div>
                 </div>
                 <div class="log-left">
