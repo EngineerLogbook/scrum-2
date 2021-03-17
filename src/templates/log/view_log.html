@@ -1,92 +1,75 @@
-{% extends 'common/base.html' %} {% load static %} {% block styles %}
-
+{% extends 'common/base.html' %} 
+{% load static %} 
+{% block styles %}
 <style>
-    .log-view {
-        background: white;
-        margin-top: 5%;
-        margin-bottom: 5%;
-        width: 100%;
-        border-radius: 1rem;
-        padding-bottom: 5%;
-        padding: 5%;
-        color: black;
+    #mobile{
+        display:none;
+    }
+    #desktop{
+        display:block;
     }
 
-    .main-heading {
-        /* margin-top: 2em; */
-        font-size: 3.5em;
-    }
-
-    .log-content-row {
-        margin-top: 2em;
-    }
-
-    .log-content {
-        color: #858796;
-    }
-
-    .btn-lg {
-        border-radius: 1.2rem;
+    @media(max-width:576px){
+        #mobile{
+            display:block;
+        }
+        #desktop{
+            display:none;
+        }
     }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{% static 'log/metro.css' %}">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
+{% endblock styles %} 
 
-{% comment %} For the username entry field {% endcomment %}
- {% endblock styles %} {% block content %}
-<div class="container-fluid">
+{% block content %}
+<div class="container mt-5">
     <div class="row">
         <div class="col">
-            <div class="container log-view">
-                <div class="row log-author-row">
-                    <div class="col-md-5 log-heading">
-                        <h4> Author: {{ log.user.username }}</h4>
-                        <img class=" rounded-circle" width="2em" height src="{{ log.user.profile.image.url }}">
-                    </div>
-
-                </div>
-                <div class="row log-heading-row justify-content-between ">
-                    <div class="col-6   log-heading">
-                        <h7 class="main-heading small ">{{ log.title }}</h7>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="user-detail d-flex align-items-center">
+                        <img class="rounded-circle" width="40px" src="{{ log.user.profile.image.url }}" />
+                        <h5 class="text-dark ml-5">{{ log.user.username }}</h5>
                     </div>
                     {% if log.user == request.user %}
-                    <div class="col-md-6 col-sm-12">
-                        <div class="btn-toolbar fa-pull-right">
+                    <div class="user-toolbar d-flex align-items-center">
+                        <div id="mobile" class="dropdown show">
+                            <button class="btn" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </button>
 
-                            <div class="btn-group btn-group-lg mr-2" role="group">
-                                <button class="btn btn-secondary" onclick="editPageRedirect();">Edit</button>
-                                <button class="btn btn-primary" data-toggle="modal" href="#shareModal">Share</button>
-
-                                <button class="btn btn-danger " data-toggle="modal" href="#myModal">Delete</button>
-
-                            </div>
-
-                            <div class="btn-group btn-group-lg mr-2" role="group">
-                                <button class="btn btn-outline-dark fa fa-paperclip" data-toggle="modal" href="#userFilesModal"></button>
-
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <button class="dropdown-item" onclick="editPageRedirect();">Edit</button>
+                                <button class="dropdown-item" data-toggle="modal" href="#shareModal">Share</button>
+                                <button class="dropdown-item" data-toggle="modal" href="#myModal">Delete</button>
+                                <button class="dropdown-item" data-toggle="modal" href="#userFilesModal">Attach File</button>
                             </div>
                         </div>
-                        <!-- <button class="btn-lg btn-secondary btn-block" onclick="editPageRedirect();">Edit</button> -->
+                        <div id="desktop" class="btn-group btn-group-sm mr-2" role="group">
+                            <button class="btn btn-secondary" onclick="editPageRedirect();">Edit</button>
+                            <button class="btn btn-primary" data-toggle="modal" href="#shareModal">Share</button>
+                            <button class="btn btn-danger" data-toggle="modal" href="#myModal">Delete</button>
+                        </div>
+                        <div id="desktop" class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-outline-dark fa fa-paperclip" data-toggle="modal" href="#userFilesModal"></button>
+                        </div>
                     </div>
                     {% endif %}
                 </div>
-
-
-                <div class="row">
-                    <div class="col-md-8" style="color: grey;">
-                        {{ log.date_modified }}
-                        <hr>
-                    </div>
-                </div>
-                <div class="row log-content-row">
-                    <div class="col">
-                        <div class="log-content" id="log-content">{{ log.note }}</div>
-                    </div>
+                <div class="card-body">
+                    <h3 class="card-title mb-0" style="color:black;">
+                        {{ log.title }}
+                    </h3>
+                    <span class="card-text"><small>{{ log.date_modified }}</small></span>
+                    <hr>
+                    <p class="card-text">
+                        {{log.note}}
+                    </p>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
