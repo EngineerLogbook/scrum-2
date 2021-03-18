@@ -295,19 +295,23 @@ def allLogsView(request, slug):
             "projects": projects.order_by('title'),
             "page_title": "Project logs:",
             "userpage": True,
-            "personal": False,
+            "loglistpage": True,
             "selected": 'all',
             "welcomemessage": 'Create your first log by clicking on the "New Log" Button !',
         }
     else:
-        project = projects.filter(id=slug)
+        try:
+            project = projects.filter(id=slug)
+        except:
+            return redirect('/logs/all')
+
         logs_list = Logger.objects.filter(
             project__in=project).filter(published=True).order_by('-date_created')
         context = {
             "projects": projects.order_by('title'),
             "page_title": "Project logs:",
             "userpage": True,
-            "personal": False,
+            "loglistpage": True,
             "selected": project[0].id,
             "welcomemessage": 'Create your first log by clicking on the "New Log" Button !',
         }
