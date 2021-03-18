@@ -21,7 +21,7 @@ from django.views.generic import (
     DeleteView
 )
 
-from .models import Team, TeamMember
+from .models import Phase, Member
 
 
 class RedirectingLoginView(LoginView):
@@ -107,8 +107,8 @@ def landing_page_view(request):
 
 
 def ourteam(request):
-    teams = Team.objects.all()
-    members = TeamMember.objects.all()
+    teams = Phase.objects.all()
+    members = Member.objects.all()
 
     context = {
         "teams": teams,
