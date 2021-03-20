@@ -4,6 +4,7 @@ from user_management import views as user_views
 urlpatterns = [
     # Custom
     path('register/', user_views.register, name='register'),
+    path('activate/<uidb64>/<token>/', user_views.activate, name='activate'),
     path('profile/', user_views.profile, name='profile'),
 
     path('terms/', user_views.terms, name='terms'),
