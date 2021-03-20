@@ -1,6 +1,6 @@
 amqp==1.4.9
 anyjson==0.3.3
-asgiref==3.2.7
+asgiref==3.2.10
 astroid==2.4.2
 autopep8==1.5.2
 backcall==0.2.0
