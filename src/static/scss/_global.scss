@@ -30,6 +30,7 @@ a {
     overflow-x: hidden;
     #content {
       flex: 1 0 auto;
+      width: calc(100vw - 14rem);
     }
     #content-box {
       display: flex;
