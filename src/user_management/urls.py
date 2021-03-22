@@ -41,5 +41,5 @@ urlpatterns = [
 
     # For userlist search
 
-    path('api/user/' , user_views.UserAPIView.as_view())
+    path('api/user/', user_views.UserAPIView.as_view())
 ]

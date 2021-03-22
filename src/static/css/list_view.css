@@ -1,0 +1,132 @@
+.logs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  max-width: 1150px;
+  width: 100%;
+}
+
+.logs .page-title {
+  width: 90%;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #eee;
+}
+
+.log {
+  padding: 1rem;
+  margin-bottom: 2rem;
+  width: 90%;
+  border-radius: 10px;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.logs .log-right {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logs .log-right .log-text-content {
+  margin-top: 1rem;
+}
+
+.logs .log-right .log-text-content p {
+  max-width: 35ch;
+  margin: 0 auto;
+}
+
+.logs .log-right a {
+  color: black;
+}
+
+.logs .log-right .image {
+  width: 100px;
+  height: 100px;
+  min-width: 100px;
+  min-height: 100px;
+}
+
+.logs .log-left {
+  color: black;
+}
+
+.has-shadow {
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1),
+    -1px 0 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);
+}
+
+.has-shadow:hover {
+  -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1),
+    -1px 0 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 900px) {
+  .logs .page-title {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logs .page-title .btn {
+    margin-top: 0;
+  }
+
+  .log {
+    padding: 2rem;
+    flex-direction: row;
+    text-align: left;
+    width: 100%;
+  }
+  .logs .log-right {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-bottom: 0rem;
+  }
+  .logs .log-right .log-text-content {
+    margin-top: 0;
+    margin-left: 2rem;
+  }
+  .logs .log-right .log-text-content p {
+    max-width: 70ch;
+    margin: 0 auto;
+  }
+  .logs .log-left {
+    padding-left: 2rem;
+    border-left: 3px solid #eee;
+  }
+}
+
+@media (max-width: 400px) {
+  .logs .page-title {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .logs .log-right .log-text-content {
+    width: 25ch;
+  }
+  .logs .page-title .btn {
+    margin-top: 0.75rem;
+  }
+}

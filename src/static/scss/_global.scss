@@ -1,4 +1,7 @@
 // Global component styles
+* {
+  box-sizing: border-box !important;
+}
 
 html {
   position: relative;
@@ -6,6 +9,8 @@ html {
 }
 
 body {
+  font-size: 16px;
+  font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));
   height: 100%;
 }
 
@@ -18,12 +23,19 @@ a {
 // Main page wrapper
 #wrapper {
   display: flex;
+  flex-direction: column;
   #content-wrapper {
     background-color: $gray-100;
     width: 100%;
     overflow-x: hidden;
     #content {
       flex: 1 0 auto;
+    }
+    #content-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 1.2rem;
     }
   }
 }
@@ -45,7 +57,7 @@ a {
   height: 2.75rem;
   text-align: center;
   color: $white;
-  background: fade-out($gray-800, .5);
+  background: fade-out($gray-800, 0.5);
   line-height: 46px;
   &:focus,
   &:hover {

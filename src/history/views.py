@@ -7,16 +7,15 @@ from .models import History
 # Create your views here.
 
 
-
 def userHistoryView(request):
 
     context = {
-        "history":request.user.history_set.all().order_by('-date_created'),
-        "page_title":"My History : ",
-        "userpage":False,
+        "history": request.user.history_set.all().order_by('-date_created'),
+        "page_title": "My History : ",
+        "userpage": False,
     }
     return render(request, 'history/user_history.html', context)
-    
+
 
 def completeHistoryView(request):
 
@@ -32,9 +31,8 @@ def completeHistoryView(request):
     print(history_list)
 
     context = {
-        "history":History.objects.filter(id__in=history_list).order_by('-date_created'),
-        "page_title":"Complete History : ",
-        "userpage":False,
+        "history": History.objects.filter(id__in=history_list).order_by('-date_created'),
+        "page_title": "Complete History : ",
+        "userpage": False,
     }
-    return render(request, 'history/complete_history.html', context)
-    
+    return render(request, 'history/user_history.html', context)
