@@ -284,11 +284,11 @@ def logListView(request):
 
 
 @login_required
-def allLogsView(request, slug):
+def allLogsView(request, id):
     teams = request.user.team_set.all()
     projects = Project.objects.filter(team__in=teams)
 
-    if slug == 'all':
+    if id == 'all':
         logs_list = Logger.objects.filter(
             project__in=projects).filter(published=True).order_by('-date_created')
         context = {
@@ -301,9 +301,18 @@ def allLogsView(request, slug):
         }
     else:
         try:
-            project = projects.filter(id=slug)
-        except:
-            return redirect('/logs/all')
+            id = UUID(id, version=4)
+        except ValueError:
+            context = {
+                "error": "Invalid project ID.",
+            }
+            return render(request, 'log/list_view.html', context)
+        project = projects.filter(id=id)
+        if not project.exists():
+            context = {
+                "error": "You are not a part of this project.",
+            }
+            return render(request, 'log/list_view.html', context)
 
         logs_list = Logger.objects.filter(
             project__in=project).filter(published=True).order_by('-date_created')

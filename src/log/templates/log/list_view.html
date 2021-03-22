@@ -96,6 +96,16 @@
 </style>
 
 {% endblock styles %} {% block content %}
+
+{% if error %}
+<div class="container">
+    <div class="alert alert-danger" role="alert">
+        {{error}}
+    </div>
+</div>
+{% endif %}
+
+{% if not error %}
 <div class="container  projects">
     <div class="container ">
         <div class="row justify-content-between">
@@ -167,7 +177,8 @@
         {% endfor %}
 
         {% if loglistpage %}
-        <br><hr><br>
+        <br>
+        <hr><br>
         {% include 'common/pagination.html' with page=logs %}
         {% endif %}
 
@@ -175,8 +186,10 @@
     <!-- Project-->
 
 </div>
+{% endif %}
 {% endblock content %} {% block scripts %}
 
+{% if not error %}
 {% if not personal %}
 <script>
     document.getElementById("projects").value = "{{selected}}";
@@ -188,4 +201,5 @@
 
 <script>
 </script>
+{% endif %}
 {% endblock scripts %}
