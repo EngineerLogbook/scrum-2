@@ -8,7 +8,7 @@ urlpatterns = [
     path('log/<uuid:pk>/edit',
          views.logEditView, name='log-edit'),
     path('log/', views.logListView, name='log-list'),
-    path('logs/all', views.allLogsView, name='logs-all'),
+    path('logs/<str:id>', views.allLogsView, name='logs-all'),
     path('log/uploadfile', views.fileUploadHandler, name='file-upload'),
     path('log/delete', views.logDeleteView, name='log-delete'),
     path('log/bin', views.recBinView, name='log-bin'),

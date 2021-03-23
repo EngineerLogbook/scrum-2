@@ -152,7 +152,7 @@
                     <a class="nav-link" href="{% url  'log-list' %}">
                         <i class="far fa fa-user"></i>
                         <span>Personal Logs</span></a>
-                    <a class="nav-link" href="{% url  'logs-all' %}">
+                    <a class="nav-link" href="{% url  'logs-all' id='all' %}">
                         <i class="far fa fa-sticky-note"></i>
                         <span>Project Logs</span></a>
 
@@ -529,7 +529,8 @@
         </script>
     <script src="{% static 'simplemde.min.js' %}"></script>
     <script src="{% static 'markdown.js' %}"></script> {% endcomment %} {% block scripts %} {% endblock scripts %}
-<noscript><img src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/pixel.gif"></noscript> <script src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/script.js"></script>
+    <noscript><img src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/pixel.gif"></noscript>
+    <script src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/script.js"></script>
 </body>
 
 </html>
