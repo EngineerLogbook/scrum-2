@@ -57,9 +57,9 @@
                         <div class="col-md-6 mb-3">
                             <select id="inputState" class="form-control" name="selection">
                                 <option selected>Personal Log</option>
-                                {% for project in projects %}
+                                {% for team in teams %}
 
-                                <option value="{{ project.id }}"> {{ project.title }}  </option>
+                                <option value="{{ team.project.id }}"> {{  team.project.title}}, {{team.title}}  </option>
                                 {% endfor %}
 
                             </select>
@@ -232,7 +232,7 @@
             if (alert === "success") {
                 alert_wrapper.innerHTML = `
     <div id="alert" class="alert alert-${alert} alert-dismissible fade show" role="alert">
-      <span>${message} </span><input type="text" value="${link}" id="myInput" class="col"> 
+      <span>${message} </span><input type="text" value="${link}" id="myInput" class="col">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>

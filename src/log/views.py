@@ -77,7 +77,7 @@ class LoggerUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class LoggerListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     """
-    Display All Logs from User 
+    Display All Logs from User
     """
     model = Logger
     template_name = 'log/logger_list.html'
@@ -93,27 +93,26 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 @login_required
 def logCreateView(request):
 
-    
     user_teams = request.user.team_set.all()
     project_list = []
 
     for team in user_teams:
-        project_list.append(team.project)
+        project_list.append(team)
 
-    
+
     # pass in this list
     context = {
-        "projects":project_list,
+        "teams": project_list,
         "files":LogFile.objects.filter(user=request.user),
-        
+
     }
     if request.method == "POST":
         log_title = request.POST.get('log-title', "")
         log_description = request.POST.get('log-description', "")
         log_content = request.POST.get('log-content', "")
-        log_project = request.POST.get('selection', "")
+        log_project = request.POST.get('selection',"")
         custom_password_true = request.POST.get('custom-password-check', "")
-        
+
         if custom_password_true == "on":
             password = request.POST.get("custom-password", "")
         else:
@@ -126,7 +125,7 @@ def logCreateView(request):
 
         cipher_text = encryption_suite.encrypt(pad(log_content.encode(), BLOCK_SIZE)).hex()
 
-        
+
         if log_project == "Personal Log":
             newlog = Logger.objects.create(
                 title=log_title,
@@ -134,8 +133,8 @@ def logCreateView(request):
                 note=cipher_text,
                 user=request.user,
                 password=password,
-                
-            )            
+
+            )
         else:
             project = Project.objects.get(id=log_project)
             newlog = Logger.objects.create(
@@ -145,13 +144,14 @@ def logCreateView(request):
                 user=request.user,
                 project=project,
                 password=password,
-                
+
             )
 
         messages.add_message(request, messages.SUCCESS, "Log Successfully created.")
-        return redirect('log-list')
-    
+        return redirect('logs-all')
+
     return render(request, 'log/create_log.html', context=context)
+
 @login_required
 def logDetailView(request, *args, **kwargs):
 
@@ -161,7 +161,7 @@ def logDetailView(request, *args, **kwargs):
         logtoview = UUID(str(logtoview))
     except ValueError:
         return HttpResponse("Error: Invalid log ID", status=400)
-        
+
 
     try:
         thelog = Logger.objects.get(id=logtoview)
@@ -173,7 +173,7 @@ def logDetailView(request, *args, **kwargs):
 
         for users in thelog.access.all():
             allowedusers.append(users)
-        
+
         if thelog.project:
             if (request.user.team_set.all() & thelog.project.team_set.all()).exists():
                 allowedusers.append(request.user)
@@ -199,7 +199,7 @@ def logDetailView(request, *args, **kwargs):
 
 
         thelog.note = deciphered_text
-        
+
 
 
         userlist = thelog.access.all()
@@ -233,7 +233,7 @@ def fileUploadHandler(request):
 #         except Exception as e:
 #             print(e)
 #             return JsonResponse({"message":"Bad Request"}, status=400)
-        
+
         file_extension = pathlib.Path(filetoupload.name).suffix
         file_name = filetoupload.name
         filetoupload.name = secrets.token_hex(10) + file_extension
@@ -241,17 +241,17 @@ def fileUploadHandler(request):
         SITE_PROTOCOL = 'http://'
         if request.is_secure():
             SITE_PROTOCOL = 'https://'
-        
+
         return JsonResponse({"message": "File uploaded.", "link":SITE_PROTOCOL + request.META['HTTP_HOST'] + savedfile.file.url})
     if request.method == "GET":
-        return JsonResponse({"message":"Get method not allowed"})        
+        return JsonResponse({"message":"Get method not allowed"})
 
 @login_required
 def logDeleteView(request):
 
     if request.method != "GET":
         return HttpResponse("Error: Invalid request", status=400)
-    
+
     else:
         logtodelete = request.GET.get('id', "")
 
@@ -259,7 +259,7 @@ def logDeleteView(request):
             logtodelete = UUID(logtodelete)
         except ValueError:
             return HttpResponse("Error: Invalid log ID", status=400)
-            
+
 
         try:
             log = Logger.objects.get(id=logtodelete)
@@ -282,7 +282,7 @@ def logListView(request):
         "welcomemessage":'Create your first log by clicking on the "New Log" Button !',
     }
     return render(request, 'log/list_view.html', context)
-    
+
 @login_required
 def allLogsView(request):
     teams = request.user.team_set.all()
@@ -296,7 +296,7 @@ def allLogsView(request):
         "welcomemessage":'Create your first log by clicking on the "New Log" Button !',
     }
     return render(request, 'log/list_view.html', context)
-    
+
 
 @login_required
 def logEditView(request, *args, **kwargs):
@@ -307,7 +307,7 @@ def logEditView(request, *args, **kwargs):
         logtoview = UUID(str(logtoview))
     except ValueError:
         return HttpResponse("Error: Invalid log ID", status=400)
-        
+
 
     try:
         thelog = Logger.objects.get(id=logtoview)
@@ -370,7 +370,7 @@ def recBinView(request):
             messages.add_message(request, messages.ERROR, f"Could not empty recycle bin. Error: {e}")
         messages.add_message(request, messages.SUCCESS, f"Recycle bin was cleared successfully.")
         return redirect('log-bin')
-    
+
     else:
         logtodelete = request.GET.get('id', "")
 
@@ -384,7 +384,7 @@ def recBinView(request):
                 logtodelete = UUID(logtodelete)
             except ValueError:
                 return HttpResponse("Error: Invalid log ID", status=400)
-                
+
 
             try:
                 log = Logger.objects.get(id=logtodelete)
@@ -402,10 +402,10 @@ def generatePassword(unpaddedPassword):
         generated_padding = (32-len(unpaddedPassword))*"#"
 
         return unpaddedPassword + generated_padding
-    
+
     elif len(unpaddedPassword) > 32:
         return unpaddedPassword[:32]
-    
+
     else:
         return unpaddedPassword
 
@@ -417,13 +417,13 @@ def shareController(request):
         print(request.POST.dict())
         usernames = request.POST.get('usernames', '')
         logid = request.POST.get('loguuid', '')
-        
+
         try:
             logtoview = UUID(str(logid))
-            
+
         except ValueError:
             return JsonResponse({"message":"Log ID Invalid. Please contact Administrator."}, status=400)
-            
+
         try:
             thelog = Logger.objects.get(id=logtoview)
             usernames = usernames.split(',')
@@ -438,28 +438,28 @@ def shareController(request):
         if usernames == [""]:
             thelog.access.set([])
             return JsonResponse({"message":"Shared users cleared successfully."})
-        
 
-        
+
+
         doesnotexistlist = []
         existslist = []
-        
+
         # Remove the @ sign.
         usernames = [x[1:] for x in usernames]
 
         for users in usernames:
-            
+
 
             try:
                 existslist.append(User.objects.get(username=users))
 
             except ObjectDoesNotExist as ಠ_ಠ:
                 doesnotexistlist.append(users)
-            
+
             except Exception as ಠ_ಠ:
                 return JsonResponse({"message":"An unknown error occurred."}, status=400)
-            
-        
+
+
         if doesnotexistlist != []:
             doesnotexistlist = ["@" + x for x in doesnotexistlist]
 
@@ -469,7 +469,7 @@ def shareController(request):
             else:
                 return JsonResponse({"message":'Usernames "' + ', '.join(doesnotexistlist) + '" do not exist.'}, status=400)
 
-        
+
         thelog.access.set(existslist)
     if request.method == "GET":
         pass
@@ -486,7 +486,7 @@ def mySharesView(request):
         "userpage":False,
     }
     return render(request, 'log/list_view.html', context)
-    
+
 
 
 def searchResults(request):
@@ -497,14 +497,14 @@ def searchResults(request):
     projects = Project.objects.filter(team__in=teams)
     logs = Logger.objects.filter(project__in=projects).filter(Q(title__icontains=query) | Q(short_description__icontains=query)) | (Logger.objects.filter(user=request.user)).filter(Q(title__icontains=query) | Q(short_description__icontains=query))
 
-    
+
     context = {
         "logs":logs,
         "page_title":"Search results:",
         "userpage":False,
     }
     return render(request, 'log/list_view.html', context)
-    
+
 @login_required
 def deleteAllLogs(request):
     user = request.user

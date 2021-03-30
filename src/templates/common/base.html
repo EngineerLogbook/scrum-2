@@ -181,15 +181,15 @@
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
+                            <div class="collapse-divider"></div>
+                            <h6 class="collapse-header">Projects</h6>
+                            <a class="collapse-item" href="{% url 'project-list' %}">All Projects </a>
+                            <a class="collapse-item" href="{% url 'project-create' %}">Create Projects</a>
                             <h6 class="collapse-header">Team:</h6>
                             <a class="collapse-item" href="{% url 'team-list' %}">All Teams</a>
                             <a class="collapse-item" href="{% url 'team-join' %}">Join Team</a>
                             {% comment %} <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                             {% endcomment %}
-                            <div class="collapse-divider"></div>
-                            <h6 class="collapse-header">Projects</h6>
-                            <a class="collapse-item" href="{% url 'project-list' %}">All Projects </a>
-                            <a class="collapse-item" href="{% url 'project-create' %}">Create Projects</a>
                         </div>
                     </div>
                 </li>
