@@ -418,7 +418,10 @@ def recBinView(request):
 
         if logtodelete == "":
             context = {
-                "logs": Logger.objects.filter(user=request.user).filter(published=False).order_by('-date_created')
+                "page_title": "Recycle Bin",
+                "logs": Logger.objects.filter(user=request.user).filter(published=False).order_by('-date_created'),
+                "userpage": True,
+                "welcomemessage": "Your bin is empty"
             }
             return render(request, 'log/bin_view.html', context)
         else:
@@ -522,6 +525,7 @@ def mySharesView(request):
         "logs": request.user.user_access.all().filter(published=True).order_by('-date_created'),
         "page_title": "Shared with me:",
         "userpage": False,
+        "welcomemessage": 'You don\'t have any shared logs!'
     }
     return render(request, 'log/list_view.html', context)
 

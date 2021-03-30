@@ -1,0 +1,67 @@
+{% extends 'common/base.html' %} 
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/list_view.css' %}">
+{% endblock styles %} 
+
+{% block content %}
+
+    <div class="logs">
+
+        <div class="page-title">
+            <h2 class="m-0">{{page_title}}</h2>
+            {% if userpage %}
+            <a class="btn btn-primary" href="{% url 'log-create' %}">New Log</a>
+            {% endif %}
+        </div>
+
+        <br>
+
+        {% if not logs %}
+
+            <div class="log has-shadow">
+                <h6>{{welcomemessage}}</h6>
+            </div>
+        
+        {% endif %}
+
+        {% for log in logs %}
+
+            <div class="log has-shadow">
+
+                <div class="log-right">
+                    <div class="image has-shadow">
+                        <img src="{{log.user.profile.image.url}}" alt="..."class="img-fluid">
+                    </div>
+                    <div class="log-text-content">
+                        <h3>
+                            <a href="{% url 'log-detail' log.id %}">
+                                {{ log.title|truncatewords:10 }}
+                            </a>
+                        </h3>
+                        <p>{{ log.short_description|truncatechars:250 }}</p>
+                    </div>
+                </div>
+                <div class="log-left">
+                    <p><strong>Project:</strong> {% if log.project %} 
+                        Project: {{ log.project }} 
+                        {% else %} Personal Log 
+                        {% endif %}
+                    </p>
+                    <p><strong>Author:</strong> {{ log.user.username }}</p>
+                    <small>{{ log.date_modified }}</small>
+                </div>
+            </div>
+
+        {% endfor %}
+    
+    </div>
+
+{% endblock content %} 
+
+{% block scripts %}
+
+<script>
+</script>
+{% endblock scripts %}

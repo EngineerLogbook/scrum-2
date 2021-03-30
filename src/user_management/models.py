@@ -101,3 +101,38 @@ class Link(models.Model):
 
     def __str__(self):
         return f'{self.url}'
+
+
+def validate_image(image):
+    file_size = image.file.size
+    limit = 2 * 1024 * 1024
+    if file_size > limit:
+        raise ValidationError("Max size of file is 2 MB")
+
+
+class Team(models.Model):
+    name = models.CharField(max_length=255)
+    order = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        ordering = ("order",)
+
+    def __str__(self):
+        return self.name
+
+
+class TeamMember(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255)
+    designation = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='team_member',
+                              validators=[validate_image])
+    linkdinURL = models.URLField()
+    team = models.ManyToManyField(Team, blank=True)
+    order = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        ordering = ("order",)
+
+    def __str__(self):
+        return self.name

@@ -2,489 +2,263 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title> Engineering Logbook 📄 </title>
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'img/favicon.png' %}"
+    />
+    <title>Engineering Logbook 📄</title>
+    <!-- Custom fonts for this template-->
+    <link
+      href="{% static 'vendor/fontawesome-free/css/all.min.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
     <!-- Custom styles for this template-->
-    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet"> {% block styles %} {% endblock styles %}
+    <link href="{% static 'css/styles.min.css' %}" rel="stylesheet" />
+    {% block styles %} {% endblock styles %}
     <!-- Bootstrap CSS -->
 
     <style>
-        * {
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-        }
+      * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
 
-        body {
-            padding: 0;
-            margin: 0;
-        }
+      body {
+        padding: 0;
+        margin: 0;
+      }
 
-        #notfound {
-            position: relative;
-            height: 100vh;
-        }
+      #notfound {
+        position: relative;
+        height: 100vh;
+      }
 
-        #notfound .notfound {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
+      #notfound .notfound {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
 
-        .notfound {
-            max-width: 520px;
-            width: 100%;
-            line-height: 1.4;
-            text-align: center;
-        }
+      .notfound {
+        max-width: 520px;
+        width: 100%;
+        line-height: 1.4;
+        text-align: center;
+      }
 
+      .notfound .notfound-404 {
+        position: relative;
+        height: 240px;
+      }
+
+      .notfound .notfound-404 h1 {
+        font-family: "Montserrat", sans-serif;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        font-size: 252px;
+        font-weight: 900;
+        margin: 0px;
+        color: #262626;
+        text-transform: uppercase;
+        letter-spacing: -40px;
+        margin-left: -20px;
+      }
+
+      .notfound .notfound-404 h1 > span {
+        text-shadow: -8px 0px 0px #fff;
+      }
+
+      .notfound .notfound-404 h3 {
+        font-family: "Cabin", sans-serif;
+        position: relative;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #262626;
+        margin: 0px;
+        letter-spacing: 3px;
+        padding-left: 6px;
+      }
+
+      .notfound h2 {
+        font-family: "Cabin", sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        /* text-transform: uppercase; */
+        color: #000;
+        margin-top: 0px;
+        margin-bottom: 25px;
+      }
+
+      @media only screen and (max-width: 767px) {
         .notfound .notfound-404 {
-            position: relative;
-            height: 240px;
+          height: 200px;
         }
 
         .notfound .notfound-404 h1 {
-            font-family: 'Montserrat', sans-serif;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            font-size: 252px;
-            font-weight: 900;
-            margin: 0px;
-            color: #262626;
-            text-transform: uppercase;
-            letter-spacing: -40px;
-            margin-left: -20px;
+          font-size: 200px;
         }
 
-        .notfound .notfound-404 h1>span {
-            text-shadow: -8px 0px 0px #fff;
+        .sidebar {
+          position: fixed;
+          z-index: 10;
+        }
+      }
+
+      @media only screen and (max-width: 480px) {
+        .notfound .notfound-404 {
+          height: 162px;
         }
 
-        .notfound .notfound-404 h3 {
-            font-family: 'Cabin', sans-serif;
-            position: relative;
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #262626;
-            margin: 0px;
-            letter-spacing: 3px;
-            padding-left: 6px;
+        .notfound .notfound-404 h1 {
+          font-size: 162px;
+          height: 150px;
+          line-height: 162px;
         }
 
         .notfound h2 {
-            font-family: 'Cabin', sans-serif;
-            font-size: 20px;
-            font-weight: 400;
-            /* text-transform: uppercase; */
-            color: #000;
-            margin-top: 0px;
-            margin-bottom: 25px;
+          font-size: 16px;
         }
-
-        @media only screen and (max-width: 767px) {
-            .notfound .notfound-404 {
-                height: 200px;
-            }
-
-            .notfound .notfound-404 h1 {
-                font-size: 200px;
-            }
-        }
-
-        @media only screen and (max-width: 480px) {
-            .notfound .notfound-404 {
-                height: 162px;
-            }
-
-            .notfound .notfound-404 h1 {
-                font-size: 162px;
-                height: 150px;
-                line-height: 162px;
-            }
-
-            .notfound h2 {
-                font-size: 16px;
-            }
-        }
+      }
     </style>
+  </head>
 
-</head>
+  <body id="page-top">
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa fa-angle-up"></i>
+    </a>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      {% include 'components/common/topbar.html' %}
 
-<body id="page-top">
-    <div id="good_size">
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa fa-angle-up"></i>
-        </a>
-        <!-- Page Wrapper -->
-        <div id="wrapper">
-            <!-- Sidebar -->
-            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content" href="/">
-                    <!-- <div class="sidebar-brand-icon">
-                        <i class="far fa fa-address-book"></i>
-                    </div>
-                    <div class="sidebar-brand-text mx-3">Digital Logbook 🚀</div> -->
-                    <img src="{% static 'landing/img/logofinal.png' %}" alt="" srcset="" width="180">
-                </a>
-                <!-- Divider -->
-                <hr class="sidebar-divider my-0">
-                <!-- Nav Item - My Logs -->
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url  'log-list' %}">
-                        <i class="far fa fa-user"></i>
-                        <span>Personal Logs</span></a>
-                    <a class="nav-link" href="{% url  'logs-all' id='all' %}">
-                        <i class="far fa fa-sticky-note"></i>
-                        <span>Project Logs</span></a>
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex">
+        {% include 'components/common/sidebar.html' %}
 
-                    <a class="nav-link" href="{% url  'shared-with-me' %}">
-                        <i class="far fa fa-link"></i>
-                        <span>Shared Personal Logs</span></a>
-
-                    <a class="nav-link" href="{% url  'log-bin' %}">
-                        <i class="far fa fa-trash"></i>
-                        <span>Recycle Bin</span></a>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-                <!-- Heading >
-          <div class="sidebar-heading">
-            Addons
-          </div-->
-                <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                        aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa-fw fa-industry"></i>
-                        <span>Collaboration Section</span>
-                    </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
-                        data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Team:</h6>
-                            <a class="collapse-item" href="{% url 'team-list' %}">All Teams</a>
-                            <a class="collapse-item" href="{% url 'team-join' %}">Join Team</a>
-                            {% comment %} <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                            {% endcomment %}
-                            <div class="collapse-divider"></div>
-                            <h6 class="collapse-header">Projects</h6>
-                            <a class="collapse-item" href="{% url 'project-list' %}">All Projects </a>
-                            <a class="collapse-item" href="{% url 'project-create' %}">Create Projects</a>
-                        </div>
-                    </div>
-                </li>
-                <!-- Nav Item - new Menu -->
-                {% comment %}
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                        aria-expanded="true" aria-controls="collapsePages">
-                        <i class="fas fa fa-plus-square"></i>
-                        <span>New +</span>
-                    </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
-                        data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#">New Log</a>
-                            <a class="collapse-item" href="#">New Folder</a>
-                        </div>
-                    </div>
-                </li> {% endcomment %}
-                <!-- Nav Item - recent work done -->
-                {% comment %} <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa fa-backward"></i>
-                        <span>Recent</span></a>
-                </li> {% endcomment %}
-
-                <!-- Nav Item - View Collapse Menu -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                        aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-book-reader"></i>
-                        <span> History </span>
-                    </a>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{% url 'user-history' %}"><i
-                                    class="fas fa fa-file-pdf-o"></i>
-                                Personal</a>
-                            <a class="collapse-item" href="{% url 'complete-history' %}"><i
-                                    class="fas fa fa-file-word-o"></i> Complete</a>
-
-
-                        </div>
-                    </div>
-                </li>
-                <!-- Nav Item - sharing -->
-                {% comment %} <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa fa-share-alt"></i>
-                        <span>shared with me</span></a>
-                </li> {% endcomment %}
-                <!-- Nav Item - starred -->
-                {% comment %} <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa fa-star"></i>
-                        <span>Starred</span></a>
-                </li> {% endcomment %}
-                <!-- Nav Item - History -->
-
-                <!-- Divider -->
-                <hr class="sidebar-divider">
-                <!-- Heading>
-          <div class="sidebar-heading">
-            Interface
-          </div-->
-                <!-- Nav Item - Settings -->
-                {% comment %} <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-                        aria-expanded="true" aria-controls="collapseFour">
-                        <i class="fas fa fa-cog"></i>
-                        <span>Settings</span>
-                    </a>
-                    <div id="collapseFour" class="collapse" aria-labelledby="headingPages"
-                        data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#">About Logbook</a>
-                            <a class="collapse-item" href="#">Display & Theme</a>
-                            <a class="collapse-item" href="#">Notifications</a>
-                            <a class="collapse-item" href="#">Password & security</a>
-                        </div>
-                    </div>
-                </li> {% endcomment %}
-                <!-- Nav Item - Utilities Collapse Menu -->
-
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                        aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-cog"></i>
-                        <span>About Project</span>
-                    </a>
-                    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                        data-parent="#accordionSidebar">
-                        <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Important Stuff!</h6>
-                            <a class="collapse-item" href="{% url 'aboutus' %}">About</a>
-                            <a class="collapse-item" href="{% url 'faqs' %}">FAQ's</a>
-                            <a class="collapse-item" href="{% url 'terms' %}"> Terms and Conditions </a>
-                            <a class="collapse-item" href="{% url 'privacy-policy' %}"> Privacy Policy </a>
-                            {% comment %} <a class="collapse-item" href="utilities-other.html">Other</a>
-                            {% endcomment %}
-                        </div>
-                    </div>
-                </li>
-
-                <!-- Divider -->
-                <hr class="sidebar-divider d-none d-md-block">
-                <!-- Sidebar Toggler (Sidebar) -->
-                <div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                </div>
-            </ul>
-            <!-- End of Sidebar -->
-            <!-- Content Wrapper -->
-            <div id="content-wrapper" class="d-flex flex-column">
-                <!-- Main Content -->
-                <div id="content">
-                    <!-- Topbar -->
-                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                        <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fas fa fa-bars"></i>
-                        </button>
-                        <!-- Topbar Search -->
-                        <form
-                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-                            action="{% url 'search-results' %}" method="GET">
-                            <div class="input-group">
-                                <input name="q" type="text" class="form-control bg-light border-0 small"
-                                    placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit">
-                                        <i class="fas fa fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- Topbar Navbar -->
-                        <ul class="navbar-nav ml-auto">
-                            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                            <li class="nav-item dropdown no-arrow d-sm-none">
-                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-search fa-fw"></i>
-                                </a>
-                                <!-- Dropdown - Messages -->
-                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                    aria-labelledby="searchDropdown">
-                                    <form class="form-inline mr-auto w-100 navbar-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small"
-                                                placeholder="Search for..." aria-label="Search"
-                                                aria-describedby="basic-addon2">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button">
-                                                    <i class="fas fa fa-search fa-sm"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
-                            <!-- Nav Item - Alerts -->
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa fa-bell fa-fw"></i>
-                                </a>
-                                <!-- Dropdown - Alerts -->
-                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="alertsDropdown">
-                                    <h6 class="dropdown-header">
-                                        Alerts Center
-                                    </h6>
-                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All
-                                        Alerts</a>
-                                </div>
-                            </li>
-                            <!-- Nav Item - Messages -->
-                            <li class="nav-item dropdown no-arrow mx-1">
-                                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa fa-envelope fa-fw"></i>
-                                </a>
-                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="messagesDropdown">
-                                    <h6 class="dropdown-header">
-                                        Message Center
-                                    </h6>
-                                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More
-                                        Messages</a>
-                                </div>
-                            </li>
-                            <div class="topbar-divider d-none d-sm-block"></div>
-                            <!-- Nav Item - User Information -->
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username}}</span>
-                                    <img class="img-profile rounded-circle" src="{{ user.profile.image.url }}">
-                                </a>
-                                <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                    aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="{% url 'user-detail' user.profile.id  %}">
-                                        <i class="fas fa fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-                                    </a>
-                                    {% comment %} <a class="dropdown-item" href="#">
-                                        <i class="fas fa fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
-                                    </a> {% endcomment %}
-                                    {% comment %} <a class="dropdown-item" href="#">
-                                        <i class="fas fa fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity Log
-                                    </a> {% endcomment %}
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                        <i class="fas fa fa-power-off fa-sm fa mr-2 text-gray-400"></i> Logout
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </nav>
-                    <!-- End of Topbar -->
-
-                    <!-- message section -->
-                    {% if messages %}
-                    <div class="container">
-                        {% for message in messages %}
-                        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button> {{ message }}
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    {% endif %}
-
-
-                    {% block content %} {% endblock content %}
-                </div>
-
-                <!-- End of Main Content -->
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Made By a Team at Thapar Institue of Engineering and Technology</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
+        <!-- Main Content -->
+        <div id="content" class="mt-4">
+          <!-- message section -->
+          {% if messages %}
+          <div class="container">
+            {% for message in messages %}
+            <div
+              class="alert {{ message.tags }} alert-dismissible"
+              role="alert"
+            >
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              {{ message }}
             </div>
-            <!-- End of Content Wrapper -->
-        </div>
-        <!-- End of Page Wrapper -->
-        <!-- Scroll to Top Button-->
+            {% endfor %}
+          </div>
 
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
-                    </div>
-                </div>
-            </div>
+          {% endif %}
+
+          <div id="content-box">{% block content %} {% endblock content %}</div>
         </div>
 
+        <!-- End of Main Content -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span
+            >Made By a Team at Thapar Institue of Engineering and
+            Technology</span
+          >
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+
+    <!-- Logout Modal-->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Select "Logout" below if you are ready to end your current session.
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="bad_size" style="display: none;">
-        <div id="notfound">
-            <div class="notfound">
-                <div class="">
-                    <h3><b>Oops! Unsupported Screen Resolution</b></h3>
-
-                </div>
-                <h2>Please switch to a pc, or maximize the window.</h2>
-            </div>
+    {% comment %}
+    <div id="bad_size" style="display: none">
+      <div id="notfound">
+        <div class="notfound">
+          <div class="">
+            <h3><b>Oops! Unsupported Screen Resolution</b></h3>
+          </div>
+          <h2>Please switch to a pc, or maximize the window.</h2>
         </div>
+      </div>
     </div>
+    {% endcomment %}
 
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <!-- Core plugin JavaScript-->
@@ -492,45 +266,50 @@
     <!-- Custom scripts for all pages-->
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
+    {% comment %}
     <script>
+      window.addEventListener("resize", function (event) {
+        let isMobile = window.matchMedia("only screen and (max-width: 980px)")
+          .matches;
 
-        window.addEventListener('resize', function (event) {
-
-            let isMobile = window.matchMedia("only screen and (max-width: 980px)").matches;
-
-
-            if (isMobile) {
-                document.getElementById("good_size").style.display = "none";
-                document.getElementById("bad_size").style.display = "block";
-                // document.getElementById("content_container").innerHTML = "This site is not available on smaller devices as of now. Any inconvenience is regretted."
-                console.log("YooHoo");
-            } else {
-                document.getElementById("good_size").style.display = "block";
-                document.getElementById("bad_size").style.display = "none";
-            }
-
-
-        });
-
-
+        if (isMobile) {
+          document.getElementById("good_size").style.display = "none";
+          document.getElementById("bad_size").style.display = "block";
+          // document.getElementById("content_container").innerHTML = "This site is not available on smaller devices as of now. Any inconvenience is regretted."
+          console.log("YooHoo");
+        } else {
+          document.getElementById("good_size").style.display = "block";
+          document.getElementById("bad_size").style.display = "none";
+        }
+      });
     </script>
+    {% endcomment %}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     {% comment %}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-        </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-        </script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
     <script src="{% static 'simplemde.min.js' %}"></script>
-    <script src="{% static 'markdown.js' %}"></script> {% endcomment %} {% block scripts %} {% endblock scripts %}
-    <noscript><img src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/pixel.gif"></noscript>
+    <script src="{% static 'markdown.js' %}"></script>
+    {% endcomment %} {% block scripts %} {% endblock scripts %}
+    <noscript
+      ><img
+        src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/pixel.gif"
+    /></noscript>
     <script src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/script.js"></script>
-</body>
-
+  </body>
 </html>

@@ -1,0 +1,49 @@
+{% extends 'common/base.html' %} 
+{% load static %}
+
+{% block styles %}
+   <link rel="stylesheet" href="{% static 'css/list_view.css' %}">
+{% endblock styles %} 
+
+{% block content %}
+
+<div class="logs">
+
+        <div class="page-title">
+            <h2 class="m-0">All Teams</h2>
+            {% if userpage %}
+            <a class="btn btn-primary" href="{% url 'team-create' %}">Create Team</a>
+            {% endif %}
+        </div>
+
+        <br>
+
+        {% for team in teams %}
+
+            <div class="log has-shadow">
+
+                <div class="log-right">
+                    <div class="log-text-content m-0">
+                        <h3 class="m-0">
+                            <a href="{% url 'team-detail' team.id %}">
+                                {{ team.title }}
+                            </a>
+                        </h3>
+                        <p>{{ team.description }}</p>
+                    </div>
+                </div>
+                <div class="log-left">
+                    <p class="m-0"><strong>Project:</strong> {{ team.project }}</p>
+                    <small>{{ team.date_modified }}</small>
+                </div>
+            </div>
+
+        {% endfor %}
+    
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+</script>
+{% endblock scripts %}

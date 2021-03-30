@@ -1,0 +1,43 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/list_view.css' %}">
+{% endblock styles %}  
+
+{% block content %}
+
+    <div class="logs">
+
+        <div class="page-title">
+            <h2 class="m-0">{{page_title}}</h2>
+        </div>
+
+        <br>
+
+
+        {% for hist in history %}
+
+            <div class="log has-shadow">
+
+                <div class="log-right">
+                    <div class="log-text-content ml-0">
+                        <h6>
+                            {{ hist.message }}
+                        </h6>
+                    </div>
+                </div>
+                <div class="log-left">
+                    <p><strong>Author:</strong> {{ hist.user }}</p>
+                    <small>{{ hist.date_created }}</small>
+                </div>
+            </div>
+
+        {% endfor %}
+    
+    </div>
+{% endblock content %} {% block scripts %}
+
+<script>
+</script>
+{% endblock scripts %}

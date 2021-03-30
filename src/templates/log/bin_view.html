@@ -1,0 +1,89 @@
+{% extends 'common/base.html' %}
+{% load static %}
+ {% block styles %}
+
+    <link rel="stylesheet" href="{% static 'css/list_view.css' %}">
+
+{% endblock styles %} {% block content %}
+
+    <div class="logs">
+
+        <div class="page-title">
+            <h2 class="m-0">{{page_title}}</h2>
+            {% if userpage %}
+            <button class="btn btn-danger fa-pull-right" data-toggle="modal" href="#myModal">Empty Bin</button>
+            {% endif %}
+        </div>
+
+        <hr class="bg-dark">
+
+        {% if not logs %}
+
+            <div class="log has-shadow">
+                <h6>{{welcomemessage}}</h6>
+            </div>
+        
+        {% endif %}
+
+        {% for log in logs %}
+
+            <div class="log has-shadow">
+
+                <div class="log-right">
+                    <div class="image has-shadow">
+                        <img src="{{log.user.profile.image.url}}" alt="..."class="img-fluid">
+                    </div>
+                    <div class="log-text-content">
+                        <h3>
+                            <a href="{% url 'log-detail' log.id %}">
+                                {{ log.title|truncatewords:10 }}
+                            </a>
+                        </h3>
+                        <p>{{ log.short_description|truncatechars:250 }}</p>
+                    </div>
+                </div>
+                <div class="log-left">
+                    <p><strong>Project:</strong> {% if log.project %} 
+                        Project: {{ log.project }} 
+                        {% else %} Personal Log 
+                        {% endif %}
+                    </p>
+                    <p><strong>Author:</strong> {{ log.user.username }}</p>
+                    <small>{{ log.date_modified }}</small>
+                    <p class="pt-2"><a class="btn btn-dark btn-sm" href="{% url 'log-bin' %}?id={{ log.id }}">Restore</a></p>
+                </div>
+            </div>
+
+        {% endfor %}
+    
+    </div>
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure delete all logs in the recycle bin ? </p>
+                <p class="text-secondary"><small>They will also be deleted for all other collabrators in this project.
+                        This action cannot be undone.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit">Delete</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %} {% block scripts %}
+
+<script>
+</script>
+{% endblock scripts %}
