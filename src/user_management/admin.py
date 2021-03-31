@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from .models import FieldStudy, TechSkill, Profile, Link, Team, TeamMember
+from .models import FieldStudy, TechSkill, Profile, Link, Phase, Member
 
 
 @admin.register(FieldStudy)
@@ -72,13 +72,13 @@ class LinkAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-@admin.register(Team)
+@admin.register(Phase)
 class LinkAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
 
-@admin.register(TeamMember)
+@admin.register(Member)
 class LinkAdmin(admin.ModelAdmin):
     list_display = ('name', "order", 'designation')
     list_per_page = 15
