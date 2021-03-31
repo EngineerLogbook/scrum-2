@@ -4,7 +4,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  width: 80vw;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .logs .page-title {
