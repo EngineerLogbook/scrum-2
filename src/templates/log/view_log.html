@@ -65,8 +65,8 @@
                     </h3>
                     <span class="card-text"><small>{{ log.date_modified }}</small></span>
                     <hr>
-                    <p class="card-text">
-                        {{log.note}}
+                    <p class="card-text" id="log-content" style="color: initial">
+                        <vue-markdown>{{log.note}}</vue-markdown>
                     </p>
                 </div>
             </div>
@@ -181,12 +181,15 @@
 </div>
 
 {% endblock content %} {% block scripts %}
-
-<script src="{% static 'log/marked.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-markdown@2.2.4/dist/vue-markdown.js"></script>
 
 <script>
-    document.getElementById('log-content').innerHTML =
-        marked(document.getElementById('log-content').innerHTML);
+Vue.use(VueMarkdown);
+var vm = new Vue({
+    el: "#log-content"
+})
+  
 
 
     function editPageRedirect() {
