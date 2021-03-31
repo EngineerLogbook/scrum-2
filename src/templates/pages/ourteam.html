@@ -1,0 +1,39 @@
+{% extends 'pages/base.html' %}
+
+
+{% block head_tag %} 
+{% load static %}
+<link rel="stylesheet" href="{% static 'pages/css/ourteam.min.css' %}" />
+{% endblock head_tag %}
+
+{% block content %}
+
+<div class="container">
+<h1 class="text-center py-3">Our Team</h1>
+{% for team in teams %}
+<h3 class="text-center pt-3 pb-5">{{team}}</h3>
+    <div class="row mb-4">
+    {% for member in members %}
+        {% if team in member.team.all %}
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mx-auto" style="max-width:330px;">
+                <div class="flip">
+                    <div class="front" style="background-image: url({{member.image.url}})">
+                    </div>
+                    <div class="back text-center">
+                        <div class="info">
+                            <h2>{{member.name}}</h2>
+                            <p>-{{member.designation}}</p>
+                        </div>
+                        <a href="{{member.linkdinURL}}" target="_blank" class="btn btn-block btn-dark">
+                            Linkdin
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endfor %}
+</div>
+
+{% endblock content %}

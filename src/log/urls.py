@@ -7,8 +7,14 @@ urlpatterns = [
     path('log/<uuid:pk>/detail',
          views.logDetailView, name='log-detail'),
     path('log/<uuid:pk>/edit',
+<<<<<<< HEAD
          views.logEditView, name='log-edit'),    
     path('logs/all', views.allLogsView, name='logs-all'),
+=======
+         views.logEditView, name='log-edit'),
+    path('log/', views.logListView, name='log-list'),
+    path('logs/<str:id>', views.allLogsView, name='logs-all'),
+>>>>>>> upstream/master
     path('log/uploadfile', views.fileUploadHandler, name='file-upload'),
     path('log/delete', views.logDeleteView, name='log-delete'),
     path('log/bin', views.recBinView, name='log-bin'),

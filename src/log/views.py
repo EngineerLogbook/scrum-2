@@ -106,8 +106,13 @@ def logCreateView(request):
 
     # pass in this list
     context = {
+<<<<<<< HEAD
         "teams": project_list,
         "files":LogFile.objects.filter(user=request.user),
+=======
+        "projects": project_list,
+        "files": LogFile.objects.filter(user=request.user),
+>>>>>>> upstream/master
 
     }
     if request.method == "POST":
@@ -127,10 +132,16 @@ def logCreateView(request):
         BLOCK_SIZE = 32
         encryption_suite = AES.new(
             generatePassword(password).encode(), AES.MODE_ECB)
+<<<<<<< HEAD
 
         cipher_text = encryption_suite.encrypt(
             pad(log_content.encode(), BLOCK_SIZE)).hex()
 
+=======
+
+        cipher_text = encryption_suite.encrypt(
+            pad(log_content.encode(), BLOCK_SIZE)).hex()
+>>>>>>> upstream/master
 
         if log_project == "Personal Log":
             newlog = Logger.objects.create(
@@ -153,11 +164,21 @@ def logCreateView(request):
 
             )
 
+<<<<<<< HEAD
         messages.add_message(request, messages.SUCCESS, "Log Successfully created.")
         return redirect('logs-all')
 
     return render(request, 'log/create_log.html', context=context)
 
+=======
+        messages.add_message(request, messages.SUCCESS,
+                             "Log Successfully created.")
+        return redirect('log-list')
+
+    return render(request, 'log/create_log.html', context=context)
+
+
+>>>>>>> upstream/master
 @login_required
 def logDetailView(request, *args, **kwargs):
 
@@ -167,7 +188,10 @@ def logDetailView(request, *args, **kwargs):
         logtoview = UUID(str(logtoview))
     except ValueError:
         return HttpResponse("Error: Invalid log ID", status=400)
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 
     try:
         thelog = Logger.objects.get(id=logtoview)
@@ -197,8 +221,11 @@ def logDetailView(request, *args, **kwargs):
         deciphered_text = deciphered_text[:-padding].decode()
 
         thelog.note = deciphered_text
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> upstream/master
 
         userlist = thelog.access.all()
 
@@ -242,9 +269,16 @@ def fileUploadHandler(request):
         if request.is_secure():
             SITE_PROTOCOL = 'https://'
 
+<<<<<<< HEAD
         return JsonResponse({"message": "File uploaded.", "link":SITE_PROTOCOL + request.META['HTTP_HOST'] + savedfile.file.url})
     if request.method == "GET":
         return JsonResponse({"message":"Get method not allowed"})
+=======
+        return JsonResponse({"message": "File uploaded.", "link": SITE_PROTOCOL + request.META['HTTP_HOST'] + savedfile.file.url})
+    if request.method == "GET":
+        return JsonResponse({"message": "Get method not allowed"})
+
+>>>>>>> upstream/master
 
 @login_required
 def logDeleteView(request):
@@ -259,7 +293,10 @@ def logDeleteView(request):
             logtodelete = UUID(logtodelete)
         except ValueError:
             return HttpResponse("Error: Invalid log ID", status=400)
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 
         try:
             log = Logger.objects.get(id=logtodelete)
@@ -285,6 +322,10 @@ def logListView(request):
     }
     return render(request, 'log/list_view.html', context)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 @login_required
 def allLogsView(request, id):
     teams = request.user.team_set.all()
@@ -351,7 +392,10 @@ def logEditView(request, *args, **kwargs):
         logtoview = UUID(str(logtoview))
     except ValueError:
         return HttpResponse("Error: Invalid log ID", status=400)
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 
     try:
         thelog = Logger.objects.get(id=logtoview)
@@ -421,7 +465,14 @@ def recBinView(request):
 
         if logtodelete == "":
             context = {
+<<<<<<< HEAD
                 "logs": Logger.objects.filter(user=request.user).filter(published=False).order_by('-date_created')
+=======
+                "page_title": "Recycle Bin",
+                "logs": Logger.objects.filter(user=request.user).filter(published=False).order_by('-date_created'),
+                "userpage": True,
+                "welcomemessage": "Your bin is empty"
+>>>>>>> upstream/master
             }
             return render(request, 'log/bin_view.html', context)
         else:
@@ -429,7 +480,10 @@ def recBinView(request):
                 logtodelete = UUID(logtodelete)
             except ValueError:
                 return HttpResponse("Error: Invalid log ID", status=400)
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 
             try:
                 log = Logger.objects.get(id=logtodelete)
@@ -470,7 +524,11 @@ def shareController(request):
             logtoview = UUID(str(logid))
 
         except ValueError:
+<<<<<<< HEAD
             return JsonResponse({"message":"Log ID Invalid. Please contact Administrator."}, status=400)
+=======
+            return JsonResponse({"message": "Log ID Invalid. Please contact Administrator."}, status=400)
+>>>>>>> upstream/master
 
         try:
             thelog = Logger.objects.get(id=logtoview)
@@ -484,10 +542,15 @@ def shareController(request):
         print(usernames)
         if usernames == [""]:
             thelog.access.set([])
+<<<<<<< HEAD
             return JsonResponse({"message":"Shared users cleared successfully."})
 
 
 
+=======
+            return JsonResponse({"message": "Shared users cleared successfully."})
+
+>>>>>>> upstream/master
         doesnotexistlist = []
         existslist = []
 
@@ -495,7 +558,10 @@ def shareController(request):
         usernames = [x[1:] for x in usernames]
 
         for users in usernames:
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 
             try:
                 existslist.append(User.objects.get(username=users))
@@ -504,8 +570,12 @@ def shareController(request):
                 doesnotexistlist.append(users)
 
             except Exception as ಠ_ಠ:
+<<<<<<< HEAD
                 return JsonResponse({"message":"An unknown error occurred."}, status=400)
 
+=======
+                return JsonResponse({"message": "An unknown error occurred."}, status=400)
+>>>>>>> upstream/master
 
         if doesnotexistlist != []:
             doesnotexistlist = ["@" + x for x in doesnotexistlist]
@@ -515,7 +585,10 @@ def shareController(request):
                 return JsonResponse({"message": f"{doesnotexistlist[0]} does not exist."}, status=400)
             else:
                 return JsonResponse({"message": 'Usernames "' + ', '.join(doesnotexistlist) + '" do not exist.'}, status=400)
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 
         thelog.access.set(existslist)
     if request.method == "GET":
@@ -531,9 +604,15 @@ def mySharesView(request):
         "logs": request.user.user_access.all().filter(published=True).order_by('-date_created'),
         "page_title": "Shared with me:",
         "userpage": False,
+<<<<<<< HEAD
     }
     return render(request, 'log/list_view.html', context)
 
+=======
+        "welcomemessage": 'You don\'t have any shared logs!'
+    }
+    return render(request, 'log/list_view.html', context)
+>>>>>>> upstream/master
 
 
 def searchResults(request):
@@ -544,7 +623,10 @@ def searchResults(request):
     projects = Project.objects.filter(team__in=teams)
     logs = Logger.objects.filter(project__in=projects).filter(Q(title__icontains=query) | Q(short_description__icontains=query)) | (
         Logger.objects.filter(user=request.user)).filter(Q(title__icontains=query) | Q(short_description__icontains=query))
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
 
     context = {
         "logs": logs,
@@ -553,6 +635,10 @@ def searchResults(request):
     }
     return render(request, 'log/list_view.html', context)
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 @login_required
 def deleteAllLogs(request):
     user = request.user

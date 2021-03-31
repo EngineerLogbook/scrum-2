@@ -1,0 +1,243 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #4e73df;
+  font-family: "Montserrat", sans-serif;
+}
+
+.container-fluid {
+  padding: 0 !important;
+}
+
+.banner {
+  height: 100vh;
+  width: 100%;
+  background: url("../../img/overlay.png"), url("../../img/h2.jpg");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+.banner .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+}
+.banner .info h1 {
+  font-size: 2.5em;
+  font-weight: 700;
+  color: #f8f9fa;
+  letter-spacing: 2px;
+}
+
+.banner .info p {
+  font-size: 2em;
+  font-weight: 500;
+  color: #eee;
+  letter-spacing: 2px;
+}
+
+.banner .info .btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner .info .btns .btn + .btn {
+  margin-left: 5rem;
+}
+
+@media (max-width: 768px) {
+  .banner .info .btns {
+    min-width: 100px;
+    flex-direction: column;
+  }
+  .banner .info .btns .btn + .btn {
+    margin-left: 0;
+    margin-top: 2rem;
+  }
+}
+
+.wrapper {
+  margin-top: 50px;
+}
+
+.wrapper h1 {
+  font-family: "Nunito", sans-serif;
+  font-size: 65px;
+  font-weight: 550;
+  margin-top: 120px;
+  margin-bottom: 120px;
+  text-align: center;
+  color: #eee;
+}
+
+.about {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.about .about_features {
+  background: #f8f9fa;
+  margin: 5px;
+  margin-bottom: 80px;
+  width: 300px;
+  padding: 20px;
+  line-height: 20px;
+  color: #8e8b8b;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+  transition: 0.8s;
+}
+
+.about .about_features:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.about .about_features h3 {
+  color: black;
+  font-size: 26px;
+  margin-top: 50px;
+  line-height: 2rem;
+}
+
+.about .about_features p {
+  color: linear-gradient(
+    90deg,
+    rgba(94, 96, 206, 1) 0%,
+    rgba(122, 122, 158, 1) 100%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  padding-top: 1.2rem;
+  padding-bottom: 2rem;
+}
+
+.about .about_features .about_img {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.about .about_features .about_img img {
+  width: 100px;
+  height: 100px;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  overflow: hidden;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+}
+
+.swiper-wrapper {
+  display: flex;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 320px;
+  background-color: #4e73df;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+  filter: blur(4px);
+  border-radius: 10px;
+}
+
+.swiper-slide-active {
+  filter: blur(0px);
+  background-color: #4e73df;
+}
+
+.testimonialBox {
+  position: relative;
+  width: 100%;
+  padding: 40px;
+  padding-top: 150px;
+  color: black;
+}
+
+.testimonialBox .quote {
+  position: absolute;
+  top: 40px;
+  right: 50px;
+  opacity: 0.5;
+  width: 50px;
+  height: 90px;
+}
+
+.testimonialBox .content p {
+  line-height: 1.3rem;
+  font-size: 17px;
+  color: #fff;
+}
+
+.testimonialBox .details {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.testimonialBox .details .imgBx {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.testimonialBox .details .imgBx img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonialBox .details h3 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #000;
+  line-height: 1em;
+}
+
+.testimonialBox .details h3 span {
+  font-size: 15px;
+  color: #fff;
+}

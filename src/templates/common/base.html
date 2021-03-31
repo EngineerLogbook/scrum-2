@@ -2,130 +2,185 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title> Engineering Logbook 📄 </title>
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'img/favicon.png' %}"
+    />
+    <title>Engineering Logbook 📄</title>
+    <!-- Custom fonts for this template-->
+    <link
+      href="{% static 'vendor/fontawesome-free/css/all.min.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
     <!-- Custom styles for this template-->
-    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet"> {% block styles %} {% endblock styles %}
+    <link href="{% static 'css/styles.min.css' %}" rel="stylesheet" />
+    {% block styles %} {% endblock styles %}
     <!-- Bootstrap CSS -->
 
     <style>
-        * {
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-        }
+      * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
 
-        body {
-            padding: 0;
-            margin: 0;
-        }
+      body {
+        padding: 0;
+        margin: 0;
+      }
 
-        #notfound {
-            position: relative;
-            height: 100vh;
-        }
+      #notfound {
+        position: relative;
+        height: 100vh;
+      }
 
-        #notfound .notfound {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-        }
+      #notfound .notfound {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
 
-        .notfound {
-            max-width: 520px;
-            width: 100%;
-            line-height: 1.4;
-            text-align: center;
-        }
+      .notfound {
+        max-width: 520px;
+        width: 100%;
+        line-height: 1.4;
+        text-align: center;
+      }
 
+      .notfound .notfound-404 {
+        position: relative;
+        height: 240px;
+      }
+
+      .notfound .notfound-404 h1 {
+        font-family: "Montserrat", sans-serif;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        font-size: 252px;
+        font-weight: 900;
+        margin: 0px;
+        color: #262626;
+        text-transform: uppercase;
+        letter-spacing: -40px;
+        margin-left: -20px;
+      }
+
+      .notfound .notfound-404 h1 > span {
+        text-shadow: -8px 0px 0px #fff;
+      }
+
+      .notfound .notfound-404 h3 {
+        font-family: "Cabin", sans-serif;
+        position: relative;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #262626;
+        margin: 0px;
+        letter-spacing: 3px;
+        padding-left: 6px;
+      }
+
+      .notfound h2 {
+        font-family: "Cabin", sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        /* text-transform: uppercase; */
+        color: #000;
+        margin-top: 0px;
+        margin-bottom: 25px;
+      }
+
+      @media only screen and (max-width: 767px) {
         .notfound .notfound-404 {
-            position: relative;
-            height: 240px;
+          height: 200px;
         }
 
         .notfound .notfound-404 h1 {
-            font-family: 'Montserrat', sans-serif;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            -webkit-transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-            font-size: 252px;
-            font-weight: 900;
-            margin: 0px;
-            color: #262626;
-            text-transform: uppercase;
-            letter-spacing: -40px;
-            margin-left: -20px;
+          font-size: 200px;
         }
 
-        .notfound .notfound-404 h1>span {
-            text-shadow: -8px 0px 0px #fff;
+        .sidebar {
+          position: fixed;
+          z-index: 10;
+        }
+      }
+
+      @media only screen and (max-width: 480px) {
+        .notfound .notfound-404 {
+          height: 162px;
         }
 
-        .notfound .notfound-404 h3 {
-            font-family: 'Cabin', sans-serif;
-            position: relative;
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #262626;
-            margin: 0px;
-            letter-spacing: 3px;
-            padding-left: 6px;
+        .notfound .notfound-404 h1 {
+          font-size: 162px;
+          height: 150px;
+          line-height: 162px;
         }
 
         .notfound h2 {
-            font-family: 'Cabin', sans-serif;
-            font-size: 20px;
-            font-weight: 400;
-            /* text-transform: uppercase; */
-            color: #000;
-            margin-top: 0px;
-            margin-bottom: 25px;
+          font-size: 16px;
         }
-
-        @media only screen and (max-width: 767px) {
-            .notfound .notfound-404 {
-                height: 200px;
-            }
-
-            .notfound .notfound-404 h1 {
-                font-size: 200px;
-            }
-        }
-
-        @media only screen and (max-width: 480px) {
-            .notfound .notfound-404 {
-                height: 162px;
-            }
-
-            .notfound .notfound-404 h1 {
-                font-size: 162px;
-                height: 150px;
-                line-height: 162px;
-            }
-
-            .notfound h2 {
-                font-size: 16px;
-            }
-        }
+      }
     </style>
+  </head>
 
+  <body id="page-top">
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa fa-angle-up"></i>
+    </a>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      {% include 'components/common/topbar.html' %}
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex">
+        {% include 'components/common/sidebar.html' %}
+
+        <!-- Main Content -->
+        <div id="content" class="mt-4">
+          <!-- message section -->
+          {% if messages %}
+          <div class="container">
+            {% for message in messages %}
+            <div
+              class="alert {{ message.tags }} alert-dismissible"
+              role="alert"
+            >
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              {{ message }}
+            </div>
+            {% endfor %}
+          </div>
+
+<<<<<<< HEAD
 </head>
 
 <body id="page-top">
@@ -429,107 +484,137 @@
 
                     {% block content %} {% endblock content %}
                 </div>
+=======
+          {% endif %}
+>>>>>>> upstream/master
 
-                <!-- End of Main Content -->
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Made By a Team at Thapar Institue of Engineering and Technology</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
-            </div>
-            <!-- End of Content Wrapper -->
-        </div>
-        <!-- End of Page Wrapper -->
-        <!-- Scroll to Top Button-->
-
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
-                    </div>
-                </div>
-            </div>
+          <div id="content-box">{% block content %} {% endblock content %}</div>
         </div>
 
+        <!-- End of Main Content -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span
+            >Made By a Team at Thapar Institue of Engineering and
+            Technology</span
+          >
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+
+    <!-- Logout Modal-->
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Select "Logout" below if you are ready to end your current session.
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="bad_size" style="display: none;">
-        <div id="notfound">
-            <div class="notfound">
-                <div class="">
-                    <h3><b>Oops! Unsupported Screen Resolution</b></h3>
-
-                </div>
-                <h2>Please switch to a pc, or maximize the window.</h2>
-            </div>
+    {% comment %}
+    <div id="bad_size" style="display: none">
+      <div id="notfound">
+        <div class="notfound">
+          <div class="">
+            <h3><b>Oops! Unsupported Screen Resolution</b></h3>
+          </div>
+          <h2>Please switch to a pc, or maximize the window.</h2>
         </div>
+      </div>
     </div>
+    {% endcomment %}
 
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-        </script>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <!-- Core plugin JavaScript-->
     <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
+    {% comment %}
     <script>
+      window.addEventListener("resize", function (event) {
+        let isMobile = window.matchMedia("only screen and (max-width: 980px)")
+          .matches;
 
-        window.addEventListener('resize', function (event) {
-
-            let isMobile = window.matchMedia("only screen and (max-width: 980px)").matches;
-
-
-            if (isMobile) {
-                document.getElementById("good_size").style.display = "none";
-                document.getElementById("bad_size").style.display = "block";
-                // document.getElementById("content_container").innerHTML = "This site is not available on smaller devices as of now. Any inconvenience is regretted."
-                console.log("YooHoo");
-            } else {
-                document.getElementById("good_size").style.display = "block";
-                document.getElementById("bad_size").style.display = "none";
-            }
-
-
-        });
-
-
+        if (isMobile) {
+          document.getElementById("good_size").style.display = "none";
+          document.getElementById("bad_size").style.display = "block";
+          // document.getElementById("content_container").innerHTML = "This site is not available on smaller devices as of now. Any inconvenience is regretted."
+          console.log("YooHoo");
+        } else {
+          document.getElementById("good_size").style.display = "block";
+          document.getElementById("bad_size").style.display = "none";
+        }
+      });
     </script>
+    {% endcomment %}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     {% comment %}
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-        </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-        </script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
     <script src="{% static 'simplemde.min.js' %}"></script>
-    <script src="{% static 'markdown.js' %}"></script> {% endcomment %} {% block scripts %} {% endblock scripts %}
-<noscript><img src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/pixel.gif"></noscript> <script src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/script.js"></script>
-</body>
-
+    <script src="{% static 'markdown.js' %}"></script>
+    {% endcomment %} {% block scripts %} {% endblock scripts %}
+    <noscript
+      ><img
+        src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/pixel.gif"
+    /></noscript>
+    <script src="https://analytics.vexio.in/ingress/3637e368-0818-4e12-867a-9e38bffe8521/script.js"></script>
+  </body>
 </html>
