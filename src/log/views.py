@@ -101,7 +101,7 @@ def logCreateView(request):
     project_list = []
 
     for team in user_teams:
-        project_list.append(team.project)
+        project_list.append(team)
 
     # pass in this list
     context = {
