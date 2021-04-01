@@ -80,7 +80,7 @@ class LoggerUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class LoggerListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     """
-    Display All Logs from User 
+    Display All Logs from User
     """
     model = Logger
     template_name = 'log/logger_list.html'
@@ -98,14 +98,10 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 def logCreateView(request):
 
     user_teams = request.user.team_set.all()
-    project_list = []
-
-    for team in user_teams:
-        project_list.append(team)
-
+        
     # pass in this list
     context = {
-        "projects": project_list,
+        "teams": user_teams,
         "files": LogFile.objects.filter(user=request.user),
 
     }

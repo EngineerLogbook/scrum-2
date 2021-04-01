@@ -7,7 +7,7 @@
     </a>
     {% endcomment %}
     <!-- Divider -->
-    <hr class="sidebar-divider"> 
+    <hr class="sidebar-divider">
     <!-- Nav Item - My Logs -->
     <li class="nav-item active">
         <a class="nav-link" href="{% url  'log-list' %}">
@@ -39,11 +39,11 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Team:</h6>
+                <h6 class="collapse-header">Projects</h6>
                 <a class="collapse-item" href="{% url 'project-list' %}">All Projects </a>
                 <a class="collapse-item" href="{% url 'project-create' %}">Create Projects</a>
                 <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Projects</h6>
+                <h6 class="collapse-header">Teams</h6>
                 <a class="collapse-item" href="{% url 'team-list' %}">All Teams </a>
                 <a class="collapse-item" href="{% url 'team-join' %}">Join Team</a>
             </div>
@@ -71,7 +71,7 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-   
+
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
@@ -90,10 +90,10 @@
             </div>
         </div>
     </li>
-    
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
-    
+
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
