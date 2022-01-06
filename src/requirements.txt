@@ -5,7 +5,7 @@ astroid==2.4.2
 autopep8==1.5.2
 backcall==0.2.0
 billiard==3.3.0.23
-celery==3.1.26.post2
+celery==5.2.2
 certifi==2020.11.8
 cffi==1.14.0
 decorator==4.4.2
