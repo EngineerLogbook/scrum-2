@@ -20,7 +20,7 @@ django-formtools==2.2
 django-imagekit==4.0.2
 djangorestframework==3.11.2
 djecrety==1.0.13
-ipython==7.15.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 isort==5.5.3
 jedi==0.17.1
