@@ -9,7 +9,7 @@ celery==3.1.26.post2
 certifi==2020.11.8
 cffi==1.14.0
 decorator==4.4.2
-Django==3.1.6
+Django==3.1.14
 django-appconf==1.0.4
 django-celery==3.3.1
 django-contrib-comments==1.9.2
