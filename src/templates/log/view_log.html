@@ -25,36 +25,34 @@
 {% endblock styles %} 
 
 {% block content %}
-<div class="container mt-5">
+<div class="container p-0 mt-5">
     <div class="row">
         <div class="col">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <div class="user-detail d-flex align-items-center">
-                        <img class="rounded-circle" width="40px" src="{{ log.user.profile.image.url }}" />
-                        <h5 class="text-dark ml-5">{{ log.user.username }}</h5>
+                <div class="card-header px-3 d-flex justify-content-between align-items-center">
+                    <div class="user-detail d-flex align-items-center" style="flex:1;">
+                        <img class="rounded-circle mr-3" width="40px" src="{{ log.user.profile.image.url }}" />
+                        <p style="font-size: 14px;word-break: break-all;" class="text-dark mr-3">{{ log.user.username }}</p>
                     </div>
                     {% if log.user == request.user %}
                     <div class="user-toolbar d-flex align-items-center">
-                        <div id="mobile" class="dropdown show">
-                            <button class="btn" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div id="desktop" class="btn-group btn-group-sm mr-2" role="group">
+                            <button class="btn btn-secondary fa fa-pencil-square-o" onclick="editPageRedirect();"></button>
+                            <button class="btn btn-danger fa fa-trash" data-toggle="modal" href="#myModal"></button>
+                        </div>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button class="btn btn-primary fa fa-share" data-toggle="modal" href="#shareModal"></button>
+                            <button class="btn btn-outline-dark fa fa-paperclip" data-toggle="modal" href="#userFilesModal"></button>
+                        </div>
+                        <div id="mobile" class="dropdown show ml-2">
+                            <button class="btn pr-0" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                             </button>
 
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <button class="dropdown-item" onclick="editPageRedirect();">Edit</button>
-                                <button class="dropdown-item" data-toggle="modal" href="#shareModal">Share</button>
                                 <button class="dropdown-item" data-toggle="modal" href="#myModal">Delete</button>
-                                <button class="dropdown-item" data-toggle="modal" href="#userFilesModal">Attach File</button>
                             </div>
-                        </div>
-                        <div id="desktop" class="btn-group btn-group-sm mr-2" role="group">
-                            <button class="btn btn-secondary" onclick="editPageRedirect();">Edit</button>
-                            <button class="btn btn-primary" data-toggle="modal" href="#shareModal">Share</button>
-                            <button class="btn btn-danger" data-toggle="modal" href="#myModal">Delete</button>
-                        </div>
-                        <div id="desktop" class="btn-group btn-group-sm" role="group">
-                            <button class="btn btn-outline-dark fa fa-paperclip" data-toggle="modal" href="#userFilesModal"></button>
                         </div>
                     </div>
                     {% endif %}

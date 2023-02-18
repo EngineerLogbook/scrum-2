@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
@@ -21,7 +21,10 @@ from django.views.generic import (
     DeleteView
 )
 
-from .models import Team, TeamMember
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
+from .tokens import account_activation_token
+from .models import Phase, Member
 
 
 class RedirectingLoginView(LoginView):
@@ -38,19 +41,40 @@ class UserAPIView(generics.ListCreateAPIView):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('log-list')
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            messages.info(
                 request,
-                f'Account "{ username }" has been created! You can now log in.')
+                f'Please confirm your email address to complete the registration')
             return redirect('login')
     else:
         form = UserRegisterForm()
 
     return render(request, 'user_management/register.html', {'form': form})
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        messages.success(
+            request,
+            f'Thank you for your email confirmation.')
+        return redirect('login')
+    else:
+        return HttpResponse('Activation link is invalid!')
 
 
 @login_required
@@ -107,8 +131,8 @@ def landing_page_view(request):
 
 
 def ourteam(request):
-    teams = Team.objects.all()
-    members = TeamMember.objects.all()
+    teams = Phase.objects.all()
+    members = Member.objects.all()
 
     context = {
         "teams": teams,

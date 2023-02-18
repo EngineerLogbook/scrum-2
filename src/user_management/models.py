@@ -110,25 +110,25 @@ def validate_image(image):
         raise ValidationError("Max size of file is 2 MB")
 
 
-class Team(models.Model):
+class Phase(models.Model):
     name = models.CharField(max_length=255)
     order = models.IntegerField(blank=True, null=True)
 
     class Meta:
-        ordering = ("order",)
+        ordering = ("-order",)
 
     def __str__(self):
         return self.name
 
 
-class TeamMember(models.Model):
+class Member(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     designation = models.CharField(max_length=255)
     image = models.ImageField(upload_to='team_member',
                               validators=[validate_image])
     linkdinURL = models.URLField()
-    team = models.ManyToManyField(Team, blank=True)
+    team = models.ManyToManyField(Phase, blank=True)
     order = models.IntegerField(blank=True, null=True)
 
     class Meta:
