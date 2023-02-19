@@ -68,7 +68,7 @@ class ProjectUpdateView(LoginRequiredMixin,  UpdateView):
 
 class TeamListView(LoginRequiredMixin,  ListView):
     model = Team
-    template_name = 'proeject/team_list.html'
+    template_name = 'project/team_list.html'
     context_object_name = 'teams'
 
     def get_queryset(self):
