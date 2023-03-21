@@ -41,7 +41,7 @@ Pygments==2.6.1
 pylint==2.6.0
 python-decouple==3.3
 pytz==2020.1
-sentry-sdk==0.19.4
+sentry-sdk==1.14.0
 six==1.15.0
 sqlparse==0.3.1
 toml==0.10.1
