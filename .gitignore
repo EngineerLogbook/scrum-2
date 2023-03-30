@@ -158,3 +158,5 @@ docs/public/
 backup/rclone.*
 webserver/certs/*
 !webserver/certs/.gitkeep
+
+psql12.dump.sql

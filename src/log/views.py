@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.db.models import Q
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
+import json
 import re
 import os
 from django.views.generic import (
@@ -23,6 +24,7 @@ from django.views.generic import (
     DeleteView,
     TemplateView
 )
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
@@ -78,7 +80,7 @@ class LoggerUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class LoggerListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     """
-    Display All Logs from User 
+    Display All Logs from User
     """
     model = Logger
     template_name = 'log/logger_list.html'
@@ -96,14 +98,10 @@ class LoggerUnPublish(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
 def logCreateView(request):
 
     user_teams = request.user.team_set.all()
-    project_list = []
-
-    for team in user_teams:
-        project_list.append(team.project)
-
+        
     # pass in this list
     context = {
-        "projects": project_list,
+        "teams": user_teams,
         "files": LogFile.objects.filter(user=request.user),
 
     }
@@ -275,23 +273,66 @@ def logListView(request):
         "logs": Logger.objects.filter(user=request.user, project=None).filter(published=True).order_by('-date_created'),
         "page_title": "Personal logs:",
         "userpage": True,
+        "personal": True,
         "welcomemessage": 'Create your first log by clicking on the "New Log" Button !',
     }
     return render(request, 'log/list_view.html', context)
 
 
 @login_required
-def allLogsView(request):
+def allLogsView(request, id):
     teams = request.user.team_set.all()
     projects = Project.objects.filter(team__in=teams)
-    logs = Logger.objects.filter(project__in=projects).filter(published=True)
 
-    context = {
-        "logs": logs.order_by('-date_created'),
-        "page_title": "Project logs:",
-        "userpage": True,
-        "welcomemessage": 'Create your first log by clicking on the "New Log" Button !',
-    }
+    if id == 'all':
+        logs_list = Logger.objects.filter(
+            project__in=projects).filter(published=True).order_by('-date_created')
+        context = {
+            "projects": projects.order_by('title'),
+            "page_title": "Project logs:",
+            "userpage": True,
+            "loglistpage": True,
+            "selected": 'all',
+            "welcomemessage": 'Create your first log by clicking on the "New Log" Button !',
+        }
+    else:
+        try:
+            id = UUID(id, version=4)
+        except ValueError:
+            context = {
+                "error": "Invalid project ID.",
+            }
+            return render(request, 'log/list_view.html', context)
+        project = projects.filter(id=id)
+        if not project.exists():
+            context = {
+                "error": "You are not a part of this project.",
+            }
+            return render(request, 'log/list_view.html', context)
+
+        logs_list = Logger.objects.filter(
+            project__in=project).filter(published=True).order_by('-date_created')
+        context = {
+            "projects": projects.order_by('title'),
+            "page_title": "Project logs:",
+            "userpage": True,
+            "loglistpage": True,
+            "selected": project[0].id,
+            "welcomemessage": 'Create your first log by clicking on the "New Log" Button !',
+        }
+
+    paginator = Paginator(logs_list, 10)
+    page = request.GET.get('page')
+    try:
+        logs = paginator.page(page)
+    except PageNotAnInteger:
+        logs = paginator.page(1)
+    except EmptyPage:
+        logs = paginator.page(paginator.num_pages)
+
+    context["logs"] = logs
+    context["page"] = page
+
     return render(request, 'log/list_view.html', context)
 
 

@@ -6,13 +6,33 @@
 {% endblock styles %} 
 
 {% block content %}
+{% if error %}
+<div class="container">
+    <div class="alert alert-danger" role="alert">
+        {{error}}
+    </div>
+</div>
+{% else %}
+
 
     <div class="logs">
 
         <div class="page-title">
             <h2 class="m-0">{{page_title}}</h2>
+            
+            {% if loglistpage %}
+            <select class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" id="projects" onchange="project(this.value)">
+                <div class="dropdown-menu">
+                    <option class="dropdown-item" value="all">All projects</option>
+                    {% for project in projects %}
+                    <option value="{{project.id}}">{{ project.title }}</option>
+                    {% endfor %}
+                </div>
+            </select>
+            {% endif %}
             {% if userpage %}
-            <a class="btn btn-primary" href="{% url 'log-create' %}">New Log</a>
+                <a class="btn btn-primary" href="{% url 'log-create' %}">New Log</a>
             {% endif %}
         </div>
 
@@ -55,13 +75,30 @@
             </div>
 
         {% endfor %}
+        {% if loglistpage %}
+            <br>
+            <hr><br>
+            {% include 'common/pagination.html' with page=logs %}
+        {% endif %}
+
+
     
     </div>
-
+{% endif %}
 {% endblock content %} 
 
 {% block scripts %}
 
-<script>
-</script>
+{% if not error %}
+    {% if not personal %}
+    <script>
+        document.getElementById("projects").value = "{{selected}}";
+        function project(slug) {
+            console.log(slug);
+            window.location.replace(`/logs/${slug}`);
+        }
+    </script>
+    {% endif %}
+
+{% endif %}
 {% endblock scripts %}

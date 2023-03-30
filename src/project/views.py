@@ -172,7 +172,6 @@ def projectListView(request):
             # add member and log count
             project.nooflogs = Logger.objects.filter(project=project).count()
             project.noofteams = project.team_set.all().count()
-            print(project.noofteams, project.nooflogs)
 
             # Limit description length
             if len(project.description) > 130:
